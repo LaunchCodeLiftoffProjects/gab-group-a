@@ -37,18 +37,28 @@ export default function Profile() {
     return (
         <Paper>
             <div className="container">
-                <div className="row"><div className="col-3">
-                    <CardActionArea>
-                        <Card>
-                            <Typography variant="h6">{userPlaceholder.name}</Typography>
-                        </Card>
-                    </CardActionArea>
-                </div>
+                <div className="row">
+                    <div className="col-3">
+                        <CardActionArea>
+                            <Card>
+                                <Typography variant="h6">{userPlaceholder.name}</Typography>
+                            </Card>
+                        </CardActionArea>
+                    </div>
                     <div className="row">
-                        <div className="col-9" align="center">
+                        <div className="col-9" align="right">
                             <CardActionArea>
                                 <Card>
-                                    <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                    <Typography variant="h6">Haves</Typography>
+                                    <Typography variant = "subtitle3" align="right">
+                                        <ul>
+                                            {userPlaceholder.has.map((item) => {
+                                                return(
+                                                    <li>{item.name}</li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </Typography>
                                 </Card>
                             </CardActionArea>
                         </div>
