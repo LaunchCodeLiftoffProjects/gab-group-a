@@ -63,13 +63,13 @@ else {
                     </CardActionArea></p>
                     {usersArray.results.map((user, i)=> {
                         return(
-                            <p id={i}><CardActionArea>
+                            <p id={user.login.uuid}><CardActionArea>
                                 <Card variant="outlined" className="card" >
                                     <CardContent>
                                         <Typography variant="h3" align="left">{user.name.first} {user.name.last}</Typography>
                                         <Typography variant="subtitle1" align="left">
                                             <ul>
-                                                <li>Id: {user.id.value}</li>
+                                                <li>Id: {user.login.uuid}</li>
                                                 <li>List</li>
                                             </ul>
                                         </Typography>
