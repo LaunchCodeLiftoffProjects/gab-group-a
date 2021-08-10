@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import "./Profile.css";
 
 export default function Profile() {
     const userPlaceholder = {
@@ -36,19 +37,20 @@ export default function Profile() {
 
     return (
         <Paper>
-            <div className="container">
+            <div className="container profile-container">
                 <div className="row">
                     <div className="col-3">
-                        <CardActionArea>
+                        <p><CardActionArea>
                             <Card>
                                 <CardContent>
-                                    <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                    <Typography variant="h5">{userPlaceholder.name}</Typography>
+                                    <Typography variant="subtitle1">{userPlaceholder.location}</Typography>
                                 </CardContent>
                             </Card>
-                        </CardActionArea>
+                        </CardActionArea></p>
                     </div>
-                    <div className="col-9" align="left">
-                        <CardActionArea>
+                    <div className="col-8" align="left">
+                        <p><CardActionArea>
                             <Card>
                                 <CardContent>
                                     <Typography variant="h6">Haves</Typography>
@@ -63,7 +65,7 @@ export default function Profile() {
                                     </Typography>
                                 </CardContent>
                             </Card>
-                        </CardActionArea>
+                        </CardActionArea></p>
                     {/* <div className="col-9" align="left"> */}
                     <CardActionArea>
                             <Card>
