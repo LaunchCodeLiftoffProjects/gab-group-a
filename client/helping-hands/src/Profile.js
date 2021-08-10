@@ -41,30 +41,34 @@ export default function Profile() {
                     <div className="col-3">
                         <CardActionArea>
                             <Card>
-                                <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                <CardContent>
+                                    <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                </CardContent>
                             </Card>
                         </CardActionArea>
                     </div>
-                    <div className="row">
-                        <div className="col-9" align="right">
+                    {/* <div className="row"> */}
+                        <div className="col-9" align="left">
                             <CardActionArea>
                                 <Card>
-                                    <Typography variant="h6">Haves</Typography>
-                                    <Typography variant = "subtitle3" align="right">
-                                        <ul>
-                                            {userPlaceholder.has.map((item) => {
-                                                return(
+                                    <CardContent>
+                                        <Typography variant="h6">Haves</Typography>
+                                        <Typography variant = "subtitle3" >
+                                            <ul >
+                                                {userPlaceholder.has.map((item) => {
+                                                    return(
                                                     <li>{item.name}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </Typography>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </Typography>
+                                    </CardContent>
                                 </Card>
                             </CardActionArea>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-9" align="center">
+                        {/* </div> */}
+                    {/* </div> */}
+                    {/* <div className="row"> */}
+                        <div className="col-9" align="left">
                             <CardActionArea>
                                 <Card>
                                     <Typography variant="h6">{userPlaceholder.name}</Typography>
