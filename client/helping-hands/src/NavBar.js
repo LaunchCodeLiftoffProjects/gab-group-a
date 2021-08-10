@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import React, { useState, useEffect } from "react";
-import {BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./NavBar.css"
 
 export default function NavBar() {
