@@ -32,6 +32,38 @@ export default function Profile() {
             name: "walk dogs",
             hoursWork: 3
         }
-]
-    }
+    ]}
+
+    return (
+        <Paper>
+            <div className="container">
+                <div className="row"><div className="col-3">
+                    <CardActionArea>
+                        <Card>
+                            <Typography variant="h6">{userPlaceholder.name}</Typography>
+                        </Card>
+                    </CardActionArea>
+                </div>
+                    <div className="row">
+                        <div className="col-9" align="center">
+                            <CardActionArea>
+                                <Card>
+                                    <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                </Card>
+                            </CardActionArea>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-9" align="center">
+                            <CardActionArea>
+                                <Card>
+                                    <Typography variant="h6">{userPlaceholder.name}</Typography>
+                                </Card>
+                            </CardActionArea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Paper>
+    )
 }
