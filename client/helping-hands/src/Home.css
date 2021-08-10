@@ -1,0 +1,16 @@
+.home{
+    
+    padding-left: 2%;
+    padding-right: 2%;
+    margin: 5%;
+}
+
+.paper {
+    padding: 2em;
+    margin-top: 2%;
+}
+
+.card {
+    display: 'static';
+    width: 100%;
+  }
