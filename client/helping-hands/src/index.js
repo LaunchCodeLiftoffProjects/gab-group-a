@@ -8,8 +8,10 @@ import NavBar from "./NavBar"
 
 ReactDOM.render(
   <Router>
-    <NavBar />
-    <App />
+    <div className="container">
+      <NavBar />
+      <App />
+    </div>
   </Router>,
   document.getElementById('root')
 );
