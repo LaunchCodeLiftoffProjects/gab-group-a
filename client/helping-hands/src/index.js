@@ -7,7 +7,7 @@ import NavBar from "./NavBar"
 
 ReactDOM.render(
   <Router>
-    <div className="container">
+    <div className="container outer-container">
       <NavBar />
       <App />
     </div>
