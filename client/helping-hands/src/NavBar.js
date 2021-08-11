@@ -10,19 +10,20 @@ export default function NavBar() {
         <nav className="navBar" align="center">
         <span className="row" align="center">
             <span className="col-3" align="left">
-                <Button variant="contained" color="primary" className="btn btn-info "><Link to="/">Home</Link></Button> 
+                <Link to="/"><Button variant="contained" color="primary" className="btn btn-info ">Home</Button></Link> 
             </span>
             <span className="col-2" align="center">
-                <Button className="btn btn-info" variant="contained" color="primary"><Link to="/my-haves">My Haves</Link> </Button>
+                <Link to="/my-haves"><Button className="btn btn-info" variant="contained" color="primary">My Haves </Button></Link>
             </span>
             <span className="col-2">
-                <Button  variant="contained" color="primary" className="btn btn-info"><Link to="/my-needs">My Needs</Link></Button>   
+                <Link to="/my-needs"><Button  variant="contained" color="primary" className="btn btn-info">My Needs</Button></Link>   
             </span>
             <span className="col-2" align="right">
-                <Button className="btn btn-info" variant="contained" color="primary"><Link to="/search">Search</Link> </Button>
+                <Link to="/search"><Button className="btn btn-info" variant="contained" color="primary">Search </Button></Link>
             </span>
             <span className="col-3" align="right">
-                <Button variant="contained" color="primary" className="btn btn-info"><Link to="/profile">Profile</Link></Button></span>
+                <Link to="/profile"><Button variant="contained" color="primary" className="btn btn-info">Profile</Button></Link>
+            </span>
             </span>
         </nav>
     </Paper>

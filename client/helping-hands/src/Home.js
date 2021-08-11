@@ -61,7 +61,7 @@ else {
                             </CardContent>
                         </Card>
                     </CardActionArea></p>
-                    {usersArray.results.map((user, i)=> {
+                    {usersArray.results.map((user)=> {
                         return(
                             <p id={user.login.uuid}><CardActionArea>
                                 <Card variant="outlined" className="card" >
