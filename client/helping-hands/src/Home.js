@@ -40,9 +40,10 @@ else {
             <span className="col-1"></span>
             <div className="col-10" align="center">
                 <Typography variant="h2">All Users</Typography> 
-                    {usersArray.map((user, i)=> {
+                    {usersArray.map((user)=> {
                         return(
-                            <div id = {i} className="home-card"><CardActionArea >
+                        <div id = {user.id} className="home-card">
+                            <CardActionArea >
                                 <Card variant="outlined" className="card" >
                                     <CardContent>
                                         <Typography variant="h3" align="left">{user.name}</Typography>
@@ -54,7 +55,8 @@ else {
                                         </Typography>
                                     </CardContent>
                                 </Card>
-                        </CardActionArea></div>
+                            </CardActionArea>
+                        </div>
                     )
                     })}
             
