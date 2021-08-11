@@ -15,7 +15,7 @@ export default function Home() {
     const [usersArrayIsLoaded, setUsersArrayIsLoaded] = useState(false);
 
     const fetchUsersArray = async () => {
-        const result = await fetch("https://randomuser.me/api/?results=10");
+        const result = await fetch("http://localhost:8080/users/");
         setUsersArray(await result.json());
         console.log(usersArray)
         setUsersArrayIsLoaded(true)
@@ -62,15 +62,15 @@ else {
                             </CardContent>
                         </Card>
                     </CardActionArea></p>
-                    {usersArray.results.map((user)=> {
+                    {usersArray.map((user, i)=> {
                         return(
-                            <p id={user.login.uuid}><CardActionArea>
+                            <p id={i}><CardActionArea>
                                 <Card variant="outlined" className="card" >
                                     <CardContent>
-                                        <Typography variant="h3" align="left">{user.name.first} {user.name.last}</Typography>
+                                        <Typography variant="h3" align="left">{user.name}</Typography>
                                         <Typography variant="subtitle1" align="left">
                                             <ul>
-                                                <li>Id: {user.login.uuid}</li>
+                                                <li>Location: {user.location}</li>
                                                 <li>List</li>
                                             </ul>
                                         </Typography>
