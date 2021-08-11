@@ -8,8 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import CachedIcon from '@material-ui/icons/Cached';
 
 export default function Home() {
-    const [user, setUser] = useState();
-    const [userIsLoaded, setuserIsLoaded] = useState(false);
     const [error, setError] = useState();
     const [usersArray, setUsersArray] = useState({});
     const [usersArrayIsLoaded, setUsersArrayIsLoaded] = useState(false);
