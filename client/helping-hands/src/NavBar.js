@@ -12,22 +12,22 @@ export default function NavBar() {
     return (
     <Paper>    
         <nav className="navBar" align="center">
-        <span className="row" align="center">
-            <span className="col-3" align="left">
-                <Link to="/"><Button variant="contained" color="primary" className="btn"><HomeIcon /></Button></Link> 
-            </span>
-            <span className="col-2" align="center">
-                <Link to="/my-haves"><Button className="btn" variant="contained" color="primary"><FormatListBulletedIcon /> My Haves </Button></Link>
-            </span>
-            <span className="col-2" align="center">
-                <Link to="/my-needs"><Button  variant="contained" color="primary" className="btn"><FormatListBulletedIcon /> My Needs</Button></Link>   
-            </span>
-            <span className="col-2" align="center">
-                <Link to="/search"><Button className="btn" variant="contained" color="primary"><SearchIcon />Search </Button></Link>
-            </span>
-            <span className="col-3" align="right">
-                <Link to="/profile"><Button variant="contained" color="primary" className="btn"><AccountCircleIcon /></Button></Link>
-            </span>
+            <span className="row" align="center">
+                <span className="col-3" align="left">
+                    <Link to="/"><Button variant="contained" color="primary"><HomeIcon /></Button></Link> 
+                </span>
+                <span className="col-2" align="center">
+                    <Link to="/my-haves"><Button variant="contained" color="primary"><FormatListBulletedIcon /> My Haves </Button></Link>
+                </span>
+                <span className="col-2" align="center">
+                    <Link to="/my-needs"><Button  variant="contained" color="primary"><FormatListBulletedIcon /> My Needs</Button></Link>   
+                </span>
+                <span className="col-2" align="center">
+                    <Link to="/search"><Button variant="contained" color="primary"><SearchIcon />Search </Button></Link>
+                </span>
+                <span className="col-3" align="right">
+                    <Link to="/profile"><Button variant="contained" color="primary"><AccountCircleIcon /></Button></Link>
+                </span>
             </span>
         </nav>
     </Paper>
