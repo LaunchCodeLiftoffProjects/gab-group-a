@@ -76,11 +76,11 @@ export default function Profile() {
                         </CardActionArea></p>
                     </div>
                     <div className="col-8" align="left">
-                        <p><CardActionArea>
-                            <Card>
+                        <p className="profile-card"><CardActionArea>
+                            <Card >
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-11" variant="h6">Has</Typography>
+                                        <Typography className="col-10" variant="h6">Has</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
@@ -95,11 +95,11 @@ export default function Profile() {
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
-                        <p><CardActionArea>
+                        <p className="profile-card"><CardActionArea>
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-11" variant="h6">Can</Typography>
+                                        <Typography className="col-10" variant="h6">Can</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
@@ -115,11 +115,11 @@ export default function Profile() {
                             </Card>
                         </CardActionArea></p>
                     {/* <div className="col-9" align="left"> */}
-                    <CardActionArea>
+                    <p className="profile-card"><CardActionArea>
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-11" variant="h6">Needs</Typography>
+                                        <Typography className="col-10" variant="h6">Needs</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
@@ -133,7 +133,7 @@ export default function Profile() {
                                     </Typography>
                                 </CardContent>
                             </Card>
-                        </CardActionArea>
+                        </CardActionArea></p>
                     {/* </div> */}
                     </div>
                 </div>
