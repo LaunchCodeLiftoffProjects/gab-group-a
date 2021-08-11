@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+import Avatar from '@material-ui/core/Avatar';
 import "./Profile.css";
 
 export default function Profile() {
@@ -41,12 +42,12 @@ export default function Profile() {
         <Paper>
             <div className="container profile-container">
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-4">
                         <p><CardActionArea>
                             <Card>
                                 <CardContent>
-                                    <Typography variant="h5">{userPlaceholder.name}</Typography>
-                                    <Typography variant="subtitle1">{userPlaceholder.location}</Typography>
+                                    <span className="row"><Avatar className="col-1">{userPlaceholder.name[0]}</Avatar><Typography className="col-6" variant="h6">{userPlaceholder.name}</Typography></span>
+                                    <p><br /><Typography variant="subtitle1">{userPlaceholder.location}</Typography></p>
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
