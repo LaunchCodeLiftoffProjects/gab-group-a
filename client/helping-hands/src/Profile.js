@@ -46,7 +46,7 @@ export default function Profile() {
                         <p><CardActionArea>
                             <Card>
                                 <CardContent>
-                                    <span className="row"><Avatar className="col-1">{userPlaceholder.name[0]}</Avatar><Typography className="col-6" variant="h6">{userPlaceholder.name}</Typography></span>
+                                    <span className="container row"><Avatar className="col-1">{userPlaceholder.name[0]}</Avatar><Typography className="col-8" variant="h6">{userPlaceholder.name}</Typography></span>
                                     <p><br /><Typography variant="subtitle1">{userPlaceholder.location}</Typography></p>
                                 </CardContent>
                             </Card>
