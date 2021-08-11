@@ -64,7 +64,7 @@ export default function Profile() {
                                         <ul >
                                             {userPlaceholder.has.map((item) => {
                                                 return(
-                                                <li>{item.name}</li>
+                                                <li>{item.name} ({item.hoursWork} hrs)</li>
                                                 )
                                             })}
                                         </ul>

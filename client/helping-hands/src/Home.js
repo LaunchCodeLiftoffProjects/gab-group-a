@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import CachedIcon from '@material-ui/icons/Cached';
 
 export default function Home() {
     const [user, setUser] = useState();
@@ -38,7 +39,7 @@ export default function Home() {
 
 
 if(!userIsLoaded || !usersArrayIsLoaded) {
-    return <div>Loading . . .</div>
+    return <div><CachedIcon /></div>
 } else if (error) {
     return <div>Error: {error.message}</div>
 } 
