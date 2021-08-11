@@ -28,7 +28,7 @@ export default function Home() {
     }, [])
 
 
-if(!userIsLoaded || !usersArrayIsLoaded) {
+if(!usersArrayIsLoaded) {
     return <div><CachedIcon /></div>
 } else if (error) {
     return <div>Error: {error.message}</div>
