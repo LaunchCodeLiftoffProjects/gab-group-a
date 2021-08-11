@@ -21,16 +21,8 @@ export default function Home() {
         setUsersArrayIsLoaded(true)
     }
 
-    const fetchUser = async () => {
-        const result = await fetch("https://api.github.com/users/cgremaud");
-        setUser(await result.json());
-        console.log(user);
-        setuserIsLoaded(true);
-    }
-
     useEffect(()=> {  
         try{
-         fetchUser();
          fetchUsersArray();
         } catch(err) {
             setError(err);
@@ -48,23 +40,11 @@ else {
         <Paper className="paper">
             <div className="row home">
             <span className="col-1"></span>
-            <div className="col-10" align="center"> 
-                    <p><CardActionArea>
-                        <Card variant="outlined" className="card">
-                            <CardContent>
-                                <Typography variant="h3" align="left">{user.name}</Typography>
-                                <Typography variant="subtitle1" align="left">
-                                    <ul>
-                                        <li>{user.bio}</li>
-                                        <li>{user.created_at}</li>
-                                    </ul>
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </CardActionArea></p>
+            <div className="col-10" align="center">
+                <Typography variant="h2">All Users</Typography> 
                     {usersArray.map((user, i)=> {
                         return(
-                            <p id={i}><CardActionArea>
+                            <div id = {i} className="home-card"><CardActionArea >
                                 <Card variant="outlined" className="card" >
                                     <CardContent>
                                         <Typography variant="h3" align="left">{user.name}</Typography>
@@ -76,7 +56,7 @@ else {
                                         </Typography>
                                     </CardContent>
                                 </Card>
-                        </CardActionArea></p>
+                        </CardActionArea></div>
                     )
                     })}
             

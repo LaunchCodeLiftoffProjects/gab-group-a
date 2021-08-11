@@ -14,3 +14,7 @@
     display: 'static';
     width: 100%;
   }
+
+.home-card {
+    margin: 2%;
+}
