@@ -42,7 +42,7 @@ else {
                 <Typography variant="h2">All Users</Typography> 
                     {usersArray.map((user)=> {
                         return(
-                        <div id = {user.id} className="home-card">
+                        <div key = {user.id} className="home-card">
                             <CardActionArea >
                                 <Card variant="outlined" className="card" >
                                     <CardContent>
