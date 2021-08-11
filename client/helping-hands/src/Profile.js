@@ -39,7 +39,28 @@ export default function Profile() {
         }
     ]}
 
-    return (
+    const [user, setUser] = useState();
+    const [loaded, setLoaded] = useState(false);
+
+    const fetchUser = async () => {
+        let response = await fetch("http://localhost:8080/users/1")
+
+        let json = await response.json();
+        setUser(json);
+        setLoaded(true)
+    }
+
+    useEffect(() => {
+        try{
+            fetchUser()
+            console.log(user)
+        } catch(err) {
+            console.log(err)
+        }
+    }, [])
+    if(!loaded) {
+        return <div>Loading . . .</div>
+    } else return (
         <Paper>
             <div className="container profile-container">
                 <div className="row">
@@ -47,8 +68,8 @@ export default function Profile() {
                         <p><CardActionArea>
                             <Card>
                                 <CardContent>
-                                    <span className="container row"><Avatar className="col-1">{userPlaceholder.name[0]}</Avatar><Typography className="col-8" variant="h6">{userPlaceholder.name}</Typography></span>
-                                    <p><br /><Typography variant="subtitle1">{userPlaceholder.location}</Typography></p>
+                                    <span className="container row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
+                                    <p><br /><Typography variant="subtitle1">{user.location}</Typography></p>
                                     <p><Typography variant="subtitle1">{userPlaceholder.email}</Typography></p>
                                 </CardContent>
                             </Card>
@@ -62,7 +83,7 @@ export default function Profile() {
                                         <Typography className="col-11" variant="h6">Has</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
-                                    <Typography variant = "subtitle3" >
+                                    <Typography variant = "subtitle2" >
                                         <ul >
                                             {userPlaceholder.has.map((item) => {
                                                 return(
@@ -81,7 +102,7 @@ export default function Profile() {
                                         <Typography className="col-11" variant="h6">Can</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
-                                    <Typography variant = "subtitle3" >
+                                    <Typography variant = "subtitle2" >
                                         <ul >
                                             {userPlaceholder.can.map((item) => {
                                                 return(
@@ -101,7 +122,7 @@ export default function Profile() {
                                         <Typography className="col-11" variant="h6">Needs</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
-                                    <Typography variant = "subtitle3" >
+                                    <Typography variant = "subtitle2" >
                                         <ul >
                                             {userPlaceholder.needs.map((item) => {
                                                 return(
