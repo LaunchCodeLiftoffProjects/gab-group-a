@@ -13,6 +13,7 @@ export default function Profile() {
     const userPlaceholder = {
         name: "Colyn Gremaud",
         location: "Tower Grove",
+        email: "cgremaud@email.net",
         needs: [
             "Windows washed",
             "Hamsters fed",
@@ -48,6 +49,7 @@ export default function Profile() {
                                 <CardContent>
                                     <span className="container row"><Avatar className="col-1">{userPlaceholder.name[0]}</Avatar><Typography className="col-8" variant="h6">{userPlaceholder.name}</Typography></span>
                                     <p><br /><Typography variant="subtitle1">{userPlaceholder.location}</Typography></p>
+                                    <p><Typography variant="subtitle1">{userPlaceholder.email}</Typography></p>
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
@@ -57,12 +59,31 @@ export default function Profile() {
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-11" variant="h6">Haves</Typography>
+                                        <Typography className="col-11" variant="h6">Has</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle3" >
                                         <ul >
                                             {userPlaceholder.has.map((item) => {
+                                                return(
+                                                <li>{item.name}</li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </CardActionArea></p>
+                        <p><CardActionArea>
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-11" variant="h6">Can</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    <Typography variant = "subtitle3" >
+                                        <ul >
+                                            {userPlaceholder.can.map((item) => {
                                                 return(
                                                 <li>{item.name} ({item.hoursWork} hrs)</li>
                                                 )
