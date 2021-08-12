@@ -114,8 +114,8 @@ export default function Profile() {
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
-                    {/* <div className="col-9" align="left"> */}
-                    <p className="profile-card"><CardActionArea>
+                    <p className="profile-card">
+                        <CardActionArea>
                             <Card>
                                 <CardContent>
                                     <span className="row">
@@ -123,18 +123,17 @@ export default function Profile() {
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
-                                        <ul >
-                                            {userPlaceholder.needs.map((item) => {
-                                                return(
-                                                <li>{item}</li>
-                                                )
-                                            })}
-                                        </ul>
+                                    <ul >
+                                        {userPlaceholder.needs.map((item) => {
+                                            return(
+                                            <li>{item}</li>
+                                            )
+                                        })}
+                                    </ul>
                                     </Typography>
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
-                    {/* </div> */}
                     </div>
                 </div>
             </div>
