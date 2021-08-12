@@ -41,11 +41,11 @@ export default function Profile() {
 
     const [user, setUser] = useState();
     const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState(false);
 
     const fetchUser = async () => {
         let response = await fetch("http://localhost:8080/users/1")
-
-        let json = await response.json();
+        let json = await response.json(); //not sure if this step is necessary, but it works. 
         setUser(json);
         setLoaded(true)
     }
@@ -56,10 +56,13 @@ export default function Profile() {
             console.log(user)
         } catch(err) {
             console.log(err)
+            setError(err);
         }
     }, [])
     if(!loaded) {
         return <div>Loading . . .</div>
+    } else if (error) {
+        return <div>Error: {error.message}</div>
     } else return (
         <Paper>
             <div className="container profile-container">
