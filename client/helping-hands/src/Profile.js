@@ -72,8 +72,8 @@ export default function Profile() {
                             <Card>
                                 <CardContent>
                                     <span className="container row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
-                                    <p><br /><Typography variant="subtitle1">{user.location}</Typography></p>
-                                    <p><Typography variant="subtitle1">{userPlaceholder.email}</Typography></p>
+                                    <span className="row"><br /><Typography variant="subtitle1">{user.location}</Typography></span>
+                                    <span className="row"><Typography variant="subtitle1">{userPlaceholder.email}</Typography></span>
                                 </CardContent>
                             </Card>
                         </CardActionArea>
