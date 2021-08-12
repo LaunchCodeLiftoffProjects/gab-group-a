@@ -67,8 +67,8 @@ export default function Profile() {
         <Paper>
             <div className="container profile-container">
                 <div className="row">
-                    <div className="col-4">
-                        <p><CardActionArea>
+                    <div className="col-4" align="left">
+                        <CardActionArea>
                             <Card>
                                 <CardContent>
                                     <span className="container row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
@@ -76,7 +76,7 @@ export default function Profile() {
                                     <p><Typography variant="subtitle1">{userPlaceholder.email}</Typography></p>
                                 </CardContent>
                             </Card>
-                        </CardActionArea></p>
+                        </CardActionArea>
                     </div>
                     <div className="col-8" align="left">
                         <div className="profile-card">
