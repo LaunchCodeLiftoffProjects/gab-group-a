@@ -85,9 +85,9 @@ export default function Profile() {
                                     </span>
                                     <Typography variant = "subtitle2" >
                                         <ul >
-                                            {userPlaceholder.has.map((item) => {
+                                            {userPlaceholder.has.map((item, i) => {
                                                 return(
-                                                <li>{item.name}</li>
+                                                <li key={i}>{item.name}</li>
                                                 )
                                             })}
                                         </ul>
@@ -105,9 +105,9 @@ export default function Profile() {
                                         </span>
                                         <Typography variant = "subtitle2" >
                                             <ul >
-                                                {userPlaceholder.can.map((item) => {
+                                                {userPlaceholder.can.map((item, i) => {
                                                     return(
-                                                    <li>{item.name} ({item.hoursWork} hrs)</li>
+                                                    <li key={i}>{item.name} ({item.hoursWork} hrs)</li>
                                                     )
                                                 })}
                                             </ul>
@@ -126,9 +126,9 @@ export default function Profile() {
                                         </span>
                                         <Typography variant = "subtitle2" >
                                         <ul>
-                                            {userPlaceholder.needs.map((item) => {
+                                            {userPlaceholder.needs.map((item, i) => {
                                                 return(
-                                                <li>{item}</li>
+                                                <li key={i}>{item}</li>
                                                 )
                                             })}
                                         </ul>
