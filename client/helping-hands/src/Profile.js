@@ -79,26 +79,28 @@ export default function Profile() {
                         </CardActionArea></p>
                     </div>
                     <div className="col-8" align="left">
-                        <p className="profile-card"><CardActionArea>
-                            <Card >
-                                <CardContent>
-                                    <span className="row">
-                                        <Typography className="col-10" variant="h6">Has</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
-                                    </span>
-                                    <Typography variant = "subtitle2" >
-                                        <ul >
-                                            {userPlaceholder.has.map((item, i) => {
-                                                return(
-                                                <li key={i}>{item.name}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </CardActionArea></p>
-                        <p className="profile-card">
+                        <div className="profile-card">
+                            <CardActionArea>
+                                <Card >
+                                    <CardContent>
+                                        <span className="row">
+                                            <Typography className="col-10" variant="h6">Has</Typography>
+                                            <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        </span>
+                                        <Typography variant = "subtitle2" >
+                                            <ul >
+                                                {userPlaceholder.has.map((item, i) => {
+                                                    return(
+                                                    <li key={i}>{item.name}</li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </CardActionArea>
+                        </div>
+                        <div className="profile-card">
                             <CardActionArea>
                                 <Card>
                                     <CardContent>
@@ -118,8 +120,8 @@ export default function Profile() {
                                     </CardContent>
                                 </Card>
                             </CardActionArea>
-                        </p>
-                        <p className="profile-card">
+                        </div>
+                        <div className="profile-card">
                             <CardActionArea>
                                 <Card>
                                     <CardContent>
@@ -139,7 +141,7 @@ export default function Profile() {
                                     </CardContent>
                                 </Card>
                             </CardActionArea>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
