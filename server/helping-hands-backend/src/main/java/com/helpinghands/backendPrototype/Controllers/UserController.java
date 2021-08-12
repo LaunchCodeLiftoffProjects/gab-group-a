@@ -44,6 +44,9 @@ public class UserController {
         });
     }
 
-
+    @DeleteMapping("/users/{id}")
+    void deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+    }
 
 }
