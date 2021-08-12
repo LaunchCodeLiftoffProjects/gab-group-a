@@ -8,4 +8,4 @@ Our design goal is to create an easy-to-use app to connect members of a communit
 
 The frontend was created using create-react-app. It also utilizes Material Design components and Bootstrap CSS.
 
-The backend will be written in Spring/MySQL.
+The backend is written in Spring with a MySQL database.
