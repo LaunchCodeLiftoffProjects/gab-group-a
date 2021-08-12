@@ -95,45 +95,48 @@ export default function Profile() {
                                 </CardContent>
                             </Card>
                         </CardActionArea></p>
-                        <p className="profile-card"><CardActionArea>
-                            <Card>
-                                <CardContent>
-                                    <span className="row">
-                                        <Typography className="col-10" variant="h6">Can</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
-                                    </span>
-                                    <Typography variant = "subtitle2" >
-                                        <ul >
-                                            {userPlaceholder.can.map((item) => {
+                        <p className="profile-card">
+                            <CardActionArea>
+                                <Card>
+                                    <CardContent>
+                                        <span className="row">
+                                            <Typography className="col-10" variant="h6">Can</Typography>
+                                            <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        </span>
+                                        <Typography variant = "subtitle2" >
+                                            <ul >
+                                                {userPlaceholder.can.map((item) => {
+                                                    return(
+                                                    <li>{item.name} ({item.hoursWork} hrs)</li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </CardActionArea>
+                        </p>
+                        <p className="profile-card">
+                            <CardActionArea>
+                                <Card>
+                                    <CardContent>
+                                        <span className="row">
+                                            <Typography className="col-10" variant="h6">Needs</Typography>
+                                            <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        </span>
+                                        <Typography variant = "subtitle2" >
+                                        <ul>
+                                            {userPlaceholder.needs.map((item) => {
                                                 return(
-                                                <li>{item.name} ({item.hoursWork} hrs)</li>
+                                                <li>{item}</li>
                                                 )
                                             })}
                                         </ul>
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </CardActionArea></p>
-                    <p className="profile-card">
-                        <CardActionArea>
-                            <Card>
-                                <CardContent>
-                                    <span className="row">
-                                        <Typography className="col-10" variant="h6">Needs</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
-                                    </span>
-                                    <Typography variant = "subtitle2" >
-                                    <ul >
-                                        {userPlaceholder.needs.map((item) => {
-                                            return(
-                                            <li>{item}</li>
-                                            )
-                                        })}
-                                    </ul>
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </CardActionArea></p>
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </CardActionArea>
+                        </p>
                     </div>
                 </div>
             </div>
