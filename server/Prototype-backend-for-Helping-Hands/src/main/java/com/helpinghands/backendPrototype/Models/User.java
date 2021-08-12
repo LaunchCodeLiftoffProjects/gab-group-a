@@ -1,4 +1,4 @@
-package com.helpinghands.backendPrototype;
+package com.helpinghands.backendPrototype.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
