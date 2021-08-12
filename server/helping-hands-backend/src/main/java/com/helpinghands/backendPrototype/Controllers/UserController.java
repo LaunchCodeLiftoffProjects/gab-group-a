@@ -16,22 +16,25 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
+    @CrossOrigin
     @GetMapping("/users")
     Iterable<User> all() {
         return userRepository.findAll();
     }
 
+    @CrossOrigin
     @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
         return userRepository.save(newUser);
     }
 
+    @CrossOrigin
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(); //TODO create a UserNotFound exception to throw here.
     }
 
+    @CrossOrigin
     @PutMapping("/users/{id}")
     User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         return userRepository.findById(id).map( user -> {
@@ -44,6 +47,7 @@ public class UserController {
         });
     }
 
+    @CrossOrigin
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
