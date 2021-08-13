@@ -9,7 +9,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Avatar from '@material-ui/core/Avatar';
 import "./Profile.css";
 
-export default function Profile() {
+export default function Profile({id}) {
     const userPlaceholder = {
         name: "Colyn Gremaud",
         location: "Tower Grove",
@@ -43,8 +43,9 @@ export default function Profile() {
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
 
+    id = 1 //replace this by passing it in as a path var?
     const fetchUser = async () => {
-        let response = await fetch("http://localhost:8080/users/1")
+        let response = await fetch("http://localhost:8080/users/" + id)
         let json = await response.json(); //not sure if this step is necessary, but it works. 
         setUser(json);
         setLoaded(true)
