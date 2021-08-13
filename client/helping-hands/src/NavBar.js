@@ -11,6 +11,7 @@ import { AppBar, Toolbar } from '@material-ui/core';
 import NavBarMenu from './NavBarMenu';
 import { IconButton } from '@material-ui/core';
 
+
 export default function NavBar() {
     return (
     <Paper>    
@@ -21,10 +22,10 @@ export default function NavBar() {
                 <div className="col-1">
                     <Link to="/"><IconButton edge="start" color="inherit" aria-label="home"><HomeIcon /></IconButton></Link>
                 </div>
-                <div className = "col-2">
+                <div className = "col-4" align="left">
                     <NavBarMenu />
                 </div>
-                <div className="col-9" align="right">
+                <div className="col-7" align="right">
                     <Link to="/profile"><IconButton align="right" edge="start" color="inherit" aria-label="profile"><AccountCircleIcon /></IconButton></Link>
                 </div>
             </div> 

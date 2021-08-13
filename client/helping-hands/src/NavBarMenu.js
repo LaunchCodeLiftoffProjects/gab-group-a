@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from 'react-router-dom';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import { IconButton } from '@material-ui/core';
 
 export default function NavBarMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -17,9 +19,9 @@ export default function NavBarMenu() {
 
   return (
     <div>
-      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-        Open Menu
-      </Button>
+      <IconButton aria-controls="simple-menu" aria-haspopup="true" color="inherit" onClick={handleClick}>
+        <FormatListBulletedIcon />
+      </IconButton>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}
