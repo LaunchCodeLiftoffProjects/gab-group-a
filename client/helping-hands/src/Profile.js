@@ -66,7 +66,7 @@ export default function Profile({id}) {
     } else if (error) {
         return <div>Error: {error.message}</div>
     } else return (
-        <Paper>
+        <Paper >
             <div className="container profile-container">
                 <div className="row">
                     <div className="col-4" align="left">
