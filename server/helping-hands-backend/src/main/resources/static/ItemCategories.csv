@@ -1,0 +1,11 @@
+id,description,name
+1,'Any items students may need for school -- including notebooks, pencils etc.',School Supplies
+2,'Kitchen cleaning products such as dish soap, dishwashing detergent, sponges etc.',Kitchen Cleaning
+3,'Laundry products such as laundry detergent, fabric softener, dryer sheets etc.', Laundry
+4,'Fresh vegetables and fruits -- onions, greens, broccoli, apples etc.',Groceries -- Fresh Produce
+5,'Shelf stable goods such as macaroni and cheese, canned vegetables and meats etc.',Groceries -- Dry Goods
+6,'Fresh or frozen meat and poultry',Groceries -- Meat and Poultry
+7,'Fresh or frozen fish',Groceries -- Fish
+8,'Toiletry products such as toilet paper, soap, toothpaste etc.',Toiletries
+9,'Menstrual care products such as tampons or pads',Menstrual Care
+10,'Home maintenance items such as paint, spackle, plumbing tools etc',Home Maintenance
