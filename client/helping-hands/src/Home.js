@@ -40,25 +40,24 @@ else {
             <span className="col-1"></span>
             <div className="col-10" align="center">
                 <Typography variant="h2">All Users</Typography> 
-                    {usersArray.map((user)=> {
-                        return(
-                        <div key = {user.id} className="home-card">
-                            <CardActionArea >
-                                <Card variant="outlined" className="card" >
-                                    <CardContent>
-                                        <Typography variant="h3" align="left">{user.name}</Typography>
-                                        <Typography variant="subtitle1" align="left">
-                                            <ul>
-                                                <li>Location: {user.location}</li>
-                                                <li>List</li>
-                                            </ul>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </CardActionArea>
-                        </div>
-                    )
-                    })}
+                {usersArray.map((user)=> {
+                    return(
+                    <div key = {user.id} className="home-card">
+                        <CardActionArea >
+                            <Card variant="outlined" className="card" >
+                                <CardContent>
+                                    <Typography variant="h3" align="left">{user.name}</Typography>
+                                    <Typography variant="subtitle1" align="left">
+                                        <ul>
+                                            <li>Location: {user.location}</li>
+                                            <li>List</li>
+                                        </ul>
+                                    </Typography>
+                                </CardContent>
+                            </Card>
+                        </CardActionArea>
+                    </div>
+                    )})}
             
                 </div>
                 <span className="col-1"></span>
