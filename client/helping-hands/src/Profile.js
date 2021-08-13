@@ -17,6 +17,7 @@ export default function Profile({id}) {
         needs: [
             "Windows washed",
             "Hamsters fed",
+            "Sacramental wine"
         ],
         has: [
         {
