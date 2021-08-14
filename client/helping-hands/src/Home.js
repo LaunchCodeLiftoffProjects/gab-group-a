@@ -21,7 +21,7 @@ export default function Home() {
 
     useEffect(()=> {  
         try{
-         fetchUsersArray();
+            fetchUsersArray();
         } catch(err) {
             setError(err);
         }   
