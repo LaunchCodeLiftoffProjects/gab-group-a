@@ -5,6 +5,7 @@ import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,13 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/users")
     Iterable<User> all() {
-        return userRepository.findAll();
+
+        Iterable<User> users = userRepository.findAll();
+        //this solves the infinite nesting problem, but will be slow as the db grows.
+        for (User user : users) {
+            user.getLocation().setUsers(new ArrayList<>());
+        }
+        return users;
     }
 
     @CrossOrigin
@@ -31,7 +38,9 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/users/{id}")
     User one(@PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(); //TODO create a UserNotFound exception to throw here.
+        User user = userRepository.findById(id).orElseThrow();
+        user.getLocation().setUsers(new ArrayList<>());
+        return user; //TODO create a UserNotFound exception to throw here.
     }
 
     @CrossOrigin

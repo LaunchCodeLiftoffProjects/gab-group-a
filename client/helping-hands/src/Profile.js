@@ -17,6 +17,7 @@ export default function Profile({id}) {
         needs: [
             "Windows washed",
             "Hamsters fed",
+            "Sacramental wine"
         ],
         has: [
         {
@@ -65,7 +66,7 @@ export default function Profile({id}) {
     } else if (error) {
         return <div>Error: {error.message}</div>
     } else return (
-        <Paper>
+        <Paper >
             <div className="container profile-container">
                 <div className="row">
                     <div className="col-4" align="left">
@@ -74,8 +75,8 @@ export default function Profile({id}) {
                                 <CardContent>
                                 <div className="container">
                                     <span className="row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
-                                    <span className="row"><br /><Typography variant="subtitle1">{user.location}</Typography></span>
-                                    <span className="row"><Typography variant="subtitle1">{userPlaceholder.email}</Typography></span>
+                                    <span className="row"><br /><Typography variant="subtitle1">{user.location.name}</Typography></span>
+                                    <span className="row"><Typography variant="subtitle1">{user.email}</Typography></span>
                                 </div>
                                 </CardContent>
                             </Card>
