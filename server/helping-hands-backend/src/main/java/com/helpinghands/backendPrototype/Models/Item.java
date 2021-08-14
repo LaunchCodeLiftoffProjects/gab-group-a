@@ -12,10 +12,10 @@ public class Item extends AbstractEntity {
     @NotNull
     private ItemCategory itemCategory;
 
-    @OneToMany
+    @ManyToMany(mappedBy = "has")
     private List<User> usersWhoHave;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "needsItems")
     private List<User> usersWhoNeed;
 
     //Will this work? Can I share this class across users but have different values for these?
@@ -27,5 +27,29 @@ public class Item extends AbstractEntity {
 
     public Item(ItemCategory itemCategory) {
         this.itemCategory = itemCategory;
+    }
+
+    public ItemCategory getItemCategory() {
+        return itemCategory;
+    }
+
+    public void setItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+    }
+
+    public List<User> getUsersWhoHave() {
+        return usersWhoHave;
+    }
+
+    public void setUsersWhoHave(List<User> usersWhoHave) {
+        this.usersWhoHave = usersWhoHave;
+    }
+
+    public List<User> getUsersWhoNeed() {
+        return usersWhoNeed;
+    }
+
+    public void setUsersWhoNeed(List<User> usersWhoNeed) {
+        this.usersWhoNeed = usersWhoNeed;
     }
 }

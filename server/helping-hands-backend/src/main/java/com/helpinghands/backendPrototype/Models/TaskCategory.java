@@ -9,4 +9,12 @@ public class TaskCategory extends AbstractEntity {
 
     @OneToMany(mappedBy = "taskCategory")
     private List<Task> tasks;
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }

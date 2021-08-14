@@ -7,20 +7,20 @@ import java.util.Objects;
 @Entity
 public class User extends AbstractEntity {
 
-    @OneToOne
+    @ManyToOne
     private Location location;
 
-    @OneToMany
+    @ManyToMany
     private List<Item> has;
 
-    @OneToMany
+    @ManyToMany
     private List<Item> needsItems;
 
-    @OneToMany
+    @ManyToMany
     private List<Task> can;
 
-    @OneToMany
-    private List<Task> needsDone;
+    @ManyToMany
+    private List<Task> needsTasks;
 
     public User() {}
 
@@ -36,6 +36,38 @@ public class User extends AbstractEntity {
         this.location = location;
     }
 
+    public List<Item> getHas() {
+        return has;
+    }
+
+    public void setHas(List<Item> has) {
+        this.has = has;
+    }
+
+    public List<Item> getNeedsItems() {
+        return needsItems;
+    }
+
+    public void setNeedsItems(List<Item> needsItems) {
+        this.needsItems = needsItems;
+    }
+
+    public List<Task> getCan() {
+        return can;
+    }
+
+    public void setCan(List<Task> can) {
+        this.can = can;
+    }
+
+    public List<Task> getNeedsTasks() {
+        return needsTasks;
+    }
+
+    public void setNeedsTasks(List<Task> needsTasks) {
+        this.needsTasks = needsTasks;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -46,6 +78,8 @@ public class User extends AbstractEntity {
         return Objects.equals(this.id, user.id) && Objects.equals(this.name, user.name)
                 && Objects.equals(this.location, user.location);
     }
+
+
 
 
 }
