@@ -1,16 +1,13 @@
 package com.helpinghands.backendPrototype.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Task extends AbstractEntity{
 
-    @OneToOne
-    private TaskCategory category;
+    @ManyToOne
+    private TaskCategory taskCategory;
 
     @OneToMany
     private List<User> usersWhoCan;

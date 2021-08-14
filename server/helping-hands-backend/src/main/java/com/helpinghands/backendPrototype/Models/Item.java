@@ -2,18 +2,15 @@ package com.helpinghands.backendPrototype.Models;
 
 import com.sun.istack.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Item extends AbstractEntity {
 
-    @OneToOne
+    @ManyToOne
     @NotNull
-    private ItemCategory category;
+    private ItemCategory itemCategory;
 
     @OneToMany
     private List<User> usersWhoHave;
@@ -28,7 +25,7 @@ public class Item extends AbstractEntity {
 
     public Item() {}
 
-    public Item(ItemCategory category) {
-        this.category = category;
+    public Item(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
     }
 }

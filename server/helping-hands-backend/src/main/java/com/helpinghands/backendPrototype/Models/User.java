@@ -1,9 +1,7 @@
 package com.helpinghands.backendPrototype.Models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,6 +9,18 @@ public class User extends AbstractEntity {
 
     @OneToOne
     private Location location;
+
+    @OneToMany
+    private List<Item> has;
+
+    @OneToMany
+    private List<Item> needsItems;
+
+    @OneToMany
+    private List<Task> can;
+
+    @OneToMany
+    private List<Task> needsDone;
 
     public User() {}
 
