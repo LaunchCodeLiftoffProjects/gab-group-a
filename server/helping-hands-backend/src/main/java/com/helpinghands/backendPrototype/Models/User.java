@@ -1,5 +1,7 @@
 package com.helpinghands.backendPrototype.Models;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -22,10 +24,14 @@ public class User extends AbstractEntity {
     @ManyToMany
     private List<Task> needsTasks;
 
+    @NotNull
+    private String email;
+
     public User() {}
 
-    public User(Location location) {
+    public User(Location location, String email) {
         this.location = location;
+        this.email = email;
     }
 
     public Location getLocation() {
@@ -66,6 +72,14 @@ public class User extends AbstractEntity {
 
     public void setNeedsTasks(List<Task> needsTasks) {
         this.needsTasks = needsTasks;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
