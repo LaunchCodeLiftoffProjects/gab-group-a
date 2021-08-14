@@ -3,42 +3,26 @@ package com.helpinghands.backendPrototype.Models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @Entity
 public class User extends AbstractEntity {
-//    private @Id @GeneratedValue Long id;
-//    private String name;
-    private String location; //make a location Enum class?
+
+    @OneToOne
+    private Location location;
 
     public User() {}
 
-    public User(String location) {
-//        this.name=name;
+    public User(Location location) {
         this.location = location;
     }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
