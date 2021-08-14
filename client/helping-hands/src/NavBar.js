@@ -1,10 +1,7 @@
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import React from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css"
 import HomeIcon from '@material-ui/icons/Home';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { AppBar, Toolbar } from '@material-ui/core';
@@ -20,22 +17,9 @@ export default function NavBar() {
         grow: {
           flexGrow: 1,
         },
-        menuButton: {
-          marginRight: theme.spacing(2),
-        },
-        title: {
-          display: 'none',
-          [theme.breakpoints.up('sm')]: {
-            display: 'block',
-          },
-        },
         search: {
           position: 'relative',
           borderRadius: theme.shape.borderRadius,
-        //   backgroundColor: alpha(theme.palette.common.white, 0.15),
-        //   '&:hover': {
-        //     backgroundColor: alpha(theme.palette.common.white, 0.25),
-        //   },
           marginRight: theme.spacing(2),
           marginLeft: 0,
           width: '100%',
@@ -85,27 +69,29 @@ export default function NavBar() {
     return (   
         <AppBar align="center">
             <Toolbar>
-                <Link to="/"><IconButton edge="start" color="inherit" aria-label="home"><HomeIcon /></IconButton></Link>
-                <NavBarMenu />
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                        <SearchIcon />
-                        </div>
-                    <InputBase
-                    placeholder="Search…"
-                    classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput,
-                    }}
-                    inputProps={{ 'aria-label': 'search' }}
-                    />
-                </div>
-                <div className={classes.grow}></div>
-                <Link to="/profile">
-                    <IconButton align="right" edge="start" color="inherit" aria-label="profile">
-                        <AccountCircleIcon />
-                    </IconButton>
+                <Link to="/">
+                  <IconButton edge="start" color="inherit" aria-label="home"><HomeIcon /></IconButton>
                 </Link>
+                <NavBarMenu />
+                <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                    <SearchIcon />
+                    </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                      root: classes.inputRoot,
+                      input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
+              </div>
+              <div className={classes.grow}></div>
+              <Link to="/profile">
+                  <IconButton align="right" edge="start" color="inherit" aria-label="profile">
+                      <AccountCircleIcon />
+                  </IconButton>
+              </Link>
             </Toolbar>
         </AppBar>
     )
