@@ -3,6 +3,7 @@ package com.helpinghands.backendPrototype.Models;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,17 +12,17 @@ public class Item extends AbstractEntity {
     @ManyToOne
     @NotNull
     private ItemCategory itemCategory;
-
+//commenting this because doing it with location caused infinite nesting
     @ManyToMany(mappedBy = "has")
-    private List<User> usersWhoHave;
+    private List<User> usersWhoHave = new ArrayList<>();
 
     @ManyToMany(mappedBy = "needsItems")
-    private List<User> usersWhoNeed;
+    private List<User> usersWhoNeed = new ArrayList<>();
 
-    //Will this work? Can I share this class across users but have different values for these?
-//    private int amtNeeded;
-//
-//    private int amtHave;
+//    Will this work? Can I share this class across users but have different values for these?
+    private int amtNeeded;
+
+    private int amtHave;
 
     public Item() {}
 

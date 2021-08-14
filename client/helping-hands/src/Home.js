@@ -49,7 +49,7 @@ else {
                                     <Typography variant="h3" align="left">{user.name}</Typography>
                                     <Typography variant="subtitle1" align="left">
                                         <ul>
-                                            <li>Location: {user.location}</li>
+                                            <li>Location: {user.location.name}</li>
                                             <li>List</li>
                                         </ul>
                                     </Typography>

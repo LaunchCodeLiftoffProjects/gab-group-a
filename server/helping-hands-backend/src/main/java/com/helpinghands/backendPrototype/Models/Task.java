@@ -10,10 +10,10 @@ public class Task extends AbstractEntity{
     @ManyToOne
     private TaskCategory taskCategory;
 
-    @OneToMany(mappedBy = "can")
+    @ManyToMany(mappedBy = "can")
     private List<User> usersWhoCan = new ArrayList<>();
 
-    @OneToMany(mappedBy = "needsTasks")
+    @ManyToMany(mappedBy = "needsTasks")
     private List<User> usersWhoNeed = new ArrayList<>();
 
     private float hoursWork;
@@ -50,10 +50,6 @@ public class Task extends AbstractEntity{
         this.hoursWork = hoursWork;
     }
 
-    //not sure if this will work either. . .
-//    private List<Task> wantsTaskInReturn;
-//
-//    private List<Item> wantsItemInReturn;
 
 
 }
