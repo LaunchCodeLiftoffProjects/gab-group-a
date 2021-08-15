@@ -1,13 +1,9 @@
 package com.helpinghands.backendPrototype.Controllers;
 
-import com.helpinghands.backendPrototype.Data.ItemRepository;
-
 import com.helpinghands.backendPrototype.Data.TaskRepository;
 import com.helpinghands.backendPrototype.Models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 
 @RestController
 public class TaskController {
