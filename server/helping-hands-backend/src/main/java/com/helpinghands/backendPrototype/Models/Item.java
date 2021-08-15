@@ -18,7 +18,7 @@ public class Item extends AbstractEntity {
 
     @ManyToMany(mappedBy = "needsItems")
     private List<User> usersWhoNeed = new ArrayList<>();
-    
+
     //Should maybe move these quantities into the user class as a HashMap<Int/Long, Item>
     private int amtNeeded;
 

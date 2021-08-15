@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./NavBar.css"
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -16,6 +15,9 @@ export default function NavBar() {
     const useStyles = makeStyles((theme) => ({
         grow: {
           flexGrow: 1,
+        },
+        linkButton: {
+          color: "antiquewhite"
         },
         search: {
           position: 'relative',
@@ -69,7 +71,7 @@ export default function NavBar() {
     return (   
         <AppBar align="center">
             <Toolbar>
-                <Link to="/">
+                <Link className={classes.linkButton} to="/">
                   <IconButton edge="start" color="inherit" aria-label="home"><HomeIcon /></IconButton>
                 </Link>
                 <NavBarMenu />
@@ -87,7 +89,7 @@ export default function NavBar() {
                 />
               </div>
               <div className={classes.grow}></div>
-              <Link to="/profile">
+              <Link className={classes.linkButton} to="/profile">
                   <IconButton align="right" edge="start" color="inherit" aria-label="profile">
                       <AccountCircleIcon />
                   </IconButton>
