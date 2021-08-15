@@ -69,7 +69,7 @@ export default function NavBar() {
     const classes = useStyles();
 
     return (   
-        <AppBar align="center">
+        <AppBar>
             <Toolbar>
                 <Link className={classes.linkButton} to="/">
                   <IconButton edge="start" color="inherit" aria-label="home"><HomeIcon /></IconButton>
