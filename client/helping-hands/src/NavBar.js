@@ -75,7 +75,7 @@ export default function NavBar() {
                 <NavBarMenu />
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
-                    <SearchIcon />
+                      <SearchIcon />
                     </div>
                 <InputBase
                   placeholder="Search…"
