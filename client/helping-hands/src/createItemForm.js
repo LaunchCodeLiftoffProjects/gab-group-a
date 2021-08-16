@@ -15,14 +15,26 @@ export default function createItemForm() {
     });
 
     const [itemCategories, setItemCategories] = useState([]);   
-
     const [loaded, setLoaded] = useState(false);
+    const [error, setError] = useState();
     
+    const createItem = async (item) => {
+        let response = await fetch("http://localhost:8080/items", {
+            method: "POST",
+            headers: {
+                "Accept": 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
     const clickSubmit = () => {
         const item = {
             name: values.name || undefined,
             itemCategory: values.itemCategory,
         }
+
+
     }
 
     const fetchItemCategories = async () => {
@@ -31,4 +43,12 @@ export default function createItemForm() {
         setItemCategories(json);
         setLoaded(true);
     }
+
+    useEffect(() => {
+        try{
+            fetchItemCategories();
+        } catch(err) {
+            setError(err)
+        }
+    })
 }
