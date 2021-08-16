@@ -4,8 +4,12 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { TextField } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
+import { Select } from "@material-ui/core";
+import { MenuItem } from "@material-ui/core";
 
-export default function createItemForm() {
+export default function CreateItemForm() {
     const [values, setValues] = useState({
         name: '',
         description: '',
@@ -56,5 +60,36 @@ export default function createItemForm() {
         }
     }, [])
 
-    
+    const handleChange = (event) => {
+        setItemCategories(event.target.value);
+      };
+
+    return (
+        <Paper>
+            <div className="row">
+                <div className="col-10">
+                    <CardActionArea>
+                        <Card variant="outlined">
+                            <CardContent>
+                                <form>
+                                    <TextField id = "name" label="Name" value={values.name} />
+                                    <InputLabel id="itemCategoryLabel" >Item Category</InputLabel>
+                                    <Select
+                                        labelId="itemCategoryLabel"
+                                        id="itemCategory"
+                                        value={values.itemCategory}
+                                        onChange={handleChange}
+                                        >
+                                        <MenuItem>One</MenuItem>
+                                        <MenuItem>Two</MenuItem>
+                                        <MenuItem>Three</MenuItem>
+                                    </Select>
+                                </form>
+                            </CardContent>
+                        </Card>
+                    </CardActionArea>
+                </div>
+            </div>
+        </Paper>
+    )
 }
