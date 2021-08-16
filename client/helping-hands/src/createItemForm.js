@@ -8,16 +8,17 @@ import { TextField } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 export default function CreateItemForm() {
-    const [values, setValues] = useState({
-        name: '',
-        description: '',
-        itemCategory: {},
-        usersWhoHave: [], //should I include these at all here? or add them elsewhere? 
-        usersWhoNeed: [],
-    });
+    // const [values, setValues] = useState({
+    //     name: '',
+    //     description: '',
+    //     itemCategory: {},
+    // });
 
+    const [itemName, setItemname] = useState();
+    const [itemCategory, setItemCategory] =useState();
     const [itemCategories, setItemCategories] = useState([]);   
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState();
@@ -35,8 +36,8 @@ export default function CreateItemForm() {
 
     const clickSubmit = () => {
         const item = {
-            name: values.name || undefined,
-            itemCategory: values.itemCategory,
+            name: itemName,
+            itemCategory: itemCategory,
         }
         try{
             createItem(item);
@@ -46,7 +47,7 @@ export default function CreateItemForm() {
     }
 
     const fetchItemCategories = async () => {
-        const response = await fetch("http://localhost:8080/item-categories")
+        const response = await fetch("http://localhost:8080/item-categories?name=" + {itemName})
         const json = await response.json();
         setItemCategories(json);
         console.log(itemCategories)
@@ -61,9 +62,6 @@ export default function CreateItemForm() {
         }
     }, [])
 
-    const handleChange = (event) => {
-        setItemCategories(event.target.value);
-      };
     
     if (!loaded) {
         return <div>Loading . . .</div>
@@ -78,13 +76,13 @@ export default function CreateItemForm() {
                             <Card variant="outlined">
                                 <CardContent>
                                     <form>
-                                        <TextField id = "name" label="Name" value={values.name} />
+                                        <TextField type="required" id = "name" label="Name" value={itemName} />
                                         <InputLabel id="itemCategoryLabel" >Item Category</InputLabel>
                                         <Select
                                             labelId="itemCategoryLabel"
                                             id="itemCategory"
-                                            value={values.itemCategory}
-                                            onChange={handleChange}
+                                            value={itemCategory}
+                                            
                                             >
                                             {itemCategories.map((itemCategory, i) => {
                                                 return (
@@ -93,6 +91,7 @@ export default function CreateItemForm() {
                                             })}
                                             
                                         </Select>
+                                        <Button onClick={clickSubmit}>Submit</Button>
                                     </form>
                                 </CardContent>
                             </Card>
