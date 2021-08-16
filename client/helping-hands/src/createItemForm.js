@@ -24,7 +24,8 @@ export default function createItemForm() {
             headers: {
                 "Accept": 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(item)
         })
     }
 
@@ -33,8 +34,11 @@ export default function createItemForm() {
             name: values.name || undefined,
             itemCategory: values.itemCategory,
         }
-
-
+        try{
+            createItem(item);
+        } catch(err) {
+            setError(err);
+        }
     }
 
     const fetchItemCategories = async () => {
@@ -50,5 +54,7 @@ export default function createItemForm() {
         } catch(err) {
             setError(err)
         }
-    })
+    }, [])
+
+    
 }
