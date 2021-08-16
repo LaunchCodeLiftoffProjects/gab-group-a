@@ -49,6 +49,7 @@ export default function CreateItemForm() {
         const response = await fetch("http://localhost:8080/item-categories")
         const json = await response.json();
         setItemCategories(json);
+        console.log(itemCategories)
         setLoaded(true);
     }
 
@@ -63,33 +64,42 @@ export default function CreateItemForm() {
     const handleChange = (event) => {
         setItemCategories(event.target.value);
       };
-
-    return (
-        <Paper>
-            <div className="row">
-                <div className="col-10">
-                    <CardActionArea>
-                        <Card variant="outlined">
-                            <CardContent>
-                                <form>
-                                    <TextField id = "name" label="Name" value={values.name} />
-                                    <InputLabel id="itemCategoryLabel" >Item Category</InputLabel>
-                                    <Select
-                                        labelId="itemCategoryLabel"
-                                        id="itemCategory"
-                                        value={values.itemCategory}
-                                        onChange={handleChange}
-                                        >
-                                        <MenuItem>One</MenuItem>
-                                        <MenuItem>Two</MenuItem>
-                                        <MenuItem>Three</MenuItem>
-                                    </Select>
-                                </form>
-                            </CardContent>
-                        </Card>
-                    </CardActionArea>
+    
+    if (!loaded) {
+        return <div>Loading . . .</div>
+    } else if (error) {
+        return <div>{error.message}</div>
+    } else {
+        return (
+            <Paper>
+                <div className="row">
+                    <div className="col-10">
+                        <CardActionArea>
+                            <Card variant="outlined">
+                                <CardContent>
+                                    <form>
+                                        <TextField id = "name" label="Name" value={values.name} />
+                                        <InputLabel id="itemCategoryLabel" >Item Category</InputLabel>
+                                        <Select
+                                            labelId="itemCategoryLabel"
+                                            id="itemCategory"
+                                            value={values.itemCategory}
+                                            onChange={handleChange}
+                                            >
+                                            {itemCategories.map((itemCategory, i) => {
+                                                return (
+                                                    <MenuItem value = {itemCategory}>{itemCategory.name}</MenuItem>
+                                                )
+                                            })}
+                                            
+                                        </Select>
+                                    </form>
+                                </CardContent>
+                            </Card>
+                        </CardActionArea>
+                    </div>
                 </div>
-            </div>
-        </Paper>
-    )
+            </Paper>
+        )
+    }
 }
