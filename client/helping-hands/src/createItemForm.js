@@ -32,7 +32,7 @@ export default function CreateItemForm() {
     const [values, setValues] = useState({
         name: "",
         description: "",
-        itemCategory: {},
+        itemCategory: {}, //need to get this into format of itemCategory: {id: x}
         usersWhoHave: [],
         usersWhoNeed: [],
         amtHave: 0,
@@ -77,8 +77,7 @@ export default function CreateItemForm() {
 
     //this is an extremely kludgey solution to the problem of trying to stick an {id: X} object on to the values object
     const handleClick = (event) => {
-        let anId = event.target.value
-        setIdObj({id:anId})
+        setIdObj({id:event.target.value})
         console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
     }
 
@@ -99,7 +98,7 @@ export default function CreateItemForm() {
                     <CardActionArea>
                         <Card>
                             <CardContent>
-                                <FormControl className={classes.formControl}>
+                                <FormControl>
                                     <TextField
                                         id="name"
                                         label="Name"
