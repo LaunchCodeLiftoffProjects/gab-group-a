@@ -43,9 +43,16 @@ export default function CreateItemForm() {
 
     const fetchItemCategories = async () => await axios.get("http://localhost:8080/item-categories")
 
+    //When you call this method, you pass it the name of the value you want to change, and then it passes the event and the name to the setValues method
+    //and then the ...values destructures the array and [name]: event.target.value sets the key name to whatever the value of the target of the event (onChange) is. 
+    const handleChange = name => event => {
+        setValues({ ...values, [name]: event.target.value })
+    }
+
     useEffect(() => {
         fetchItemCategories();
     }, [])
+
     if (!loaded) {
         return <div>Loading . . . </div>
     } else if (error) {
@@ -58,7 +65,12 @@ export default function CreateItemForm() {
                         <Card>
                             <CardContent>
                                 <FormControl>
-                                    <TextField>
+                                    <TextField
+                                        id="name"
+                                        label="Name"
+                                        value={values.name}
+                                        onChange={handleChange('name')}
+                                        >
                                         
                                     </TextField>
                                 </FormControl>
