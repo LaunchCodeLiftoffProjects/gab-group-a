@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateItemForm() {
 
     const classes = useStyles();
-    // const [itemCategoryId, setItemCategoryId] = useState();
+    const [idObj, setIdObj] = useState({});
     const [values, setValues] = useState({
         name: "",
         description: "",
-        itemCategory: {id: 0},
+        itemCategory: {},
         usersWhoHave: [],
         usersWhoNeed: [],
         amtHave: 0,
@@ -53,7 +53,7 @@ export default function CreateItemForm() {
     }
 
     const createItem = async (item) => {
-        const response = await axios.post("http://localhost:8080/items", itemLiteral)
+        const response = await axios.post("http://localhost:8080/items", item)
     }
 
     const fetchItemCategories = async () => {
@@ -72,7 +72,8 @@ export default function CreateItemForm() {
     }
 
     const handleClick = name => event => {
-        setValues({...values, [name]: {id: event.target.value}})
+        setIdObj({id:event.target.value})
+        console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
     }
 
     useEffect(() => {
@@ -108,12 +109,12 @@ export default function CreateItemForm() {
                                     <Select
                                         labelId="item-category-dropdown"
                                         id="item-category"
-                                        value={values.itemCategory.id}
+                                        value={idObj}
                                         onChange={handleChange('itemCategory')}
                                     >
                                         {itemCategories.map((category) => {
                                             return (
-                                                <MenuItem onClick={handleClick('itemCategory')} value={category.id}>{category.name}</MenuItem>
+                                                <MenuItem onClick={handleClick()} value={category.id}>{category.name}</MenuItem>
                                             )
                                         })}
                                     </Select>
