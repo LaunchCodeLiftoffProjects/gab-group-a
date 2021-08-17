@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateItemForm() {
 
     const classes = useStyles();
+    // const [itemCategoryId, setItemCategoryId] = useState();
     const [values, setValues] = useState({
         name: "",
         description: "",
@@ -70,6 +71,10 @@ export default function CreateItemForm() {
         console.log(itemCategories)
     }
 
+    const handleClick = name => event => {
+        setValues({...values, [name]: {id: event.target.value}})
+    }
+
     useEffect(() => {
         fetchItemCategories();
         console.log(itemCategories)
@@ -108,7 +113,7 @@ export default function CreateItemForm() {
                                     >
                                         {itemCategories.map((category) => {
                                             return (
-                                                <MenuItem value={category.id}>{category.name}</MenuItem>
+                                                <MenuItem onClick={handleClick('itemCategory')} value={category.id}>{category.name}</MenuItem>
                                             )
                                         })}
                                     </Select>
