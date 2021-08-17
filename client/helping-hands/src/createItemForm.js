@@ -26,13 +26,14 @@ export default function CreateItemForm() {
     })    
 
     const itemLiteral = {
-        name: "Beans",
-        description: "Dried beans:",
-        itemCategory: {},
+        id: 12,
+        name: "Nothing",
+        description: "just a test:",
+        itemCategory: {id: 5},
         usersWhoHave: [],
         usersWoNeed: [],
-        amtHave: 0,
-        amtNeed: 0
+        amtHave: 3,
+        amtNeed: 7
     }
 
     const createItem = async (item) => {
