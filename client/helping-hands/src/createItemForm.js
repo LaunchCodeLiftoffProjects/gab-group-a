@@ -17,7 +17,7 @@ export default function CreateItemForm() {
     //     itemCategory: {},
     // });
 
-    const [itemName, setItemname] = useState();
+    const [itemName, setItemName] = useState();
     const [itemCategory, setItemCategory] =useState();
     const [itemCategories, setItemCategories] = useState([]);   
     const [loaded, setLoaded] = useState(false);
@@ -33,12 +33,12 @@ export default function CreateItemForm() {
             body: JSON.stringify(item)
         })
     }
-
-    const clickSubmit = () => {
+    //need to pass in itemcategory as an arg here?
+    const clickSubmit = (itemName, itemCategory) => {
         const item = {
             name: itemName,
             itemCategory: itemCategory,
-            description: "",
+            description: "", //the db is getting this, so i need to figure out why it's not getting the itemName
             usersWhoHave: [],
             usersWhoNeed: []
         }
@@ -89,12 +89,12 @@ export default function CreateItemForm() {
                                             >
                                             {itemCategories.map((itemCategory, i) => {
                                                 return (
-                                                    <MenuItem value = {itemCategory.id}>{itemCategory.name}</MenuItem>
+                                                    <MenuItem value = {itemCategory}>{itemCategory.name}</MenuItem>
                                                 )
                                             })}
                                             
                                         </Select>
-                                        <Button onClick={clickSubmit}>Submit</Button>
+                                        <Button onClick={clickSubmit(itemName, itemCategory)}>Submit</Button>
                                     </form>
                                 </CardContent>
                             </Card>
