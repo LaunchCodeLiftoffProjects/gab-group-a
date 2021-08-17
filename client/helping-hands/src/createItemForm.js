@@ -114,8 +114,6 @@ export default function CreateItemForm() {
                                     <Select
                                         labelId="item-category-dropdown"
                                         id="item-category"
-                                        value={idObj}
-                                        // onChange={handleChange('itemCategory')}
                                         onChange={handleClick}
                                     >
                                         {itemCategories.map((category) => {
