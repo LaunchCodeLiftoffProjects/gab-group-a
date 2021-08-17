@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import { TextField } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { Select } from "@material-ui/core";
@@ -11,7 +10,7 @@ import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import { FormControlLabel } from "@material-ui/core";
-import axios from 'axios';
+import axios from 'axios'
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +31,7 @@ export default function CreateItemForm() {
     const [values, setValues] = useState({
         name: "",
         description: "",
-        itemCategory: {}, //need to get this into format of itemCategory: {id: x}
+        itemCategory: {}, //need to get this into format of itemCategory: {id: x}, maybe just make all of these separate state vars? 
         usersWhoHave: [],
         usersWhoNeed: [],
         amtHave: 0,
@@ -41,16 +40,6 @@ export default function CreateItemForm() {
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
-
-    // const itemLiteral = {
-    //     name: "Second test",
-    //     description: "just a second test:",
-    //     itemCategory: {id: 0}, //this was the trick. need to pass this as just id.
-    //     usersWhoHave: [],
-    //     usersWhoNeed: [],
-    //     amtHave: 3,
-    //     amtNeed: 7
-    // }
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
@@ -114,6 +103,7 @@ export default function CreateItemForm() {
                                     <Select
                                         labelId="item-category-dropdown"
                                         id="item-category"
+                                        // value={idObj}
                                         onChange={handleClick}
                                     >
                                         {itemCategories.map((category) => {
