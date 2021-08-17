@@ -32,7 +32,7 @@ export default function CreateItemForm() {
         description: "just a second test:",
         itemCategory: {id: 5}, //this was the trick. need to pass this as just id.
         usersWhoHave: [],
-        usersWoNeed: [],
+        usersWhoNeed: [],
         amtHave: 3,
         amtNeed: 7
     }
