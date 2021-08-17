@@ -57,10 +57,14 @@ export default function CreateItemForm() {
     }
 
     const fetchItemCategories = async () => {
-        let response = await fetch("http://localhost:8080/item-categories");
-        setItemCategories(await response.json());
-        console.log(itemCategories)
-        setLoaded(true)
+        try{    
+            let response = await fetch("http://localhost:8080/item-categories");
+            setItemCategories(await response.json());
+            console.log(itemCategories)
+            setLoaded(true)
+        } catch(err) {
+            setError(err)
+        }
     }
 
     //When you call this method, you pass it the name of the value you want to change, and then it passes the event and the name to the setValues method
@@ -71,6 +75,7 @@ export default function CreateItemForm() {
         console.log(itemCategories)
     }
 
+    //this is an extremely kludgey solution to the problem of trying to stick an {id: X} object on to the values object
     const handleClick = (event) => {
         let anId = event.target.value
         setIdObj({id:anId})
@@ -116,7 +121,7 @@ export default function CreateItemForm() {
                                     >
                                         {itemCategories.map((category) => {
                                             return (
-                                                <MenuItem onClick={handleClick} key={category.id} value={category.id}>{category.name}</MenuItem>
+                                                <MenuItem key={category.id} value={category.id} name="Category">{category.name}</MenuItem>
                                             )
                                         })}
                                     </Select>
