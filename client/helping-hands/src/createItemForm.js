@@ -42,15 +42,15 @@ export default function CreateItemForm() {
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
 
-    const itemLiteral = {
-        name: "Second test",
-        description: "just a second test:",
-        itemCategory: {id: 0}, //this was the trick. need to pass this as just id.
-        usersWhoHave: [],
-        usersWhoNeed: [],
-        amtHave: 3,
-        amtNeed: 7
-    }
+    // const itemLiteral = {
+    //     name: "Second test",
+    //     description: "just a second test:",
+    //     itemCategory: {id: 0}, //this was the trick. need to pass this as just id.
+    //     usersWhoHave: [],
+    //     usersWhoNeed: [],
+    //     amtHave: 3,
+    //     amtNeed: 7
+    // }
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
@@ -71,8 +71,9 @@ export default function CreateItemForm() {
         console.log(itemCategories)
     }
 
-    const handleClick = name => event => {
-        setIdObj({id:event.target.value})
+    const handleClick = (event) => {
+        let anId = event.target.value
+        setIdObj({id:anId})
         console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
     }
 
@@ -110,11 +111,12 @@ export default function CreateItemForm() {
                                         labelId="item-category-dropdown"
                                         id="item-category"
                                         value={idObj}
-                                        onChange={handleChange('itemCategory')}
+                                        // onChange={handleChange('itemCategory')}
+                                        onChange={handleClick}
                                     >
                                         {itemCategories.map((category) => {
                                             return (
-                                                <MenuItem onClick={handleClick()} value={category.id}>{category.name}</MenuItem>
+                                                <MenuItem onClick={handleClick} key={category.id} value={category.id}>{category.name}</MenuItem>
                                             )
                                         })}
                                     </Select>
