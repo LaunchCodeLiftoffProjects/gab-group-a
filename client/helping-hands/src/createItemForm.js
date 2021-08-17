@@ -18,18 +18,19 @@ export default function CreateItemForm() {
     const [values, setValues] = useState({
         name: "",
         description: "",
-        itemCategory: {},
+        itemCategory: 0,
         usersWhoHave: [],
         usersWhoNeed: [],
         amtHave: 0,
         amtNeed: 0
-    })    
+    });   
+    const [loaded, setLoaded] = useState();
+    const [error, setError] = useState(); 
 
     const itemLiteral = {
-        id: 12,
-        name: "Nothing",
-        description: "just a test:",
-        itemCategory: {id: 5},
+        name: "Second test",
+        description: "just a second test:",
+        itemCategory: {id: 5}, //this was the trick. need to pass this as just id.
         usersWhoHave: [],
         usersWoNeed: [],
         amtHave: 3,
@@ -40,26 +41,33 @@ export default function CreateItemForm() {
         const response = await axios.post("http://localhost:8080/items", itemLiteral)
     }
 
+    const fetchItemCategories = async () => await axios.get("http://localhost:8080/items")
+
     useEffect(() => {
-        createItem();
+        fetchItemCategories();
     }, [])
-
-    return(
-        <div>
-            <Paper>
-                <CardActionArea>
-                    <Card>
-                        <CardContent>
-                            <FormControl>
-                                <TextField>
-
-                                </TextField>
-                            </FormControl>
-                        </CardContent>
-                    </Card>
-                </CardActionArea>
-            </Paper>
-        </div>
-    )
-  
+    if (!loaded) {
+        return <div>Loading . . . </div>
+    } else if (error) {
+        return <div>{error.message}</div>
+    } else {
+        return(
+            <div>
+                <Paper>
+                    <CardActionArea>
+                        <Card>
+                            <CardContent>
+                                <FormControl>
+                                    <TextField>
+                                        
+                                    </TextField>
+                                </FormControl>
+                            </CardContent>
+                        </Card>
+                    </CardActionArea>
+                </Paper>
+            </div>
+        )
+    
+    }
 }
