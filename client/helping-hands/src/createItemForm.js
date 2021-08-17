@@ -96,6 +96,14 @@ export default function CreateItemForm() {
                                     >
                                         
                                     </TextField>
+                                    <TextField
+                                        id="description"
+                                        label="description"
+                                        value={values.description}
+                                        onChange={handleChange('description')}
+                                    >
+                                        
+                                    </TextField>
                                 </FormControl>
                                 <br />
                                 <FormControl>
