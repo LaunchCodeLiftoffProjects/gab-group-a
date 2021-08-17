@@ -2,6 +2,7 @@ import './App.css';
 import { Switch, Route } from "react-router-dom";
 import Home from "./Home"
 import Profile from "./Profile"
+import CreateItemForm from './CreateItemForm';
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         </Route>
         <Route path="/profile" >
           <Profile />
+        </Route>
+        <Route path="/create-item" >
+          <CreateItemForm />
         </Route>
       </Switch>
     </>
