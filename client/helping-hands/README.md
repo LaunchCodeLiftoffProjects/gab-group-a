@@ -1,9 +1,13 @@
 # Helping Hands Frontend
 
-## Description 
+## Description
+
 This is the front end React component of the Helping Hands app. See the main readme for more info about the main app.
 
-Uses React, React-Router, Material-Ui. 
+Uses React, React-Router, Material-Ui.
 
 ## Info
+
 In order to run this code, clone the repo, cd into the /client/helping-hands directory, run `yarn install` and `yarn start`. Then find the app running at localhost:3000
+
+//daryn's branch
