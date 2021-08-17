@@ -41,7 +41,7 @@ export default function CreateItemForm() {
         const response = await axios.post("http://localhost:8080/items", itemLiteral)
     }
 
-    const fetchItemCategories = async () => await axios.get("http://localhost:8080/items")
+    const fetchItemCategories = async () => await axios.get("http://localhost:8080/item-categories")
 
     useEffect(() => {
         fetchItemCategories();
