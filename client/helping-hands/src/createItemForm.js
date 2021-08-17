@@ -38,6 +38,9 @@ export default function CreateItemForm() {
         const item = {
             name: itemName,
             itemCategory: itemCategory,
+            description: "",
+            usersWhoHave: [],
+            usersWhoNeed: []
         }
         try{
             createItem(item);
@@ -47,7 +50,7 @@ export default function CreateItemForm() {
     }
 
     const fetchItemCategories = async () => {
-        const response = await fetch("http://localhost:8080/item-categories?name=" + {itemName})
+        const response = await fetch("http://localhost:8080/item-categories")
         const json = await response.json();
         setItemCategories(json);
         console.log(itemCategories)
@@ -86,7 +89,7 @@ export default function CreateItemForm() {
                                             >
                                             {itemCategories.map((itemCategory, i) => {
                                                 return (
-                                                    <MenuItem value = {itemCategory}>{itemCategory.name}</MenuItem>
+                                                    <MenuItem value = {itemCategory.id}>{itemCategory.name}</MenuItem>
                                                 )
                                             })}
                                             
