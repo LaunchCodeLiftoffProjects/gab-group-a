@@ -10,6 +10,8 @@ import Avatar from '@material-ui/core/Avatar';
 import "./Profile.css";
 import CreateItemForm from "./CreateItemForm";
 import CreateTaskForm from "./CreateTaskForm";
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 export default function Profile({id}) {
 
@@ -125,11 +127,11 @@ export default function Profile({id}) {
                             </CardActionArea>
                         </div>
                         <div className="profile-card">
-                            <Button onClick={showItemFormButton}>Create New Item</Button>
+                            <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
                             {displayItemForm ? <CreateItemForm /> : <div></div>}
                         </div>
                         <div className="profile-card">
-                            <Button onClick={showTaskFormButton}>Create New Task</Button>
+                            <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
                             {displayTaskForm ? <CreateTaskForm /> : <div></div>}
                         </div>
                     </div>
