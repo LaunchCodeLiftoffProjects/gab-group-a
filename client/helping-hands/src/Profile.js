@@ -12,35 +12,6 @@ import CreateItemForm from "./CreateItemForm";
 import CreateTaskForm from "./CreateTaskForm";
 
 export default function Profile({id}) {
-    const userPlaceholder = {
-        name: "Colyn Gremaud",
-        location: "Tower Grove",
-        email: "cgremaud@email.net",
-        needs: [
-            "Windows washed",
-            "Hamsters fed",
-            "Sacramental wine"
-        ],
-        has: [
-        {
-            name: "school supplies",
-            quantity: 20
-        },
-        {
-            name: "diapers",
-            quantity: 15
-        }
-        ],
-        can: [
-        {
-            name: "fix cars",
-            hoursWork: 12
-        },
-        {
-            name: "walk dogs",
-            hoursWork: 3
-        }
-    ]}
 
     const [user, setUser] = useState();
     const [loaded, setLoaded] = useState(false);
@@ -100,7 +71,7 @@ export default function Profile({id}) {
                                         </span>
                                         <Typography variant = "subtitle2" >
                                             <ul >
-                                                {userPlaceholder.has.map((item, i) => {
+                                                {user.has.map((item, i) => {
                                                     return(
                                                     <li key={i}>{item.name}</li>
                                                     )
@@ -121,7 +92,7 @@ export default function Profile({id}) {
                                         </span>
                                         <Typography variant = "subtitle2" >
                                             <ul >
-                                                {userPlaceholder.can.map((item, i) => {
+                                                {user.can.map((item, i) => {
                                                     return(
                                                     <li key={i}>{item.name} ({item.hoursWork} hrs)</li>
                                                     )
@@ -137,12 +108,12 @@ export default function Profile({id}) {
                                 <Card>
                                     <CardContent>
                                         <span className="row">
-                                            <Typography className="col-10" variant="h6">Needs</Typography>
+                                            <Typography className="col-10" variant="h6">Needs (Items)</Typography>
                                             <Button className = "col-1" align="right"><EditIcon /></Button>
                                         </span>
                                         <Typography variant = "subtitle2" >
                                         <ul>
-                                            {userPlaceholder.needs.map((item, i) => {
+                                            {user.needsItems.map((item, i) => {
                                                 return(
                                                 <li key={i}>{item}</li>
                                                 )
