@@ -48,7 +48,7 @@ export default function Profile({id}) {
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
 
     id = 1 //replace this by passing it in as a path var?
-    const fetchUser = async () => {
+    const fetchUser = async (id) => {
         let response = await fetch("http://localhost:8080/users/" + id)
         let json = await response.json(); //not sure if this step is necessary, but it works. 
         setUser(json);
@@ -59,7 +59,7 @@ export default function Profile({id}) {
 
     useEffect(() => {
         try{
-            fetchUser()
+            fetchUser(2)
             console.log(user)
         } catch(err) {
             console.log(err)
@@ -156,7 +156,7 @@ export default function Profile({id}) {
                             <CreateItemForm />
                         </div>
                         <div className="profile-card">
-                            <Button onClick={showTaskFormButton}>Display Task Form</Button>
+                            <Button onClick={showTaskFormButton}>Create New Task</Button>
                             {displayTaskForm ? <CreateTaskForm /> : <div></div>}
                         </div>
                     </div>
