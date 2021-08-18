@@ -1,8 +1,6 @@
 package com.helpinghands.backendPrototype.Controllers;
 
-import com.helpinghands.backendPrototype.Data.ItemCategoryRepository;
 import com.helpinghands.backendPrototype.Data.TaskCategoryRepository;
-import com.helpinghands.backendPrototype.Models.ItemCategory;
 import com.helpinghands.backendPrototype.Models.TaskCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
