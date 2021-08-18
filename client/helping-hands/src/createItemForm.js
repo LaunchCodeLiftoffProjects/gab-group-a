@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import { TextField, Typography } from "@material-ui/core";
 import { Select } from "@material-ui/core";
@@ -82,7 +80,7 @@ export default function CreateItemForm() {
             <div>
                         <Card>
                             <CardContent>
-                                <Typography variant="h6">Create New Item</Typography>
+                                <Typography variant="subtitle1">New Item</Typography>
                                 <FormControl>
                                     <TextField
                                         id="name"
