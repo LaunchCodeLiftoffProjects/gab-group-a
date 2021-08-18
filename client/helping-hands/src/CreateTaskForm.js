@@ -90,8 +90,10 @@ export default function CreateTaskForm() {
                                     </TextField>
                                     <TextField
                                         id="description"
-                                        label="description"
+                                        label="Description"
                                         value={aDescription}
+                                        multiline
+                                        rows={4}
                                         onChange={handleDescriptionChange}
                                     >  
                                     </TextField>

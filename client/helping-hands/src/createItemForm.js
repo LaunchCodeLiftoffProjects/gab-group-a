@@ -91,8 +91,10 @@ export default function CreateItemForm() {
                                     </TextField>
                                     <TextField
                                         id="description"
-                                        label="description"
+                                        label="Description"
                                         value={aDescription}
+                                        multiline
+                                        rows={4}
                                         onChange={handleDescriptionChange}
                                     >  
                                     </TextField>
