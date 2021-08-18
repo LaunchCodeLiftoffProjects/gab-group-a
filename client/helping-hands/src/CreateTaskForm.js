@@ -10,6 +10,7 @@ import { FormControl } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
 
 export default function CreateTaskForm() {
     const [loaded, setLoaded] = useState(false);
@@ -105,9 +106,11 @@ export default function CreateTaskForm() {
                                 <br />
                                 <br />
                                 <FormControl>
+                                <InputLabel shrink id="category">Category</InputLabel>
                                     <Select
-                                        id="item-category"
+                                        labelId="category"
                                         onChange={handleTaskCategoryChange}
+                                        label="category"
                                     >
                                         {taskCategories.map((category, i) => {
                                             return (
@@ -123,7 +126,7 @@ export default function CreateTaskForm() {
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>{index ? taskCategories[index].description : <>Task Category</>}</FormHelperText>
+                                    <FormHelperText>{index ? taskCategories[index].description : <>Select a Category</>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>

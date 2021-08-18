@@ -8,6 +8,7 @@ import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
 import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
+import { InputLabel } from "@material-ui/core";
 
 export default function CreateItemForm() {
 
@@ -102,13 +103,15 @@ export default function CreateItemForm() {
                                 <br />
                                 <br />
                                 <FormControl>
+                                <InputLabel shrink id="category">Category</InputLabel>
                                     <Select
                                         id="item-category"
                                         onChange={handleItemCategoryChange}
                                     >
                                         {itemCategories.map((category, i) => {
                                             return (
-                                                <MenuItem 
+                                                <MenuItem
+                                                    labelId="category" 
                                                     key={category.id} 
                                                     value={category.id} 
                                                     name="Category"
@@ -120,7 +123,7 @@ export default function CreateItemForm() {
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>{index ? itemCategories[index].description : <>Item Category</>}</FormHelperText>
+                                    <FormHelperText>{index ? itemCategories[index].description : <>Select a Category</>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>
