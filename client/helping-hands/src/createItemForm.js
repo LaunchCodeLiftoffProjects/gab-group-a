@@ -4,40 +4,15 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import { TextField } from "@material-ui/core";
-import { InputLabel } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
-import { FormControlLabel } from "@material-ui/core";
 import axios from 'axios'
-import { makeStyles } from "@material-ui/core";
 import { FormHelperText } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  }));
-
 
 export default function CreateItemForm() {
 
-    const classes = useStyles();
-    // const [idObj, setIdObj] = useState({});
-    // const [values, setValues] = useState({
-    //     name: "",
-    //     description: "",
-    //     itemCategory: {}, //need to get this into format of itemCategory: {id: x}, maybe just make all of these separate state vars? 
-    //     usersWhoHave: [],
-    //     usersWhoNeed: [],
-    //     amtHave: 0,
-    //     amtNeed: 0
-    // });   
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
@@ -61,22 +36,6 @@ export default function CreateItemForm() {
             setError(err)
         }
     }
-
-    //When you call this method, you pass it the name of the value you want to change, and then it passes the event and the name to the setValues method
-    //and then the ...values destructures the array and [name]: event.target.value sets the key name to whatever the value of the target of the event (onChange) is. 
-    // const handleChange = name => event => {
-    //     setValues({ ...values, [name]: event.target.value })
-    //     console.log(values)
-    //     console.log(itemCategories)
-    // }
-
- 
-
-    //this is an extremely kludgey solution to the problem of trying to stick an {id: X} object on to the values object
-    // const handleClick = (event) => {
-    //     setIdObj({id:event.target.value})
-    //     console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
-    // }
 
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
