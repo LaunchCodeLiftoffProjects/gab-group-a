@@ -53,7 +53,7 @@ export default function CreateItemForm() {
     }
 
     const clickSubmit = () => {
-        let item = {
+        const item = {
             name: aName,
             description: aDescription,
             itemCategory: aItemCategory
@@ -66,7 +66,6 @@ export default function CreateItemForm() {
     useEffect(() => {
         fetchItemCategories();
         console.log(itemCategories)
-        // console.log(values)
     }, [])
 
     if (!loaded) {
@@ -86,16 +85,14 @@ export default function CreateItemForm() {
                                         label="Name"
                                         value={aName}
                                         onChange={handleNameChange}
-                                    >
-                                        
+                                    >   
                                     </TextField>
                                     <TextField
                                         id="description"
                                         label="description"
                                         value={aDescription}
                                         onChange={handleDescriptionChange}
-                                    >
-                                        
+                                    >  
                                     </TextField>
                                 </FormControl>
                                 <br />
@@ -123,6 +120,5 @@ export default function CreateItemForm() {
                 </Paper>
             </div>
         )
-    
     }
 }
