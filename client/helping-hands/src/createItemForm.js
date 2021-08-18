@@ -27,19 +27,24 @@ const useStyles = makeStyles((theme) => ({
 export default function CreateItemForm() {
 
     const classes = useStyles();
-    const [idObj, setIdObj] = useState({});
-    const [values, setValues] = useState({
-        name: "",
-        description: "",
-        itemCategory: {}, //need to get this into format of itemCategory: {id: x}, maybe just make all of these separate state vars? 
-        usersWhoHave: [],
-        usersWhoNeed: [],
-        amtHave: 0,
-        amtNeed: 0
-    });   
+    // const [idObj, setIdObj] = useState({});
+    // const [values, setValues] = useState({
+    //     name: "",
+    //     description: "",
+    //     itemCategory: {}, //need to get this into format of itemCategory: {id: x}, maybe just make all of these separate state vars? 
+    //     usersWhoHave: [],
+    //     usersWhoNeed: [],
+    //     amtHave: 0,
+    //     amtNeed: 0
+    // });   
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+
+       //try setting all values of item obj as individual state vars
+       const [aName, setAName] = useState("");
+       const [aDescription, setADescription] = useState();
+       const [aItemCategory, setAItemCategory] =useState();
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
@@ -58,22 +63,39 @@ export default function CreateItemForm() {
 
     //When you call this method, you pass it the name of the value you want to change, and then it passes the event and the name to the setValues method
     //and then the ...values destructures the array and [name]: event.target.value sets the key name to whatever the value of the target of the event (onChange) is. 
-    const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value })
-        console.log(values)
-        console.log(itemCategories)
-    }
+    // const handleChange = name => event => {
+    //     setValues({ ...values, [name]: event.target.value })
+    //     console.log(values)
+    //     console.log(itemCategories)
+    // }
+
+ 
 
     //this is an extremely kludgey solution to the problem of trying to stick an {id: X} object on to the values object
-    const handleClick = (event) => {
-        setIdObj({id:event.target.value})
-        console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
+    // const handleClick = (event) => {
+    //     setIdObj({id:event.target.value})
+    //     console.log(idObj) //This will work. Just have to set values.itemCategory = idObj in the clickSubmit handler
+    // }
+
+    const handleItemCategoryChange = event => {
+        setAItemCategory({id: event.target.value})
+        console.log(aItemCategory)
+    }
+
+    const handleNameChange = event => {
+        setAName(event.target.value)
+        console.log(aName)
+    }
+
+    const handleDescriptionChange = event => {
+        setADescription(event.target.value)
+        console.log(aDescription)
     }
 
     useEffect(() => {
         fetchItemCategories();
         console.log(itemCategories)
-        console.log(values)
+        // console.log(values)
     }, [])
 
     if (!loaded) {
@@ -91,16 +113,16 @@ export default function CreateItemForm() {
                                     <TextField
                                         id="name"
                                         label="Name"
-                                        value={values.name}
-                                        onChange={handleChange('name')}
+                                        value={aName}
+                                        onChange={handleNameChange}
                                     >
                                         
                                     </TextField>
                                     <TextField
                                         id="description"
                                         label="description"
-                                        value={values.description}
-                                        onChange={handleChange('description')}
+                                        value={aDescription}
+                                        onChange={handleDescriptionChange}
                                     >
                                         
                                     </TextField>
@@ -112,7 +134,7 @@ export default function CreateItemForm() {
                                         labelId="item-category-dropdown"
                                         id="item-category"
                                         // value={idObj}
-                                        onChange={handleClick}
+                                        onChange={handleItemCategoryChange}
                                     >
                                         {itemCategories.map((category) => {
                                             return (
