@@ -149,7 +149,10 @@ export default function Profile({id}) {
                             </CardActionArea>
                         </div>
                         <div className="profile-card">
-                            <CreateItemForm></CreateItemForm>
+                            <CreateItemForm />
+                        </div>
+                        <div className="profile-card">
+                            <CreateTaskForm />
                         </div>
                     </div>
                 </div>
