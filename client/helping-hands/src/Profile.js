@@ -8,6 +8,8 @@ import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import Avatar from '@material-ui/core/Avatar';
 import "./Profile.css";
+import CreateItemForm from "./CreateItemForm";
+import CreateTaskForm from "./CreateTaskForm";
 
 export default function Profile({id}) {
     const userPlaceholder = {
@@ -145,6 +147,9 @@ export default function Profile({id}) {
                                     </CardContent>
                                 </Card>
                             </CardActionArea>
+                        </div>
+                        <div className="profile-card">
+                            <CreateItemForm></CreateItemForm>
                         </div>
                     </div>
                 </div>
