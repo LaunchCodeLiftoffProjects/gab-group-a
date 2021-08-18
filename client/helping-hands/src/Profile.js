@@ -45,6 +45,7 @@ export default function Profile({id}) {
     const [user, setUser] = useState();
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
+    const [displayTaskForm, setDisplayTaskForm] = useState(false);
 
     id = 1 //replace this by passing it in as a path var?
     const fetchUser = async () => {
@@ -53,6 +54,8 @@ export default function Profile({id}) {
         setUser(json);
         setLoaded(true)
     }
+
+    const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
 
     useEffect(() => {
         try{
@@ -149,10 +152,12 @@ export default function Profile({id}) {
                             </CardActionArea>
                         </div>
                         <div className="profile-card">
+                            <Button >Display Form</Button>
                             <CreateItemForm />
                         </div>
                         <div className="profile-card">
-                            <CreateTaskForm />
+                            <Button onClick={showTaskFormButton}>Display Task Form</Button>
+                            {displayTaskForm ? <CreateTaskForm /> : <div></div>}
                         </div>
                     </div>
                 </div>
