@@ -41,6 +41,7 @@ export default function Profile({id}) {
             setError(err);
         }
     }, [])
+
     if(!loaded) {
         return <div>Loading . . .</div>
     } else if (error) {
@@ -50,48 +51,45 @@ export default function Profile({id}) {
             <div className="container profile-container">
                 <div className="row">
                     <div className="col-4" align="left">
-                        <CardActionArea>
-                            <Card>
-                                <CardContent>
-                                <div className="container">
-                                    <span className="row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
-                                    <span className="row"><br /><Typography variant="subtitle1">{user.location.name}</Typography></span>
-                                    <span className="row"><Typography variant="subtitle1">{user.email}</Typography></span>
-                                </div>
-                                </CardContent>
-                            </Card>
-                        </CardActionArea>
+                        <Card>
+                            <CardContent>
+                            <div className="container">
+                                <span className="row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
+                                <span className="row"><br /><Typography variant="subtitle1">{user.location.name}</Typography></span>
+                                <span className="row"><Typography variant="subtitle1">{user.email}</Typography></span>
+                            </div>
+                            </CardContent>
+                        </Card>
                     </div>
                     <div className="col-8" align="left">
                         <div className="profile-card">
-                            <CardActionArea>
-                                <Card >
-                                    <CardContent>
-                                        <span className="row">
-                                            <Typography className="col-10" variant="h6">Has</Typography>
-                                            <Button className = "col-1" align="right"><EditIcon /></Button>
-                                        </span>
-                                        <Typography variant = "subtitle2" >
-                                            <ul >
-                                                {user.has.map((item, i) => {
-                                                    return(
-                                                    <li key={i}>{item.name}</li>
-                                                    )
-                                                })}
-                                            </ul>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </CardActionArea>
+                            <Card >
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Has</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    <Typography variant = "subtitle2" >
+                                        <ul >
+                                            {user.has.map((item, i) => {
+                                                return(
+                                                <li key={i}>{item.name}</li>
+                                                )
+                                            })}
+                                        </ul>
+                                    </Typography>
+                                </CardContent>
+                            </Card> 
                         </div>
                         <div className="profile-card">
-                            <CardActionArea>
-                                <Card>
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Can</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    </CardContent>
                                     <CardContent>
-                                        <span className="row">
-                                            <Typography className="col-10" variant="h6">Can</Typography>
-                                            <Button className = "col-1" align="right"><EditIcon /></Button>
-                                        </span>
                                         <Typography variant = "subtitle2" >
                                             <ul >
                                                 {user.can.map((item, i) => {
@@ -101,19 +99,21 @@ export default function Profile({id}) {
                                                 })}
                                             </ul>
                                         </Typography>
-                                    </CardContent>
-                                </Card>
-                            </CardActionArea>
+                                    <div>
+                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
+                                        {displayTaskForm ? <CreateTaskForm /> : <div></div>}
+                                    </div>
+                                </CardContent>
+                            </Card>
                         </div>
                         <div className="profile-card">
-                            <CardActionArea>
-                                <Card>
-                                    <CardContent>
-                                        <span className="row">
-                                            <Typography className="col-10" variant="h6">Needs (Items)</Typography>
-                                            <Button className = "col-1" align="right"><EditIcon /></Button>
-                                        </span>
-                                        <Typography variant = "subtitle2" >
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Needs (Items)</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    <Typography variant = "subtitle2" >
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
@@ -121,18 +121,15 @@ export default function Profile({id}) {
                                                 )
                                             })}
                                         </ul>
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </CardActionArea>
-                        </div>
-                        <div className="profile-card">
-                            <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                            {displayItemForm ? <CreateItemForm /> : <div></div>}
-                        </div>
-                        <div className="profile-card">
-                            <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
-                            {displayTaskForm ? <CreateTaskForm /> : <div></div>}
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <div>
+                                        <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
+                                        {displayItemForm ? <CreateItemForm /> : <div></div>}
+                                    </div>
+                                </CardContent>
+                            </Card>
                         </div>
                     </div>
                 </div>
