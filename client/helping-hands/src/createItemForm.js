@@ -100,6 +100,7 @@ export default function CreateItemForm() {
             itemCategory: aItemCategory
         }
         console.log(item)
+        createItem(item);
 
     }
 
