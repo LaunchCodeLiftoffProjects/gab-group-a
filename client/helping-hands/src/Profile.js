@@ -66,7 +66,7 @@ export default function Profile({id}) {
                             <Card >
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Has</Typography>
+                                        <Typography className="col-10" variant="h6">Has to Share</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
@@ -85,7 +85,7 @@ export default function Profile({id}) {
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Can</Typography>
+                                        <Typography className="col-10" variant="h6">Can Help With</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     </CardContent>
@@ -110,7 +110,7 @@ export default function Profile({id}) {
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Needs (Items)</Typography>
+                                        <Typography className="col-10" variant="h6">Needs Some Help With (Items)</Typography>
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
