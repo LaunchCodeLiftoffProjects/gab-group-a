@@ -123,8 +123,7 @@ export default function CreateTaskForm() {
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>Task Category</FormHelperText>
-                                    <FormHelperText>{index ? taskCategories[index].description : <></>}</FormHelperText>
+                                    <FormHelperText>{index ? taskCategories[index].description : <>Task Category</>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>

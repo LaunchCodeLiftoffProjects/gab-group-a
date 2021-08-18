@@ -120,8 +120,7 @@ export default function CreateItemForm() {
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>Item Category</FormHelperText>
-                                    <FormHelperText>{index ? itemCategories[index].description : <></>}</FormHelperText>
+                                    <FormHelperText>{index ? itemCategories[index].description : <>Item Category</>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>
