@@ -21,6 +21,7 @@ export default function CreateItemForm() {
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] =useState();
+    const [index, setIndex] = useState();
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
@@ -50,6 +51,10 @@ export default function CreateItemForm() {
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
         console.log(aDescription)
+    }
+
+    const updateIndex = (event) => {
+        setIndex(event.target.id)
     }
 
     const clickSubmit = () => {
@@ -101,14 +106,22 @@ export default function CreateItemForm() {
                                         id="item-category"
                                         onChange={handleItemCategoryChange}
                                     >
-                                        {itemCategories.map((category) => {
+                                        {itemCategories.map((category, i) => {
                                             return (
-                                                <MenuItem key={category.id} value={category.id} name="Category">{category.name}</MenuItem>
+                                                <MenuItem 
+                                                    key={category.id} 
+                                                    value={category.id} 
+                                                    name="Category"
+                                                    id={i}
+                                                    onClick={updateIndex}
+                                                >
+                                                    {category.name}
+                                                </MenuItem>
                                             )
                                         })}
                                     </Select>
                                     <FormHelperText>Item Category</FormHelperText>
-                                    <FormHelperText>Description text</FormHelperText>
+                                    <FormHelperText>{index ? itemCategories[index].description : <></>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>

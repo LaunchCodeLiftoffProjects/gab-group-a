@@ -20,6 +20,7 @@ export default function CreateTaskForm() {
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aTaskCategory, setATaskCategory] =useState();
+    const [index, setIndex] = useState();
 
     const createTask = async task => {
         return await axios.post("http://localhost:8080/tasks", task);
@@ -44,6 +45,10 @@ export default function CreateTaskForm() {
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
         console.log(aDescription)
+    }
+
+    const updateIndex = (event) => {
+        setIndex(event.target.id)
     }
 
     const clickSubmit = () => {
@@ -97,14 +102,22 @@ export default function CreateTaskForm() {
                                         id="item-category"
                                         onChange={handleTaskCategoryChange}
                                     >
-                                        {taskCategories.map((category) => {
+                                        {taskCategories.map((category, i) => {
                                             return (
-                                                <MenuItem key={category.id} value={category.id} name="Category">{category.name}</MenuItem>
+                                                <MenuItem 
+                                                key={category.id} 
+                                                value={category.id} 
+                                                name="Category"
+                                                onClick={updateIndex}
+                                                id={i}
+                                                >
+                                                    {category.name}
+                                                </MenuItem>
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>Item Category</FormHelperText>
-                                    <FormHelperText>Description text</FormHelperText>
+                                    <FormHelperText>Task Category</FormHelperText>
+                                    <FormHelperText>{index ? taskCategories[index].description : <></>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>
