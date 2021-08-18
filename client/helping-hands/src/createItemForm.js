@@ -96,6 +96,7 @@ export default function CreateItemForm() {
                                     </TextField>
                                 </FormControl>
                                 <br />
+                                <br />
                                 <FormControl>
                                     <Select
                                         id="item-category"
