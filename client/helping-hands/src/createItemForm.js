@@ -93,6 +93,16 @@ export default function CreateItemForm() {
         console.log(aDescription)
     }
 
+    const clickSubmit = () => {
+        let item = {
+            name: aName,
+            description: aDescription,
+            itemCategory: aItemCategory
+        }
+        console.log(item)
+
+    }
+
     useEffect(() => {
         fetchItemCategories();
         console.log(itemCategories)
@@ -142,6 +152,10 @@ export default function CreateItemForm() {
                                     </Select>
                                     <FormHelperText>Item Category</FormHelperText>
                                     <FormHelperText>Description text</FormHelperText>
+                                </FormControl>
+                                <br />
+                                <FormControl>
+                                    <Button onClick={clickSubmit}>Submit</Button>
                                 </FormControl>
                             </CardContent>
                         </Card>
