@@ -72,7 +72,6 @@ export default function CreateTaskForm() {
         return(
             <div>
                 <Paper>
-                    <CardActionArea>
                         <Card>
                             <CardContent>
                                 <FormControl>
@@ -113,7 +112,6 @@ export default function CreateTaskForm() {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                    </CardActionArea>
                 </Paper>
             </div>
         )

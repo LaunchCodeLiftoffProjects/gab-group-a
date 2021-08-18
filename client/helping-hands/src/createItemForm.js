@@ -76,7 +76,6 @@ export default function CreateItemForm() {
         return(
             <div>
                 <Paper>
-                    <CardActionArea>
                         <Card>
                             <CardContent>
                                 <FormControl>
@@ -117,7 +116,6 @@ export default function CreateItemForm() {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                    </CardActionArea>
                 </Paper>
             </div>
         )
