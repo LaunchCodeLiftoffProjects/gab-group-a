@@ -6,6 +6,8 @@ import com.helpinghands.backendPrototype.Models.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static com.helpinghands.backendPrototype.Data.LocationRepository.*;
+
 
 @RestController
     public class LocationController {
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
         @CrossOrigin
         @GetMapping("/location")
         public Iterable<Location> allLocation() {
-            return LocationRepository.findAll();
+            return LocationRepository.findAll("");
         }
 
         @CrossOrigin

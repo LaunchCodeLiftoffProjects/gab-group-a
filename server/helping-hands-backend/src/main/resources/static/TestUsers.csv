@@ -1,2 +1,2 @@
-id, description, name, location_id
-1,'Devious doctor','Dr. Frankenfurter',2
+id, description, name, location_id, location_name
+1,'Devious doctor','Dr. Frankenfurter',2 , 'Tower Grove South'
