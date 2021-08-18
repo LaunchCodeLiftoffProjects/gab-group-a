@@ -17,10 +17,10 @@ export default function CreateItemForm() {
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
 
-       //try setting all values of item obj as individual state vars
-       const [aName, setAName] = useState("");
-       const [aDescription, setADescription] = useState();
-       const [aItemCategory, setAItemCategory] =useState();
+    //try setting all values of item obj as individual state vars
+    const [aName, setAName] = useState();
+    const [aDescription, setADescription] = useState();
+    const [aItemCategory, setAItemCategory] =useState();
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
