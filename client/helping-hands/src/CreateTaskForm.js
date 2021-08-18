@@ -27,9 +27,13 @@ export default function CreateTaskForm() {
     }
 
     const fetchTaskCategories = async () => {
-        let response = await fetch("http://localhost:8080/task-categories")
-        setTaskCategories(await response.json())
-        setLoaded(true)
+        try{
+            let response = await fetch("http://localhost:8080/task-categories");
+            setTaskCategories(await response.json());
+            setLoaded(true);
+        } catch(err) {
+            setError(err);
+        }
     }
 
     const handleTaskCategoryChange = event => {
