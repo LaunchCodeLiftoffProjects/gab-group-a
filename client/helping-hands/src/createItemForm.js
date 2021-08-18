@@ -12,6 +12,7 @@ import { FormControl } from "@material-ui/core";
 import { FormControlLabel } from "@material-ui/core";
 import axios from 'axios'
 import { makeStyles } from "@material-ui/core";
+import { FormHelperText } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -129,11 +130,8 @@ export default function CreateItemForm() {
                                 </FormControl>
                                 <br />
                                 <FormControl>
-                                    <InputLabel id="item-category-dropdown">Item Category</InputLabel>
                                     <Select
-                                        labelId="item-category-dropdown"
                                         id="item-category"
-                                        // value={idObj}
                                         onChange={handleItemCategoryChange}
                                     >
                                         {itemCategories.map((category) => {
@@ -142,6 +140,8 @@ export default function CreateItemForm() {
                                             )
                                         })}
                                     </Select>
+                                    <FormHelperText>Item Category</FormHelperText>
+                                    <FormHelperText>Description text</FormHelperText>
                                 </FormControl>
                             </CardContent>
                         </Card>
