@@ -1,4 +1,5 @@
 package com.helpinghands.backendPrototype.Models;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.sun.istack.NotNull;
 
@@ -8,6 +9,8 @@ import java.util.Objects;
 
 @Entity
 public class User extends AbstractEntity {
+
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @ManyToOne
     private Location location;
@@ -27,11 +30,15 @@ public class User extends AbstractEntity {
     @NotNull
     private String email;
 
+    @NotNull
+    private String pwHash;
+
     public User() {}
 
-    public User(Location location, String email) {
+    public User(Location location, String email, String password) {
         this.location = location;
         this.email = email;
+        this.pwHash = encoder.encode(password);
     }
 
     public Location getLocation() {
@@ -80,6 +87,10 @@ public class User extends AbstractEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isMatchingPassword(String password) {
+        return encoder.matches(password, pwHash);
     }
 
     @Override
