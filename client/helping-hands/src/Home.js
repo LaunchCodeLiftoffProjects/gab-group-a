@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CachedIcon from '@material-ui/icons/Cached';
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const [error, setError] = useState();
@@ -46,7 +47,7 @@ else {
                         <CardActionArea >
                             <Card variant="outlined" className="card" >
                                 <CardContent>
-                                    <Typography variant="h3" align="left">{user.name}</Typography>
+                                    <Link to={"/profile/" + user.id}><Typography variant="h3" align="left">{user.name}</Typography></Link>
                                     <Typography variant="subtitle1" align="left">
                                         <ul>
                                             <li>Location: {user.location.name}</li>

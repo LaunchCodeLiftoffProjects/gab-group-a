@@ -1,51 +1,45 @@
 import React, { useState, useEffect } from "react";
+import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
-import { TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 
-export default function CreateItemForm({userId}) {
-
-    const [loaded, setLoaded] = useState();
+export default function CreateTaskForm() {
+    const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(); 
-    const [itemCategories, setItemCategories] = useState();
+    const [taskCategories, setTaskCategories] = useState();
 
-    //try setting all values of item obj as individual state vars
+    //Values to build Task obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
-    const [aItemCategory, setAItemCategory] =useState();
+    const [aTaskCategory, setATaskCategory] =useState();
     const [index, setIndex] = useState();
 
-    const createItem = async (item) => {
-        const response = await axios.post("http://localhost:8080/items", item)
-        return response
+    const createTask = async task => {
+        return await axios.post("http://localhost:8080/tasks", task);
     }
 
-    const addToNeedsItems = async (itemName, id) => {
-        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/", itemName)
-        return response
-    }
-
-    const fetchItemCategories = async () => {
-        try{    
-            let response = await fetch("http://localhost:8080/item-categories");
-            setItemCategories(await response.json());
-            console.log(itemCategories)
-            setLoaded(true)
+    const fetchTaskCategories = async () => {
+        try{
+            let response = await fetch("http://localhost:8080/task-categories");
+            setTaskCategories(await response.json());
+            setLoaded(true);
         } catch(err) {
-            setError(err)
+            setError(err);
         }
     }
 
-    const handleItemCategoryChange = event => {
-        setAItemCategory({id: event.target.value})
-        console.log(aItemCategory)
+    const handleTaskCategoryChange = event => {
+        setATaskCategory({id: event.target.value})
+        console.log(aTaskCategory)
     }
 
     const handleNameChange = event => {
@@ -63,19 +57,21 @@ export default function CreateItemForm({userId}) {
     }
 
     const clickSubmit = () => {
-        const item = {
+        const task = {
             name: aName,
             description: aDescription,
-            itemCategory: aItemCategory
-        }
-        console.log(item)
-        createItem(item).then(addToNeedsItems(item.name, userId))
-
+            taskCategory: aTaskCategory
+        };
+        console.log(task);
+        createTask(task);
     }
 
     useEffect(() => {
-        fetchItemCategories();
-        console.log(itemCategories)
+        try{
+            fetchTaskCategories();
+        } catch(err) {
+            setError(err)
+        }
     }, [])
 
     if (!loaded) {
@@ -85,9 +81,10 @@ export default function CreateItemForm({userId}) {
     } else {
         return(
             <div>
+                <Paper>
                         <Card>
                             <CardContent>
-                                <Typography variant="subtitle1">New Item</Typography>
+                                <Typography variant="subtitle1">New task</Typography>
                                 <FormControl>
                                     <TextField
                                         id="name"
@@ -111,25 +108,25 @@ export default function CreateItemForm({userId}) {
                                 <FormControl>
                                 <InputLabel shrink id="category">Category</InputLabel>
                                     <Select
-                                        id="item-category"
-                                        onChange={handleItemCategoryChange}
+                                        labelId="category"
+                                        onChange={handleTaskCategoryChange}
+                                        label="category"
                                     >
-                                        {itemCategories.map((category, i) => {
+                                        {taskCategories.map((category, i) => {
                                             return (
-                                                <MenuItem
-                                                    labelId="category" 
-                                                    key={category.id} 
-                                                    value={category.id} 
-                                                    name="Category"
-                                                    id={i}
-                                                    onClick={updateIndex}
+                                                <MenuItem 
+                                                key={category.id} 
+                                                value={category.id} 
+                                                name="Category"
+                                                onClick={updateIndex}
+                                                id={i}
                                                 >
                                                     {category.name}
                                                 </MenuItem>
                                             )
                                         })}
                                     </Select>
-                                    <FormHelperText>{index ? itemCategories[index].description : <>Select a Category</>}</FormHelperText>
+                                    <FormHelperText>{index ? taskCategories[index].description : <>Select a Category</>}</FormHelperText>
                                 </FormControl>
                                 <br />
                                 <FormControl>
@@ -137,7 +134,9 @@ export default function CreateItemForm({userId}) {
                                 </FormControl>
                             </CardContent>
                         </Card>
+                </Paper>
             </div>
         )
     }
 }
+
