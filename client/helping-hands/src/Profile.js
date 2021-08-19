@@ -125,7 +125,7 @@ export default function Profile({match}) {
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm /> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm userId={user.id}/> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>

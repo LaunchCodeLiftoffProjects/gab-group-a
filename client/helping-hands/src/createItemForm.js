@@ -10,7 +10,7 @@ import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 
-export default function CreateItemForm() {
+export default function CreateItemForm({userId}) {
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
@@ -24,6 +24,10 @@ export default function CreateItemForm() {
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
+    }
+
+    const addToNeedsItems = async (itemName, id) => {
+        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/" + itemName)
     }
 
     const fetchItemCategories = async () => {
@@ -63,7 +67,8 @@ export default function CreateItemForm() {
             itemCategory: aItemCategory
         }
         console.log(item)
-        createItem(item);
+        createItem(item)
+        addToNeedsItems(item.name, userId)  
 
     }
 
