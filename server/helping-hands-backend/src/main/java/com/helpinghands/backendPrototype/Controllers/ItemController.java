@@ -16,7 +16,11 @@ public class ItemController {
     @CrossOrigin
     @GetMapping("/items")
     public Iterable<Item> allItems() {
-        return itemRepository.findAll();
+        Iterable<Item> items = itemRepository.findAll();
+        for (Item item : items) {
+            item.getItemCategory().setItems(new ArrayList<>());
+        }
+        return items;
     }
 
     @CrossOrigin
