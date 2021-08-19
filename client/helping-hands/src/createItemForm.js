@@ -24,10 +24,12 @@ export default function CreateItemForm({userId}) {
 
     const createItem = async (item) => {
         const response = await axios.post("http://localhost:8080/items", item)
+        return response
     }
 
     const addToNeedsItems = async (itemName, id) => {
-        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/" + itemName)
+        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/", itemName)
+        return response
     }
 
     const fetchItemCategories = async () => {
@@ -67,8 +69,7 @@ export default function CreateItemForm({userId}) {
             itemCategory: aItemCategory
         }
         console.log(item)
-        createItem(item)
-        addToNeedsItems(item.name, userId)  
+        createItem(item).then(addToNeedsItems(item.name, userId))
 
     }
 

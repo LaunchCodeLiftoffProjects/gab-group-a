@@ -58,7 +58,7 @@ public class UserController {
             return userRepository.save(user);
         }).orElseGet(()-> {
             updatedUser.setId(id);
-            return userRepository.save(updatedUser);
+            return userRepository.save(updatedUser); //could try updating all arrays here and pulling user objec by id into frontend
         });
     }
 
@@ -69,8 +69,8 @@ public class UserController {
     }
 
     @CrossOrigin
-    @PutMapping("/users/{id}/add-needs-item/{itemName}")
-    void addNeedsItem(@PathVariable Long id, @PathVariable String itemName) { //this needs work
+    @PostMapping("/users/{id}/add-needs-item/")
+    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work
         User user = userRepository.findById(id).orElseThrow();
         Item item = itemRepository.findByName(itemName);
         user.addToNeedsItems(item);
