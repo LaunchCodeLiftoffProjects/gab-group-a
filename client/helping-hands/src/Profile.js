@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
-import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -13,7 +12,7 @@ import CreateTaskForm from "./CreateTaskForm";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 
-export default function Profile({id}) {
+export default function Profile({match}) {
 
     const [user, setUser] = useState();
     const [loaded, setLoaded] = useState(false);
@@ -21,9 +20,9 @@ export default function Profile({id}) {
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
     const [displayItemForm, setDisplayItemForm] = useState(false);
 
-    id = 1 //replace this by passing it in as a path var?
-    const fetchUser = async (id) => {
-        let response = await fetch("http://localhost:8080/users/" + id)
+    // id = 1 //replace this by passing it in as a path var?
+    const fetchUser = async (userId) => {
+        let response = await fetch("http://localhost:8080/users/" + userId)
         let json = await response.json(); //not sure if this step is necessary, but it works. 
         setUser(json);
         setLoaded(true)
@@ -34,7 +33,7 @@ export default function Profile({id}) {
 
     useEffect(() => {
         try{
-            fetchUser(2)
+            fetchUser(match.params.id)
             console.log(user)
         } catch(err) {
             console.log(err)

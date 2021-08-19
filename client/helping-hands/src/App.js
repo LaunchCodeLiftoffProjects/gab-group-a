@@ -11,9 +11,7 @@ function App() {
         <Route exact path="/" >
           <Home />
         </Route>
-        <Route path="/profile" >
-          <Profile />
-        </Route>
+        <Route path="/profile/:id" component={Profile} />
         <Route path="/create-item" >
           <CreateItemForm />
         </Route>
