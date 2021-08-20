@@ -30,6 +30,7 @@ export default function CreateItemForm({userId}) {
     const addToNeedsItems = async (itemName, id) => {
         const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/", itemName)
         return response
+        //need to bring in the user obj and the item obj here, add the item to the array and then send back to save the updated user. 
     }
 
     const fetchItemCategories = async () => {
