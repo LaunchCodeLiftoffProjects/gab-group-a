@@ -5,6 +5,8 @@ import com.helpinghands.backendPrototype.Models.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 
 @RestController
 public class TaskController {
@@ -14,7 +16,11 @@ public class TaskController {
     @CrossOrigin
     @GetMapping("/tasks")
     public Iterable<Task> allTasks() {
-        return taskRepository.findAll();
+        Iterable<Task> tasks = taskRepository.findAll();
+        for (Task task : tasks) {
+            task.getTaskCategory().setTasks(new ArrayList<>());
+        }
+        return tasks;
     }
 
     @CrossOrigin

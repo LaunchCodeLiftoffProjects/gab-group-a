@@ -35,6 +35,12 @@ public class User extends AbstractEntity {
 
     public User() {}
 
+    // Constructor for registration processing in authentication controller
+    public User(String name, String password){
+        this.name = name;
+        this.pwHash = encoder.encode(password);
+    }
+
     public User(Location location, String email, String password) {
         this.location = location;
         this.email = email;
@@ -92,6 +98,24 @@ public class User extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
+    public void addToNeedsItems(Item item) {
+        this.needsItems.add(item);
+    }
+
+    public void addToNeedsTasks(Task task) {
+        this.needsTasks.add(task);
+    }
+
+    public void addToHas(Item item) {
+        this.has.add(item);
+    }
+
+    public void addToCan(Task task) {
+        this.can.add(task);
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

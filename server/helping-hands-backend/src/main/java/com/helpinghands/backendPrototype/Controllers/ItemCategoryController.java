@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 public class ItemCategoryController {
     @Autowired
@@ -16,7 +18,11 @@ public class ItemCategoryController {
     @GetMapping("/item-categories")
     @CrossOrigin
     Iterable<ItemCategory> all() {
-        return itemCategoryRepository.findAll();
+        Iterable<ItemCategory> itemCategories = itemCategoryRepository.findAll();
+        for (ItemCategory category : itemCategories) {
+            category.setItems(new ArrayList<>());
+        }
+        return itemCategories;
     }
 
     @GetMapping("item-categories/{id}")
