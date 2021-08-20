@@ -4,6 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,16 +17,16 @@ public class User extends AbstractEntity {
     private Location location;
 
     @ManyToMany
-    private List<Item> has;
+    private List<Item> has = new ArrayList<>();
 
     @ManyToMany
-    private List<Item> needsItems;
+    private List<Item> needsItems = new ArrayList<>();
 
     @ManyToMany
-    private List<Task> can;
+    private List<Task> can = new ArrayList<>();
 
     @ManyToMany
-    private List<Task> needsTasks;
+    private List<Task> needsTasks = new ArrayList<>();
 
     @NotNull
     private String email;
