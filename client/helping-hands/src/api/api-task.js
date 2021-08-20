@@ -39,12 +39,12 @@ const updateTask = async (task) => {
     }
 }
 
-const deleteItem = async (id) => {
+const deleteTask = async (id) => {
     try {
-        let response = await axios.delete("http://localhost:8080/items/" + id)
+        let response = await axios.delete("http://localhost:8080/tasks/" + id)
     } catch(err) {
         console.log(err)
     }
 }
 
-export {createItem, listItems, updateItem, oneItem, deleteItem}
+export {createTask, listTasks, updateTask, oneTask, deleteTask}
