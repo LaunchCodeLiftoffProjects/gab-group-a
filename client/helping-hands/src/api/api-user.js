@@ -46,3 +46,5 @@ const deleteUser = async (id) => {
         console.log(err)
     }
 }
+
+export {createUser, listUsers, updateUser, oneUser, deleteUser}
