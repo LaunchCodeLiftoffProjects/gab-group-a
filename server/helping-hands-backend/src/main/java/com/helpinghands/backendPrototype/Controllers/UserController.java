@@ -70,10 +70,10 @@ public class UserController {
 
     @CrossOrigin
     @PostMapping("/users/{id}/add-needs-item/")
-    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work
+    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work maybe make itemName @requestParam
         User user = userRepository.findById(id).orElseThrow();
         Item item = itemRepository.findByName(itemName);
-        user.addToNeedsItems(item);
+        user.getNeedsItems().add(item);
     }
 
 }

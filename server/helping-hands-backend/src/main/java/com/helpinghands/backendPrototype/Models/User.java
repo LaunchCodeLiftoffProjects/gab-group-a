@@ -100,21 +100,21 @@ public class User extends AbstractEntity {
         return encoder.matches(password, pwHash);
     }
 
-    public void addToNeedsItems(Item item) {
-        this.needsItems.add(item);
-    }
-
-    public void addToNeedsTasks(Task task) {
-        this.needsTasks.add(task);
-    }
-
-    public void addToHas(Item item) {
-        this.has.add(item);
-    }
-
-    public void addToCan(Task task) {
-        this.can.add(task);
-    }
+//    public void addToNeedsItems(Item item) {
+//        this.needsItems.add(item);
+//    }
+//
+//    public void addToNeedsTasks(Task task) {
+//        this.needsTasks.add(task);
+//    }
+//
+//    public void addToHas(Item item) {
+//        this.has.add(item);
+//    }
+//
+//    public void addToCan(Task task) {
+//        this.can.add(task);
+//    }
 
 
 
