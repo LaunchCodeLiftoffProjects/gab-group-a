@@ -55,6 +55,11 @@ public class UserController {
         return userRepository.findById(id).map( user -> {
             user.setName(updatedUser.getName());
             user.setLocation(updatedUser.getLocation());
+            user.setCan(updatedUser.getCan());
+            user.setHas(updatedUser.getHas());
+            user.setEmail(updatedUser.getEmail());
+            user.setDescription(updatedUser.getDescription());
+            
             return userRepository.save(user);
         }).orElseGet(()-> {
             updatedUser.setId(id);
