@@ -59,7 +59,7 @@ public class UserController {
             user.setHas(updatedUser.getHas());
             user.setEmail(updatedUser.getEmail());
             user.setDescription(updatedUser.getDescription());
-            
+
             return userRepository.save(user);
         }).orElseGet(()-> {
             updatedUser.setId(id);
@@ -73,12 +73,12 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    @CrossOrigin
-    @PostMapping("/users/{id}/add-needs-item/")
-    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work maybe make itemName @requestParam
-        User user = userRepository.findById(id).orElseThrow();
-        Item item = itemRepository.findByName(itemName);
-        user.getNeedsItems().add(item);
-    }
+//    @CrossOrigin
+//    @PostMapping("/users/{id}/add-needs-item/")
+//    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work maybe make itemName @requestParam
+//        User user = userRepository.findById(id).orElseThrow();
+//        Item item = itemRepository.findByName(itemName);
+//        user.getNeedsItems().add(item);
+//    }
 
 }

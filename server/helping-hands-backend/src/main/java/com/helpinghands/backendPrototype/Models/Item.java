@@ -10,7 +10,7 @@ import java.util.List;
 public class Item extends AbstractEntity {
 
     @ManyToOne
-    @NotNull
+//    @NotNull
     private ItemCategory itemCategory;
 
     @ManyToMany(mappedBy = "has")
@@ -26,9 +26,9 @@ public class Item extends AbstractEntity {
 
     public Item() {}
 
-    public Item(ItemCategory itemCategory) {
-        this.itemCategory = itemCategory;
-    }
+//    public Item(ItemCategory itemCategory) {
+//        this.itemCategory = itemCategory;
+//    }
 
     public ItemCategory getItemCategory() {
         return itemCategory;

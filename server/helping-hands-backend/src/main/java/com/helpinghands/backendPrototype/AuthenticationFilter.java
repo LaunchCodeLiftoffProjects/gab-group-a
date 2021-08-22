@@ -23,7 +23,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     AuthenticationController authenticationController;
 
     // List of pages that may be accessed by any user.
-    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/task", "/user", "/item", "/item-categories", "/task-categories");
+    private static final List<String> whitelist = Arrays.asList("/login", "/register", "/logout", "/tasks", "/users", "/items", "/item-categories", "/task-categories");
 
     // Checks Whether or not a given request is whitelisted.
     private static boolean isWhitelisted(String path) {

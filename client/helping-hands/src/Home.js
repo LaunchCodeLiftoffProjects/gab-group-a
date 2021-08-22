@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CachedIcon from '@material-ui/icons/Cached';
 import { Link } from "react-router-dom";
+import { listUsers } from "./api/api-user";
 
 export default function Home() {
     const [error, setError] = useState();

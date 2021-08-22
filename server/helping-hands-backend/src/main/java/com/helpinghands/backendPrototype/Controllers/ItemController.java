@@ -7,11 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
+
+//    public ItemController() {}
+
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     @CrossOrigin
     @GetMapping("/items")
@@ -19,8 +26,14 @@ public class ItemController {
         Iterable<Item> items = itemRepository.findAll();
         for (Item item : items) {
             item.getItemCategory().setItems(new ArrayList<>());
-        }
+        } //why is this suddenly not working?
         return items;
+    }
+
+    @CrossOrigin
+    @GetMapping("/items/{name}")
+    public Item findByName(@PathVariable String name) {
+        return itemRepository.findByName(name);
     }
 
     @CrossOrigin
