@@ -31,7 +31,7 @@ public class ItemController {
     }
 
     @CrossOrigin
-    @GetMapping("/items/by-name/{name}") //this returns an array of all items with that name. Not what I need. 
+    @GetMapping("/items/by-name/{name}") //this returns an array of all items with that name. Not what I need.
     public Iterable<Item> findByName(@PathVariable String name) {
         Iterable<Item> items = itemRepository.findByName(name);
         for (Item item : items) {

@@ -10,11 +10,12 @@ import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 
-export default function CreateItemForm({userId}) {
+export default function CreateItemForm({user}) {
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    
 
     //try setting all values of item obj as individual state vars
     const [aName, setAName] = useState();
@@ -27,10 +28,9 @@ export default function CreateItemForm({userId}) {
         return response
     }
 
-    const addToNeedsItems = async (itemName, id) => {
-        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/", itemName)
-        return response
-        //need to bring in the user obj and the item obj here, add the item to the array and then send back to save the updated user. 
+    const updateUser = async (user) => {
+        const response = await axios.put("http://localhost:8080/users/" + user.id, user)
+        return response.data
     }
 
     const fetchItemCategories = async () => {
@@ -63,14 +63,20 @@ export default function CreateItemForm({userId}) {
         setIndex(event.target.id)
     }
 
-    const clickSubmit = () => {
+    const clickSubmit = async () => {
         const item = {
             name: aName,
             description: aDescription,
             itemCategory: aItemCategory
         }
         console.log(item)
-        createItem(item).then(addToNeedsItems(item.name, userId))
+        let savedItem = await createItem(item);
+        savedItem = savedItem.data
+        console.log(savedItem);
+        
+        user.needsItems.push(savedItem)
+        user = await updateUser(user)
+        console.log(user)
 
     }
 
