@@ -73,12 +73,13 @@ export default function CreateItemForm({user}) {
         console.log(item)
         let savedItem = await createItem(item);
         savedItem = savedItem.data
+        savedItem.itemCategory.items=[] //should fix infinite nesting problem. 
         console.log(savedItem);
         
         user.needsItems.push(savedItem)
         console.log(user)
         user = await updateUser(user)
-
+        
         console.log(user)
 
     }

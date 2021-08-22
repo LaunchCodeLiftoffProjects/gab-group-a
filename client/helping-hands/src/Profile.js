@@ -116,7 +116,7 @@ export default function Profile({match}) {
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i}>{item}</li>
+                                                <li key={i}>{item.name}</li>
                                                 )
                                             })}
                                         </ul>
