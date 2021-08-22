@@ -57,6 +57,8 @@ public class UserController {
             user.setLocation(updatedUser.getLocation());
             user.setCan(updatedUser.getCan());
             user.setHas(updatedUser.getHas());
+            user.setNeedsItems(updatedUser.getNeedsItems());
+            user.setNeedsTasks(updatedUser.getNeedsTasks());
             user.setEmail(updatedUser.getEmail());
             user.setDescription(updatedUser.getDescription());
 

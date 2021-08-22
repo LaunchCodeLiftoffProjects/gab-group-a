@@ -15,6 +15,7 @@ export default function CreateItemForm({user}) {
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    const [aUser, setAUser] = useState(user); //need to find a way to elevate this back up to profile somehow. 
     
 
     //try setting all values of item obj as individual state vars
@@ -75,7 +76,9 @@ export default function CreateItemForm({user}) {
         console.log(savedItem);
         
         user.needsItems.push(savedItem)
+        console.log(user)
         user = await updateUser(user)
+
         console.log(user)
 
     }
