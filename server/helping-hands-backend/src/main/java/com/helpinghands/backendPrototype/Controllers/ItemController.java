@@ -26,14 +26,18 @@ public class ItemController {
         Iterable<Item> items = itemRepository.findAll();
         for (Item item : items) {
             item.getItemCategory().setItems(new ArrayList<>());
-        } //why is this suddenly not working?
+        } //This breaks if there's a null row in the Item table. Watch out for that.
         return items;
     }
 
     @CrossOrigin
-    @GetMapping("/items/{name}")
-    public Item findByName(@PathVariable String name) {
-        return itemRepository.findByName(name);
+    @GetMapping("/items/by-name/{name}") //this returns an array of all items with that name. Not what I need. 
+    public Iterable<Item> findByName(@PathVariable String name) {
+        Iterable<Item> items = itemRepository.findByName(name);
+        for (Item item : items) {
+            item.getItemCategory().setItems(new ArrayList<>());
+        }
+        return items;
     }
 
     @CrossOrigin
