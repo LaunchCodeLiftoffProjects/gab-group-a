@@ -31,6 +31,11 @@ public class UserController {
         //this solves the infinite nesting problem, but will be slow as the db grows.
         for (User user : users) {
             user.getLocation().setUsers(new ArrayList<>());
+            for(Item item : user.getNeedsItems()){
+                item.getItemCategory().setItems(new ArrayList<>());
+                item.setUsersWhoHave(new ArrayList<>());
+                item.setUsersWhoNeed(new ArrayList<>());
+            }
         }
         return users;
     }
@@ -46,6 +51,12 @@ public class UserController {
     User one(@PathVariable Long id) {
         User user = userRepository.findById(id).orElseThrow();
         user.getLocation().setUsers(new ArrayList<>());
+        for(Item item : user.getNeedsItems()){
+            item.getItemCategory().setItems(new ArrayList<>());
+            item.setUsersWhoHave(new ArrayList<>());
+            item.setUsersWhoNeed(new ArrayList<>());
+        } //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
+//        user.get
         return user; //TODO create a UserNotFound exception to throw here.
     }
 

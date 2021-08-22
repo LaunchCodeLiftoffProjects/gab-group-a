@@ -77,8 +77,8 @@ export default function CreateItemForm({user}) {
         console.log(savedItem);
         
         user.needsItems.push(savedItem)
-        console.log(user)
-        user = await updateUser(user)
+        // console.log(user)
+        updateUser(user)
         
         console.log(user)
 

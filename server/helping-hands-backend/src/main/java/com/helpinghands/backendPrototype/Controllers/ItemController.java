@@ -43,7 +43,9 @@ public class ItemController {
     @CrossOrigin
     @PostMapping("/items")
     Item newItem(@RequestBody Item newItem) {
-        return itemRepository.save(newItem);
+        Item item = itemRepository.save(newItem);
+        item.getItemCategory().setItems(new ArrayList<>()); //sanitize the arraylist so it doesn't nest forever. Necessary? idk.
+        return item;
     }
 
     @CrossOrigin
