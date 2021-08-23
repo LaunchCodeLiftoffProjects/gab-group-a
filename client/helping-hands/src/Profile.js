@@ -33,7 +33,7 @@ export default function Profile({match}) {
             console.log(err)
             setError(err);
         }
-    }, [])
+    }, [user])
 
     if(!loaded) {
         return <div>Loading . . .</div>
