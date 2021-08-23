@@ -70,7 +70,7 @@ export default function Register() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            Register
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
