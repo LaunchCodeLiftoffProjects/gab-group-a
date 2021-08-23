@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css"
+import "./Home.css";
 import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
