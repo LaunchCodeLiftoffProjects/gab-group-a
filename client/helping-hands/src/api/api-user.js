@@ -3,7 +3,7 @@ import axios from "axios";
 const createUser = async (user) => {
     try{
         let response = await axios.post("http://localhost:8080/users", user);
-        return await response.json();
+        return response;
     } catch(err) {
         console.log(err)
         return err //this may/may not work?
@@ -33,7 +33,7 @@ const oneUser = async (id) => {
 const updateUser = async (user) => {
     try {
         let response = await axios.put("http://localhost:8080/users/" + user.id, user)
-        return response.json();
+        return response;
     } catch(err) {
         console.log(err)
     }
