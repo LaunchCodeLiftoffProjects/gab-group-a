@@ -9,39 +9,21 @@ import { FormControl } from "@material-ui/core";
 import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
+import { listItemCategories } from "./api/api-item-categories";
+import { createItem } from "./api/api-item";
+import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({userId}) {
+export default function CreateItemForm({user, displayForm}) {
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
 
-    //try setting all values of item obj as individual state vars
+    //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] =useState();
     const [index, setIndex] = useState();
-
-    const createItem = async (item) => {
-        const response = await axios.post("http://localhost:8080/items", item)
-        return response
-    }
-
-    const addToNeedsItems = async (itemName, id) => {
-        const response = await axios.post("http://localhost:8080/users/" + id + "/add-needs-item/", itemName)
-        return response
-    }
-
-    const fetchItemCategories = async () => {
-        try{    
-            let response = await fetch("http://localhost:8080/item-categories");
-            setItemCategories(await response.json());
-            console.log(itemCategories)
-            setLoaded(true)
-        } catch(err) {
-            setError(err)
-        }
-    }
 
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
@@ -62,20 +44,26 @@ export default function CreateItemForm({userId}) {
         setIndex(event.target.id)
     }
 
-    const clickSubmit = () => {
+    const clickSubmit = async () => {
         const item = {
             name: aName,
             description: aDescription,
             itemCategory: aItemCategory
         }
-        console.log(item)
-        createItem(item).then(addToNeedsItems(item.name, userId))
-
+        let savedItem = await createItem(item);
+        savedItem = savedItem.data
+        user.needsItems.push(savedItem)
+        updateUser(user)
+        // displayForm = displayForm => !displayForm;
     }
 
-    useEffect(() => {
-        fetchItemCategories();
-        console.log(itemCategories)
+    useEffect(async () => {
+        try {
+            setItemCategories(await listItemCategories())
+            setLoaded(true)
+        } catch(err) {
+            setError(err)
+        }
     }, [])
 
     if (!loaded) {
@@ -116,8 +104,7 @@ export default function CreateItemForm({userId}) {
                                     >
                                         {itemCategories.map((category, i) => {
                                             return (
-                                                <MenuItem
-                                                    labelId="category" 
+                                                <MenuItem 
                                                     key={category.id} 
                                                     value={category.id} 
                                                     name="Category"

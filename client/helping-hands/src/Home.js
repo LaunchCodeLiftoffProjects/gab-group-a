@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css"
+import "./Home.css";
 import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -7,25 +7,20 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CachedIcon from '@material-ui/icons/Cached';
 import { Link } from "react-router-dom";
+import { listUsers } from "./api/api-user";
 
 export default function Home() {
     const [error, setError] = useState();
     const [usersArray, setUsersArray] = useState([]);
     const [usersArrayIsLoaded, setUsersArrayIsLoaded] = useState(false);
 
-    const fetchUsersArray = async () => {
-        const result = await fetch("http://localhost:8080/users/");
-        setUsersArray(await result.json());
-        console.log(usersArray)
-        setUsersArrayIsLoaded(true)
-    }
-
-    useEffect(()=> {  
+    useEffect(async ()=> {  
         try{
-            fetchUsersArray();
+            setUsersArray(await listUsers())
+            setUsersArrayIsLoaded(true) //need this to handle errors though
         } catch(err) {
-            setError(err);
-        }   
+            setError(err)
+        }
     }, [])
 
 

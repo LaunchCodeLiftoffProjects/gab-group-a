@@ -7,16 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
 
+//    public ItemController() {}
+
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
+
     @CrossOrigin
     @GetMapping("/items")
     public Iterable<Item> allItems() {
         Iterable<Item> items = itemRepository.findAll();
+        for (Item item : items) {
+            item.getItemCategory().setItems(new ArrayList<>());
+        } //This breaks if there's a null row in the Item table. Watch out for that.
+        return items;
+    }
+
+    @CrossOrigin
+    @GetMapping("/items/by-name/{name}") //this returns an array of all items with that name. Not what I need.
+    public Iterable<Item> findByName(@PathVariable String name) {
+        Iterable<Item> items = itemRepository.findByName(name);
         for (Item item : items) {
             item.getItemCategory().setItems(new ArrayList<>());
         }
@@ -26,7 +43,9 @@ public class ItemController {
     @CrossOrigin
     @PostMapping("/items")
     Item newItem(@RequestBody Item newItem) {
-        return itemRepository.save(newItem);
+        Item item = itemRepository.save(newItem);
+        item.getItemCategory().setItems(new ArrayList<>()); //sanitize the arraylist so it doesn't nest forever. Necessary? idk.
+        return item;
     }
 
     @CrossOrigin

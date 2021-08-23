@@ -1,2 +1,4 @@
 id, description, name, location_id
 1,'Devious doctor','Dr. Frankenfurter',2
+2,'Perfect man','Rocky', 1
+3,'Some guy','Brad',1
