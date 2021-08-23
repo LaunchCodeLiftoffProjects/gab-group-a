@@ -22,11 +22,15 @@ export default function Home() {
     }
 
     useEffect(()=> {  
-        try{
-            fetchUsersArray();
-        } catch(err) {
-            setError(err);
-        }   
+        // try{
+        //     fetchUsersArray();
+        // } catch(err) {
+        //     setError(err);
+        // }   
+        listUsers().then((data) => {
+            setUsersArray(data)
+            setUsersArrayIsLoaded(true)
+        })
     }, [])
 
 
