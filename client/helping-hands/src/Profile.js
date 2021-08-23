@@ -33,7 +33,7 @@ export default function Profile({match}) {
             console.log(err)
             setError(err);
         }
-    }, [user])
+    }, [user, displayItemForm])
 
     if(!loaded) {
         return <div>Loading . . .</div>
@@ -119,7 +119,7 @@ export default function Profile({match}) {
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm user={user}/> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm user={user} displayForm = {displayItemForm}/> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>

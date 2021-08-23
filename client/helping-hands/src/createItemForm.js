@@ -13,40 +13,17 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user}) {
+export default function CreateItemForm({user, displayForm}) {
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
-    // const [aUser, setAUser] = useState(user); //need to find a way to elevate this back up to profile somehow. 
-    
 
-    //try setting all values of item obj as individual state vars
+    //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] =useState();
     const [index, setIndex] = useState();
-
-    // const createItem = async (item) => {
-    //     const response = await axios.post("http://localhost:8080/items", item)
-    //     return response
-    // }
-
-    // const updateUser = async (user) => {
-    //     const response = await axios.put("http://localhost:8080/users/" + user.id, user)
-    //     return response.data
-    // }
-
-    // const fetchItemCategories = async () => {
-    //     try{    
-    //         let response = await fetch("http://localhost:8080/item-categories");
-    //         setItemCategories(await response.json());
-    //         console.log(itemCategories)
-    //         setLoaded(true)
-    //     } catch(err) {
-    //         setError(err)
-    //     }
-    // }
 
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
@@ -76,7 +53,7 @@ export default function CreateItemForm({user}) {
         console.log(item)
         let savedItem = await createItem(item);
         savedItem = savedItem.data
-        savedItem.itemCategory.items=[] //should fix infinite nesting problem. 
+        
         console.log(savedItem);
         
         user.needsItems.push(savedItem)
@@ -84,6 +61,7 @@ export default function CreateItemForm({user}) {
         updateUser(user)
         
         console.log(user)
+        displayForm = displayForm => !displayForm;
 
     }
 
@@ -134,8 +112,7 @@ export default function CreateItemForm({user}) {
                                     >
                                         {itemCategories.map((category, i) => {
                                             return (
-                                                <MenuItem
-                                                    labelId="category" 
+                                                <MenuItem 
                                                     key={category.id} 
                                                     value={category.id} 
                                                     name="Category"
