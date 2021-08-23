@@ -11,6 +11,7 @@ import CreateItemForm from "./CreateItemForm";
 import CreateTaskForm from "./CreateTaskForm";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { oneUser } from "./api/api-user";
 
 export default function Profile({match}) {
 
@@ -20,20 +21,13 @@ export default function Profile({match}) {
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
     const [displayItemForm, setDisplayItemForm] = useState(false);
 
-    // id = 1 //replace this by passing it in as a path var?
-    const fetchUser = async (userId) => {
-        let response = await fetch("http://localhost:8080/users/" + userId)
-        let json = await response.json(); //not sure if this step is necessary, but it works. 
-        setUser(json);
-        setLoaded(true)
-    }
-
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
-    useEffect(() => {
+    useEffect(async () => {
         try{
-            fetchUser(match.params.id)
+            setUser(await oneUser(match.params.id))
+            setLoaded(true)
             console.log(user)
         } catch(err) {
             console.log(err)
