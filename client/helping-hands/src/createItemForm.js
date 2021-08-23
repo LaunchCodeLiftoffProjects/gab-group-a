@@ -50,19 +50,11 @@ export default function CreateItemForm({user, displayForm}) {
             description: aDescription,
             itemCategory: aItemCategory
         }
-        console.log(item)
         let savedItem = await createItem(item);
         savedItem = savedItem.data
-        
-        console.log(savedItem);
-        
         user.needsItems.push(savedItem)
-        // console.log(user)
         updateUser(user)
-        
-        console.log(user)
-        displayForm = displayForm => !displayForm;
-
+        // displayForm = displayForm => !displayForm;
     }
 
     useEffect(async () => {
