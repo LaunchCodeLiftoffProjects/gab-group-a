@@ -14,23 +14,13 @@ export default function Home() {
     const [usersArray, setUsersArray] = useState([]);
     const [usersArrayIsLoaded, setUsersArrayIsLoaded] = useState(false);
 
-    const fetchUsersArray = async () => {
-        const result = await fetch("http://localhost:8080/users/");
-        setUsersArray(await result.json());
-        console.log(usersArray)
-        setUsersArrayIsLoaded(true)
-    }
-
-    useEffect(()=> {  
-        // try{
-        //     fetchUsersArray();
-        // } catch(err) {
-        //     setError(err);
-        // }   
-        listUsers().then((data) => {
-            setUsersArray(data)
-            setUsersArrayIsLoaded(true)
-        })
+    useEffect(async ()=> {  
+        try{
+            setUsersArray(await listUsers())
+            setUsersArrayIsLoaded(true) //need this to handle errors though
+        } catch(err) {
+            setError(err)
+        }
     }, [])
 
 
