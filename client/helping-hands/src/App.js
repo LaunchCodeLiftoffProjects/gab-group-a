@@ -3,6 +3,8 @@ import Home from "./Home"
 import Profile from "./Profile"
 import CreateItemForm from './CreateItemForm';
 import CreateTaskForm from './CreateTaskForm';
+import Login from './Login';
+import Register from './Register';
 
 function App() {
   return (
@@ -17,6 +19,12 @@ function App() {
         </Route>
         <Route path="/create-task" >
           <CreateTaskForm />
+        </Route>
+        <Route exact path="/login" >
+          <Login />
+        </Route>
+        <Route exact path="/register">
+          <Register />
         </Route>
       </Switch>
     </>

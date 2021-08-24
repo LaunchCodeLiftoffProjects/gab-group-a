@@ -31,6 +31,11 @@ public class UserController {
         //this solves the infinite nesting problem, but will be slow as the db grows.
         for (User user : users) {
             user.getLocation().setUsers(new ArrayList<>());
+            for(Item item : user.getNeedsItems()){
+                item.getItemCategory().setItems(new ArrayList<>());
+                item.setUsersWhoHave(new ArrayList<>());
+                item.setUsersWhoNeed(new ArrayList<>());
+            }
         }
         return users;
     }
@@ -46,6 +51,12 @@ public class UserController {
     User one(@PathVariable Long id) {
         User user = userRepository.findById(id).orElseThrow();
         user.getLocation().setUsers(new ArrayList<>());
+        for(Item item : user.getNeedsItems()){
+            item.getItemCategory().setItems(new ArrayList<>());
+            item.setUsersWhoHave(new ArrayList<>());
+            item.setUsersWhoNeed(new ArrayList<>());
+        } //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
+//        user.get
         return user; //TODO create a UserNotFound exception to throw here.
     }
 
@@ -55,6 +66,13 @@ public class UserController {
         return userRepository.findById(id).map( user -> {
             user.setName(updatedUser.getName());
             user.setLocation(updatedUser.getLocation());
+            user.setCan(updatedUser.getCan());
+            user.setHas(updatedUser.getHas());
+            user.setNeedsItems(updatedUser.getNeedsItems());
+            user.setNeedsTasks(updatedUser.getNeedsTasks());
+            user.setEmail(updatedUser.getEmail());
+            user.setDescription(updatedUser.getDescription());
+
             return userRepository.save(user);
         }).orElseGet(()-> {
             updatedUser.setId(id);
@@ -68,12 +86,12 @@ public class UserController {
         userRepository.deleteById(id);
     }
 
-    @CrossOrigin
-    @PostMapping("/users/{id}/add-needs-item/")
-    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work
-        User user = userRepository.findById(id).orElseThrow();
-        Item item = itemRepository.findByName(itemName);
-        user.addToNeedsItems(item);
-    }
+//    @CrossOrigin
+//    @PostMapping("/users/{id}/add-needs-item/")
+//    void addNeedsItem(@PathVariable Long id, @RequestBody String itemName) { //this needs work maybe make itemName @requestParam
+//        User user = userRepository.findById(id).orElseThrow();
+//        Item item = itemRepository.findByName(itemName);
+//        user.getNeedsItems().add(item);
+//    }
 
 }
