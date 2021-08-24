@@ -36,7 +36,7 @@ else {
             <span className="col-1"></span>
             <div className="col-10" align="center">
                 <Typography variant="h2">All Users</Typography> 
-                {usersArray.map((user)=> {
+                {usersArray.map((user) => {
                     return(
                     <div key = {user.id} className="home-card">
                         <CardActionArea >
