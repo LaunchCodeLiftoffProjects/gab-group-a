@@ -6,7 +6,6 @@ import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
-import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
@@ -22,7 +21,7 @@ export default function CreateItemForm({user, displayForm}) {
     //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
-    const [aItemCategory, setAItemCategory] =useState();
+    const [aItemCategory, setAItemCategory] = useState();
     const [index, setIndex] = useState();
 
     const handleItemCategoryChange = event => {

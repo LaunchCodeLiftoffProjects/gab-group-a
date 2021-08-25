@@ -54,7 +54,6 @@ else {
                         </CardActionArea>
                     </div>
                     )})}
-            
                 </div>
                 <span className="col-1"></span>
             </div>
