@@ -95,6 +95,17 @@ export default function Register() {
               id="password"
               autoComplete="current-password"
             />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="verifyPassword"
+              label="Verify Password"
+              type="password"
+              id="verifyPassword"
+              autoComplete="current-password"
+            />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
