@@ -42,7 +42,7 @@ export default function Profile({match}) {
             setError(err);
         }
         
-    }, [user.name]) //I think the only solution to the loop is to pass user in to Profile as a prop??
+    }, [user.name]) //I think the only solution to the loop is to pass user in to Profile as a prop?? if I try to depend on a property of user it will check for that property before it fetches the user object. 
 
     if(!loaded) {
         return <div>Loading . . .</div>
