@@ -15,25 +15,34 @@ import { oneUser } from "./api/api-user";
 
 export default function Profile({match}) {
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
     const [displayItemForm, setDisplayItemForm] = useState(false);
+    const [userUpdateCounter, setUserUpdateCounter] = useState(0);
 
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
+
+    //maybe if I put the clicksubmit functionality out here and passed it down to CreateItemForm that would solve the infinite loop problem? 
     useEffect(async () => {
         try{
-            setUser(await oneUser(match.params.id))
-            setLoaded(true)
+            // if (!user)
+            
+                const response = await oneUser(match.params.id)
+                setUser(response)
+                setLoaded(true)
+            
+            
             console.log(user)
         } catch(err) {
             console.log(err)
             setError(err);
         }
-    }, [user, displayItemForm])
+        
+    }, [user.name]) //I think the only solution to the loop is to pass user in to Profile as a prop??
 
     if(!loaded) {
         return <div>Loading . . .</div>
@@ -119,7 +128,7 @@ export default function Profile({match}) {
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm user={user} displayForm = {displayItemForm}/> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm user={user} displayForm = {displayItemForm} updateCount = {userUpdateCounter} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>

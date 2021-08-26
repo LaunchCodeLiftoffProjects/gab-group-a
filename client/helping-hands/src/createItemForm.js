@@ -12,11 +12,12 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, displayForm}) {
+export default function CreateItemForm({user, updateCount}) { //isNeed sets a flag for whether this adds to the has or needs arrays 
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    
 
     //Values for new item obj
     const [aName, setAName] = useState();
@@ -53,12 +54,14 @@ export default function CreateItemForm({user, displayForm}) {
         savedItem = savedItem.data
         user.needsItems.push(savedItem)
         updateUser(user)
+        updateCount += 1
+        
         // displayForm = displayForm => !displayForm;
     }
 
     useEffect(async () => {
         try {
-            setItemCategories(await listItemCategories())
+            setItemCategories(await listItemCategories()) //do I need to pass this in from Profile? 
             setLoaded(true)
         } catch(err) {
             setError(err)
