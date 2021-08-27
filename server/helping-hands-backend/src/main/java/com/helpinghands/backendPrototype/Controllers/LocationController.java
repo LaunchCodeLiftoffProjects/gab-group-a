@@ -6,18 +6,17 @@ import com.helpinghands.backendPrototype.Models.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import static com.helpinghands.backendPrototype.Data.LocationRepository.*;
-
 
 @RestController
     public class LocationController {
         @Autowired
         private LocationRepository locationRepository;
+    private Object LocationRepository;
 
-        @CrossOrigin
+    @CrossOrigin
         @GetMapping("/location")
         public Iterable<Location> allLocation() {
-            return LocationRepository.findAll("");
+            return (Iterable<Location>) LocationRepository;
         }
 
         @CrossOrigin
@@ -29,27 +28,18 @@ import static com.helpinghands.backendPrototype.Data.LocationRepository.*;
         @CrossOrigin
         @GetMapping("/location/{id}")
         Location one(@PathVariable Long id) {
-            return LocationRepository.findById(id).orElseThrow();
+            return (Location) LocationRepository;
             //TODO create an error handler for this
         }
 
         @CrossOrigin
         @PutMapping("/Location/{id}")
-        Location updateItem(@PathVariable Long id, @RequestBody Location updatedLocation) {
-            Location location = LocationRepository.findById(id).map(Location -> {
-                Location.setName(updatedLocation.getName());
-                return locationRepository.save(updatedLocation);
-            }).orElseGet(() -> {
-                updatedLocation.setId(id);
-                return locationRepository.save(updatedLocation);
-            });
-
-            return location;
+        public void updateItem(@PathVariable Long id, @RequestBody Location updatedLocation) {
         }
 
         @CrossOrigin
         @DeleteMapping("/location/{id}")
-        void deleteItem(@PathVariable Long id) {
+        public void deleteItem(@PathVariable Long id) {
             locationRepository.deleteById(id);
         }
 
