@@ -50,6 +50,8 @@ public class AuthenticationController {
     public String processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
                                           Errors errors, HttpServletRequest request) {
 
+
+
         if (errors.hasErrors()) {
             return "register";
         }
