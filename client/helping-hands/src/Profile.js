@@ -30,13 +30,14 @@ export default function Profile({match}) {
 
     const removeItem = async (event) => {
         //find index of item in user.needsItems
-        const id = event.target.value;
-        deleteItem(id);
-        const i = event.target.id;
+        const id = event.target.value; //THIS is not getting the value for some reason. it's passing undefined. despite setting the value of the onclick target to be the id of the item. 
+        // deleteItem(id); //This is getting undefined even though I think I fixed passing it the id from the onclick event
+        const i = user.needsItems.findIndex((element) => element.id == id)
         user.needsItems.splice(i, 1);
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
-        updateUser(user);
+        await updateUser(user);
+        console.log(user)
     }
 
     useEffect(async () => {
@@ -131,7 +132,7 @@ export default function Profile({match}) {
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i} id = {i} value = {item.id}>{item.name} <RemoveIcon onClick={removeItem} /></li>
+                                                <li key={i}  >{item.name} <RemoveIcon onClick={removeItem} value = {item.id} /></li>
                                                 )
                                             })}
                                         </ul>
