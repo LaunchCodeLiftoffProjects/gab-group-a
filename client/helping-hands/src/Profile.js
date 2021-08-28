@@ -25,16 +25,14 @@ export default function Profile({match}) {
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
-
-    //maybe if I put the clicksubmit functionality out here and passed it down to CreateItemForm that would solve the infinite loop problem? 
     useEffect(async () => {
         try{
-            // if (!user)
+            if (!user){
             
                 const response = await oneUser(match.params.id)
                 setUser(response)
                 setLoaded(true)
-            
+            }
             
             console.log(user)
         } catch(err) {
@@ -42,13 +40,7 @@ export default function Profile({match}) {
             setError(err);
         }
         
-    }, []) //maybe need to fetch user in an outer component (ProfileContainer?) and then pass in to profile to avoid looking for dependency before fetching user obj
-
-
-    //need to pass setState for user into the child component and use that to update user. 
-    // useEffect(() => {
-    //     // setUser(user)
-    // }, [user])
+    }, [])
 
     if(!loaded) {
         return <div>Loading . . .</div>
