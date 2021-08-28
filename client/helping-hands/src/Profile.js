@@ -12,6 +12,9 @@ import CreateTaskForm from "./CreateTaskForm";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { oneUser } from "./api/api-user";
+import { oneItem } from "./api/api-item";
+import { updateUser } from "./api/api-user";
+import { deleteItem } from "./api/api-item";
 
 export default function Profile({match}) {
 
@@ -24,6 +27,17 @@ export default function Profile({match}) {
 
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
+
+    const removeItem = async (event) => {
+        //find index of item in user.needsItems
+        const id = event.target.value;
+        deleteItem(id);
+        const i = event.target.id;
+        user.needsItems.splice(i, 1);
+        setUser(user);
+        setUserUpdateCounter(userUpdateCounter + 1);
+        updateUser(user);
+    }
 
     useEffect(async () => {
         try{
@@ -94,7 +108,7 @@ export default function Profile({match}) {
                                             <ul >
                                                 {user.can.map((item, i) => {
                                                     return(
-                                                    <li key={i}>{item.name} ({item.hoursWork} hrs)</li>
+                                                    <li key={i} >{item.name} ({item.hoursWork} hrs)</li>
                                                     )
                                                 })}
                                             </ul>
@@ -117,7 +131,7 @@ export default function Profile({match}) {
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i}>{item.name}</li>
+                                                <li key={i} id = {i} value = {item.id}>{item.name} <RemoveIcon onClick={removeItem} /></li>
                                                 )
                                             })}
                                         </ul>

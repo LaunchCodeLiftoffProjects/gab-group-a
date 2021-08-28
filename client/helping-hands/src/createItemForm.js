@@ -22,6 +22,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] = useState();
+    
     const [index, setIndex] = useState();
 
     const handleItemCategoryChange = event => {
@@ -54,7 +55,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         user.needsItems.push(savedItem)
         updateUser(user)
         userSetter(user) //I could pass in another function that both sets the user and closes the form, right? 
-        counterSetter(updateCount + 1)
+        counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
     }
 
     useEffect(async () => {
