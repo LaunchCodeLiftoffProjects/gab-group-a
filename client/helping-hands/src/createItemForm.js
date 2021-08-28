@@ -60,7 +60,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
 
     useEffect(async () => {
         try {
-            setItemCategories(await listItemCategories()) //do I need to pass this in from Profile? 
+            setItemCategories(await listItemCategories())
             setLoaded(true)
         } catch(err) {
             setError(err)

@@ -12,7 +12,6 @@ import CreateTaskForm from "./CreateTaskForm";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { oneUser } from "./api/api-user";
-import { oneItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 import { deleteItem } from "./api/api-item";
 
@@ -29,7 +28,6 @@ export default function Profile({match}) {
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
     const removeItem = async (event) => {
-        //find index of item in user.needsItems
         const id = event.target.value;
         deleteItem(id);
         const i = event.target.id;
@@ -42,12 +40,10 @@ export default function Profile({match}) {
     useEffect(async () => {
         try{
             if (!user){
-            
                 const response = await oneUser(match.params.id)
                 setUser(response)
                 setLoaded(true)
             }
-            
             console.log(user)
         } catch(err) {
             console.log(err)
@@ -131,7 +127,7 @@ export default function Profile({match}) {
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i} id = {i} value = {item.id}>{item.name} <RemoveIcon onClick={removeItem} /></li>
+                                                <li key={i} id = {i} value = {item.id}>{item.name} <RemoveIcon align="right" onClick={removeItem} /></li>
                                                 )
                                             })}
                                         </ul>
