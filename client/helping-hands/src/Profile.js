@@ -27,22 +27,26 @@ export default function Profile({match}) {
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
-    const removeItem = async (event) => {
-        const id = event.target.value;
-        deleteItem(id);
-        const i = event.target.id;
-        user.needsItems.splice(i, 1);
+    const removeItem = async (event) => { //somehow something I'm doing in this function is erasing all of the ids from the needsItems array. 
+        const itemId = event.target.value;
+        // deleteItem(itemId);
+        const i = user.needsItems.findIndex((element) => element.id = itemId) 
+        console.log(user)
+        console.log(i)
+        user.needsItems.splice(i, 1); //this is just taking off the last item of the array b/c it can't find the index so it's returning -1
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
         updateUser(user);
     }
 
-    useEffect(async () => {
+    useEffect(async () => { //TODO refactor this to put async function definition inside useEffect
         try{
             if (!user){
                 const response = await oneUser(match.params.id)
                 setUser(response)
                 setLoaded(true)
+                console.log(user)
+                
             }
             console.log(user)
         } catch(err) {

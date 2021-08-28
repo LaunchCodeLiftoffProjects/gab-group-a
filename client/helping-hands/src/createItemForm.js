@@ -54,7 +54,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         savedItem = savedItem.data
         user.needsItems.push(savedItem)
         updateUser(user)
-        userSetter(user) //I could pass in another function that both sets the user and closes the form, right? 
+        userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
         setDisplay(display => !display)
     }
