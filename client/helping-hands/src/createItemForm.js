@@ -12,7 +12,7 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, updateCount}) { //isNeed sets a flag for whether this adds to the has or needs arrays 
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter}) { //isNeed sets a flag for whether this adds to the has or needs arrays 
 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
@@ -54,7 +54,8 @@ export default function CreateItemForm({user, updateCount}) { //isNeed sets a fl
         savedItem = savedItem.data
         user.needsItems.push(savedItem)
         updateUser(user)
-        updateCount += 1
+        userSetter(user) //I could pass in another function that both sets the user and closes the form, right? 
+        counterSetter(updateCount + 1)
         
         // displayForm = displayForm => !displayForm;
     }

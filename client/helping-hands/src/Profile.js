@@ -42,7 +42,13 @@ export default function Profile({match}) {
             setError(err);
         }
         
-    }, [user.name]) //I think the only solution to the loop is to pass user in to Profile as a prop?? if I try to depend on a property of user it will check for that property before it fetches the user object. 
+    }, []) //maybe need to fetch user in an outer component (ProfileContainer?) and then pass in to profile to avoid looking for dependency before fetching user obj
+
+
+    //need to pass setState for user into the child component and use that to update user. 
+    // useEffect(() => {
+    //     // setUser(user)
+    // }, [user])
 
     if(!loaded) {
         return <div>Loading . . .</div>
@@ -128,7 +134,7 @@ export default function Profile({match}) {
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm user={user} displayForm = {displayItemForm} updateCount = {userUpdateCounter} /> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm user={user} updateCount = {userUpdateCounter} userSetter = {setUser} counterSetter={setUserUpdateCounter} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
