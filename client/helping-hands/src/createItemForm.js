@@ -12,7 +12,7 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, updateCount, userSetter, counterSetter}) { 
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
@@ -56,6 +56,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         updateUser(user)
         userSetter(user) //I could pass in another function that both sets the user and closes the form, right? 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
+        setDisplay(display => !display)
     }
 
     useEffect(async () => {

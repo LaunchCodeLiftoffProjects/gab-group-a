@@ -136,7 +136,14 @@ export default function Profile({match}) {
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm user={user} updateCount = {userUpdateCounter} userSetter = {setUser} counterSetter={setUserUpdateCounter} /> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm 
+                                                user={user} 
+                                                updateCount = {userUpdateCounter} 
+                                                userSetter = {setUser} 
+                                                counterSetter={setUserUpdateCounter} 
+                                                display={displayItemForm}
+                                                setDisplay={setDisplayItemForm}    
+                                            /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
