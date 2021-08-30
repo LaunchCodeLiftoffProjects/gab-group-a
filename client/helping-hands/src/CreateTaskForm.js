@@ -1,41 +1,29 @@
 import React, { useState, useEffect } from "react";
-import Paper from '@material-ui/core/Paper';
 import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
-import { TextField } from "@material-ui/core";
+import { TextField, Typography } from "@material-ui/core";
 import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
-import { Typography } from "@material-ui/core";
-import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
+import { listTaskCategories } from "./api/api-task-categories";
+import { createTask } from "./api/api-task";
+import { updateUser } from "./api/api-user";
 
-export default function CreateTaskForm() {
-    const [loaded, setLoaded] = useState(false);
+export default function CreatetaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
+    const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
+    
 
-    //Values to build Task obj
+    //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
-    const [aTaskCategory, setATaskCategory] =useState();
+    const [aTaskCategory, setATaskCategory] = useState();
+    
     const [index, setIndex] = useState();
-
-    const createTask = async task => {
-        return await axios.post("http://localhost:8080/tasks", task);
-    }
-
-    const fetchTaskCategories = async () => {
-        try{
-            let response = await fetch("http://localhost:8080/task-categories");
-            setTaskCategories(await response.json());
-            setLoaded(true);
-        } catch(err) {
-            setError(err);
-        }
-    }
 
     const handleTaskCategoryChange = event => {
         setATaskCategory({id: event.target.value})
@@ -56,19 +44,25 @@ export default function CreateTaskForm() {
         setIndex(event.target.id)
     }
 
-    const clickSubmit = () => {
+    const clickSubmit = async () => {
         const task = {
             name: aName,
             description: aDescription,
             taskCategory: aTaskCategory
-        };
-        console.log(task);
-        createTask(task);
+        }
+        let savedTask = await createTask(task);
+        savedTask = savedTask.data
+        user.can.push(savedTask)
+        updateUser(user)
+        userSetter(user) 
+        counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
+        // setDisplay(display => !display)
     }
 
-    useEffect(() => {
-        try{
-            fetchTaskCategories();
+    useEffect(async () => {
+        try {
+            setTaskCategories(await listTaskCategories())
+            setLoaded(true)
         } catch(err) {
             setError(err)
         }
@@ -81,10 +75,9 @@ export default function CreateTaskForm() {
     } else {
         return(
             <div>
-                <Paper>
                         <Card>
                             <CardContent>
-                                <Typography variant="subtitle1">New task</Typography>
+                                <Typography variant="subtitle1">New Task</Typography>
                                 <FormControl>
                                     <TextField
                                         id="name"
@@ -108,18 +101,17 @@ export default function CreateTaskForm() {
                                 <FormControl>
                                 <InputLabel shrink id="category">Category</InputLabel>
                                     <Select
-                                        labelId="category"
+                                        id="task-category"
                                         onChange={handleTaskCategoryChange}
-                                        label="category"
                                     >
                                         {taskCategories.map((category, i) => {
                                             return (
                                                 <MenuItem 
-                                                key={category.id} 
-                                                value={category.id} 
-                                                name="Category"
-                                                onClick={updateIndex}
-                                                id={i}
+                                                    key={category.id} 
+                                                    value={category.id} 
+                                                    name="Category"
+                                                    id={i}
+                                                    onClick={updateIndex}
                                                 >
                                                     {category.name}
                                                 </MenuItem>
@@ -134,9 +126,7 @@ export default function CreateTaskForm() {
                                 </FormControl>
                             </CardContent>
                         </Card>
-                </Paper>
             </div>
         )
     }
 }
-

@@ -14,6 +14,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import { oneUser } from "./api/api-user";
 import { updateUser } from "./api/api-user";
 import { deleteItem } from "./api/api-item";
+import { deleteTask } from "./api/api-task";
+import { List, ListItem } from "@material-ui/core";
 
 export default function Profile({match}) {
 
@@ -28,16 +30,33 @@ export default function Profile({match}) {
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
 
-    const removeItem = async (id) => {
-
-        await deleteItem(id); 
-        const i = user.needsItems.findIndex((element) => element.id == id)
-        user.needsItems.splice(i, 1);
+    const removeItem = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+        let i;
+         
+        isNeed ? i = user.needsItems.findIndex((element) => element.id == id) : i = user.has.findIndex((element) => element.id == id) 
+        isNeed ? user.needsItems.splice(i, 1) : user.has.splice(i, 1)
+        
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
+        
+        await deleteItem(id);
         await updateUser(user);
-        console.log(user)
+        
     }
+
+    const removeTask = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+        let i;
+         
+        isNeed ? i = user.needsTasks.findIndex((element) => element.id == id) : i = user.can.findIndex((element) => element.id == id) 
+        isNeed ? user.needsTasks.splice(i, 1) : user.can.splice(i, 1)
+        
+        setUser(user);
+        setUserUpdateCounter(userUpdateCounter + 1);
+        
+        await deleteTask(id);
+        await updateUser(user);
+    }
+
 
     useEffect(async () => { //TODO refactor this to put async function definition inside useEffect
         try{
@@ -115,7 +134,13 @@ export default function Profile({match}) {
                                         </Typography>
                                     <div>
                                         <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
-                                        {displayTaskForm ? <CreateTaskForm /> : <div></div>}
+                                        {displayTaskForm ? <CreateTaskForm
+                                                                user={user} 
+                                                                updateCount = {userUpdateCounter} 
+                                                                userSetter = {setUser} 
+                                                                counterSetter={setUserUpdateCounter} 
+                                                                display={displayTaskForm}
+                                                                setDisplay={setDisplayTaskForm} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -128,13 +153,13 @@ export default function Profile({match}) {
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
-                                        <ul>
+                                        <List>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i}  >{item.name} <Button onClick={() => removeItem(item.id)}><RemoveIcon  /></Button></li>
+                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, true )}><RemoveIcon  /></Button></ListItem>
                                                 )
                                             })}
-                                        </ul>
+                                        </List>
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
