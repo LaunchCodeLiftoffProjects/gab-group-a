@@ -28,21 +28,10 @@ export default function Profile({match}) {
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
-    //Try it this way
-    //const Artist = ({name, artistOnClick}) => {
-    //   return (
-    //     <div onClick={() => artistOnClick(name)}>
-    //       {name}
-    //     </div>
-    //   )
-    // }
-
 
     const removeItem = async (id) => {
-        //find index of item in user.needsItems
-        // console.log(event)
-        // const id = event.target.value; //THIS is not getting the value for some reason. it's passing undefined. despite setting the value of the onclick target to be the id of the item. 
-        // deleteItem(id); //This is getting undefined even though I think I fixed passing it the id from the onclick event
+
+        await deleteItem(id); 
         const i = user.needsItems.findIndex((element) => element.id == id)
         user.needsItems.splice(i, 1);
         setUser(user);
@@ -143,7 +132,7 @@ export default function Profile({match}) {
                                         <ul>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i}  >{item.name} <button onClick={() => removeItem(item.id)} value = {item.id} ><RemoveIcon  /></button></li>
+                                                <li key={i}  >{item.name} <Button onClick={() => removeItem(item.id)}><RemoveIcon  /></Button></li>
                                                 )
                                             })}
                                         </ul>
