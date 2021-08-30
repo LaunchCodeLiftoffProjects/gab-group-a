@@ -12,28 +12,68 @@ import CreateTaskForm from "./CreateTaskForm";
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { oneUser } from "./api/api-user";
+import { updateUser } from "./api/api-user";
+import { deleteItem } from "./api/api-item";
+import { deleteTask } from "./api/api-task";
+import { List, ListItem } from "@material-ui/core";
 
 export default function Profile({match}) {
 
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(null);
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
     const [displayItemForm, setDisplayItemForm] = useState(false);
+    const [userUpdateCounter, setUserUpdateCounter] = useState(0);
 
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
-    useEffect(async () => {
+
+    const removeItem = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+        let i;
+         
+        isNeed ? i = user.needsItems.findIndex((element) => element.id == id) : i = user.has.findIndex((element) => element.id == id) 
+        isNeed ? user.needsItems.splice(i, 1) : user.has.splice(i, 1)
+        
+        setUser(user);
+        setUserUpdateCounter(userUpdateCounter + 1);
+        
+        await deleteItem(id);
+        await updateUser(user);
+        
+    }
+
+    const removeTask = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+        let i;
+         
+        isNeed ? i = user.needsTasks.findIndex((element) => element.id == id) : i = user.can.findIndex((element) => element.id == id) 
+        isNeed ? user.needsTasks.splice(i, 1) : user.can.splice(i, 1)
+        
+        setUser(user);
+        setUserUpdateCounter(userUpdateCounter + 1);
+        
+        await deleteTask(id);
+        await updateUser(user);
+    }
+
+
+    useEffect(async () => { //TODO refactor this to put async function definition inside useEffect
         try{
-            setUser(await oneUser(match.params.id))
-            setLoaded(true)
+            if (!user){
+                const response = await oneUser(match.params.id)
+                setUser(response)
+                setLoaded(true)
+                console.log(user)
+                
+            }
             console.log(user)
         } catch(err) {
             console.log(err)
             setError(err);
         }
-    }, [user, displayItemForm])
+        
+    }, [])
 
     if(!loaded) {
         return <div>Loading . . .</div>
@@ -85,16 +125,22 @@ export default function Profile({match}) {
                                     <CardContent>
                                         <Typography variant = "subtitle2" >
                                             <ul >
-                                                {user.can.map((item, i) => {
+                                                {user.can.map((task, i) => {
                                                     return(
-                                                    <li key={i}>{item.name} ({item.hoursWork} hrs)</li>
+                                                    <li key={i} >{task.name} ({task.hoursWork} hrs) <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button></li>
                                                     )
                                                 })}
                                             </ul>
                                         </Typography>
                                     <div>
                                         <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
-                                        {displayTaskForm ? <CreateTaskForm /> : <div></div>}
+                                        {displayTaskForm ? <CreateTaskForm
+                                                                user={user} 
+                                                                updateCount = {userUpdateCounter} 
+                                                                userSetter = {setUser} 
+                                                                counterSetter={setUserUpdateCounter} 
+                                                                display={displayTaskForm}
+                                                                setDisplay={setDisplayTaskForm} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -107,19 +153,26 @@ export default function Profile({match}) {
                                         <Button className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     <Typography variant = "subtitle2" >
-                                        <ul>
+                                        <List>
                                             {user.needsItems.map((item, i) => {
                                                 return(
-                                                <li key={i}>{item.name}</li>
+                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, true )}><RemoveIcon  /></Button></ListItem>
                                                 )
                                             })}
-                                        </ul>
+                                        </List>
                                     </Typography>
                                 </CardContent>
                                 <CardContent>
                                     <div>
                                         <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm user={user} displayForm = {displayItemForm}/> : <div></div>}
+                                        {displayItemForm ? <CreateItemForm 
+                                                user={user} 
+                                                updateCount = {userUpdateCounter} 
+                                                userSetter = {setUser} 
+                                                counterSetter={setUserUpdateCounter} 
+                                                display={displayItemForm}
+                                                setDisplay={setDisplayItemForm}    
+                                            /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>

@@ -3,7 +3,7 @@ import axios from "axios";
 const createTask = async (task) => {
     try{
         let response = await axios.post("http://localhost:8080/tasks", task);
-        return await response.json();
+        return response
     } catch(err) {
         console.log(err)
         return err //this may/may not work?

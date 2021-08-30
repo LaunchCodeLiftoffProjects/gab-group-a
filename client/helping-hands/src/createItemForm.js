@@ -6,23 +6,23 @@ import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
-import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, displayForm}) {
-
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    
 
     //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
-    const [aItemCategory, setAItemCategory] =useState();
+    const [aItemCategory, setAItemCategory] = useState();
+    
     const [index, setIndex] = useState();
 
     const handleItemCategoryChange = event => {
@@ -54,7 +54,9 @@ export default function CreateItemForm({user, displayForm}) {
         savedItem = savedItem.data
         user.needsItems.push(savedItem)
         updateUser(user)
-        // displayForm = displayForm => !displayForm;
+        userSetter(user) 
+        counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
+        setDisplay(display => !display)
     }
 
     useEffect(async () => {
