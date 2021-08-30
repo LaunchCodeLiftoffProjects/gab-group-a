@@ -65,6 +65,8 @@ export default function Register(props) {
     verifyPassword: ""
   })
 
+  const [errorMessage, setErrorMessage] = useState('');
+
   const handleChange = (e) => {
     const {id , value} = e.target   
     setState(prevState => ({
@@ -76,20 +78,20 @@ export default function Register(props) {
 const handleSubmitClick = (e) => {
   e.preventDefault();
   if(state.password === state.verifyPassword) {
+      setErrorMessage('');
       sendDetailsToServer();    
   } else {
-      // props.showError('Passwords do not match');
-      console.log("error")
+      setErrorMessage("Passwords do not match.");
   }
 }
 
 const sendDetailsToServer = () => {
   if(state.name.length && state.password.length) {
-      // props.showError(null);
+      setErrorMessage('');
       const payload={
           username:state.name,
           password:state.password,
-          // verifyPassword: state.verifyPassword
+          verifyPassword: state.verifyPassword
       }
       axios.post("http://localhost:8080/register", payload)
           .then(function (response) {
@@ -100,16 +102,16 @@ const sendDetailsToServer = () => {
                       'successMessage' : 'Registration successful. Redirecting to home page..'
                   }))
                   // redirectToHome();
-                  // props.showError(null)
+                  setErrorMessage('');
               } else{
-                  // props.showError("Some error ocurred");
+                  setErrorMessage('An error occurred.');
               }
           })
           .catch(function (error) {
               console.log(error);
           });    
   } else {
-      // props.showError('Please enter valid username and password')    
+     setErrorMessage('Please enter valid username and password'); 
   }
 }
 
@@ -171,6 +173,9 @@ const sendDetailsToServer = () => {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {errorMessage && (
+            <p className="error" style={{ color:'red'}}> {errorMessage} </p>
+            )}
             <Button
               type="submit"
               fullWidth
