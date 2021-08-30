@@ -81,25 +81,25 @@ public class AuthenticationController {
 
     @CrossOrigin
     @PostMapping("/login")
-    public String processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
+    public String processLoginForm(@RequestBody @Valid LoginFormDTO userLoggingIn,
                                    Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "login";
+            //return error
         }
 
-        User theUser = userRepository.findByName(loginFormDTO.getUsername());
+        User theUser = userRepository.findByName(userLoggingIn.getUsername());
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            return "login";
+          // return error
         }
 
-        String password = loginFormDTO.getPassword();
+        String password = userLoggingIn.getPassword();
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            return "login";
+            //return error
         }
 
         setUserInSession(request.getSession(), theUser);
