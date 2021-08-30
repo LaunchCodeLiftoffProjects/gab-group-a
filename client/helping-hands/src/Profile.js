@@ -125,9 +125,9 @@ export default function Profile({match}) {
                                     <CardContent>
                                         <Typography variant = "subtitle2" >
                                             <ul >
-                                                {user.can.map((item, i) => {
+                                                {user.can.map((task, i) => {
                                                     return(
-                                                    <li key={i} >{item.name} ({item.hoursWork} hrs)</li>
+                                                    <li key={i} >{task.name} ({task.hoursWork} hrs) <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button></li>
                                                     )
                                                 })}
                                             </ul>

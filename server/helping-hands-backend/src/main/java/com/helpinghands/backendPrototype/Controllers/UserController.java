@@ -3,6 +3,7 @@ package com.helpinghands.backendPrototype.Controllers;
 import com.helpinghands.backendPrototype.Data.ItemRepository;
 import com.helpinghands.backendPrototype.Data.UserRepository;
 import com.helpinghands.backendPrototype.Models.Item;
+import com.helpinghands.backendPrototype.Models.Task;
 import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,12 @@ public class UserController {
                 item.setUsersWhoHave(new ArrayList<>());
                 item.setUsersWhoNeed(new ArrayList<>());
             }
+
+            for(Task task : user.getCan()){
+                task.getTaskCategory().setTasks(new ArrayList<>());
+                task.setUsersWhoCan(new ArrayList<>());
+                task.setUsersWhoNeed(new ArrayList<>());
+            }
         }
         return users;
     }
@@ -55,7 +62,16 @@ public class UserController {
             item.getItemCategory().setItems(new ArrayList<>());
             item.setUsersWhoHave(new ArrayList<>());
             item.setUsersWhoNeed(new ArrayList<>());
-        } //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
+        }
+
+        for(Task task : user.getCan()){
+            task.getTaskCategory().setTasks(new ArrayList<>());
+            task.setUsersWhoCan(new ArrayList<>());
+            task.setUsersWhoNeed(new ArrayList<>());
+        }
+
+
+        //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
         return user; //TODO create a UserNotFound exception to throw here.
     }
 
