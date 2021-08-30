@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -57,7 +58,63 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Register() {
+export default function Register(props) {
+  const [state, setState] = useState({
+    name: "",
+    password: "",
+    verifyPassword: ""
+  })
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e) => {
+    const {id , value} = e.target   
+    setState(prevState => ({
+        ...prevState,
+        [id] : value
+    }))
+}
+
+const handleSubmitClick = (e) => {
+  e.preventDefault();
+  if(state.password === state.verifyPassword) {
+      setErrorMessage('');
+      sendDetailsToServer();    
+  } else {
+      setErrorMessage("Passwords do not match.");
+  }
+}
+
+const sendDetailsToServer = () => {
+  if(state.name.length && state.password.length) {
+      setErrorMessage('');
+      const payload={
+          username:state.name,
+          password:state.password,
+          verifyPassword: state.verifyPassword
+      }
+      axios.post("http://localhost:8080/register", payload)
+          .then(function (response) {
+              if(response.status === 200){
+                console.log(response)
+                  setState(prevState => ({
+                      ...prevState,
+                      'successMessage' : 'Registration successful. Redirecting to home page..'
+                  }))
+                  // redirectToHome();
+                  setErrorMessage('');
+              } else{
+                  setErrorMessage('An error occurred.');
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });    
+  } else {
+     setErrorMessage('Please enter valid username and password'); 
+  }
+}
+
   const classes = useStyles();
 
   return (
@@ -83,6 +140,8 @@ export default function Register() {
               name="name"
               autoComplete="name"
               autoFocus
+              value={state.name}
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
@@ -94,17 +153,36 @@ export default function Register() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={state.password}
+              onChange={handleChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="verifyPassword"
+              label="Verify Password"
+              type="password"
+              id="verifyPassword"
+              autoComplete="current-password"
+              value={state.verifyPassword}
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {errorMessage && (
+            <p className="error" style={{ color:'red'}}> {errorMessage} </p>
+            )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleSubmitClick}
             >
               Register
             </Button>

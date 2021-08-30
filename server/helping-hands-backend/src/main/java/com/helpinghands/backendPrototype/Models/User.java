@@ -4,6 +4,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +35,8 @@ public class User extends AbstractEntity {
 
     @NotNull
     private String pwHash;
+
+
 
     public User() {}
 
@@ -99,6 +103,7 @@ public class User extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
 
 //    public void addToNeedsItems(Item item) {
 //        this.needsItems.add(item);
