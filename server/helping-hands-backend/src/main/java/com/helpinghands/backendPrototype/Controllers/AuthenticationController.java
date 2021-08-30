@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class AuthenticationController {
 
@@ -44,37 +45,37 @@ public class AuthenticationController {
     }
     // -----------------------------------------------------------------
 
-
     @CrossOrigin
     @PostMapping("/register")
-    public String processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request) {
-
-
+    public User processRegistrationForm(@RequestBody RegisterFormDTO newUser, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "register";
+            //Return Error
         }
 
-        User existingUser = userRepository.findByName(registerFormDTO.getUsername());
+        User existingUser = userRepository.findByName(newUser.getUsername());
 
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-            return "register";
+            //Return Error
         }
 
-        String password = registerFormDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
+        String password = newUser.getPassword();
+        String verifyPassword = newUser.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+           //Return Error
         }
 
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        userRepository.save(newUser);
-        setUserInSession(request.getSession(), newUser);
-        return "redirect:";
+
+        User registratingUser = new User(newUser.getUsername(), newUser.getPassword());
+        setUserInSession(request.getSession(), registratingUser);
+        return userRepository.save(registratingUser);
+
     }
+
+
+
 
 
 

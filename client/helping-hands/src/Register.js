@@ -89,7 +89,7 @@ const sendDetailsToServer = () => {
       const payload={
           username:state.name,
           password:state.password,
-          verifyPassword: state.verifyPassword
+          // verifyPassword: state.verifyPassword
       }
       axios.post("http://localhost:8080/register", payload)
           .then(function (response) {
