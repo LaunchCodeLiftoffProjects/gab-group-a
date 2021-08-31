@@ -53,7 +53,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         let savedItem = await createItem(item);
         savedItem = savedItem.data
         isNeed ? user.needsItems.push(savedItem) : user.has.push(savedItem);
-        updateUser(user)
+        await updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
         setDisplay(display => !display)
