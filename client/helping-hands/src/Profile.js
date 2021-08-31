@@ -143,7 +143,7 @@ export default function Profile({match}) {
                                         <List>
                                             {user.has.map((item, i) => {
                                                 return(
-                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, true )}><RemoveIcon  /></Button></ListItem>
+                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, false )}><RemoveIcon  /></Button></ListItem>
                                                 )
                                             })}
                                         </List>

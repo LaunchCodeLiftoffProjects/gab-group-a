@@ -4,6 +4,7 @@ const findUserByName = (name) => {
 
 }
 
+//is this one necessary? 
 const findUserByLocationId = (id) => {
 
 }
