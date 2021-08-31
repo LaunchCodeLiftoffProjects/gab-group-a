@@ -135,12 +135,12 @@ export default function Profile({match}) {
                                     <div>
                                         <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
                                         {displayTaskForm ? <CreateTaskForm
-                                                                user={user} 
-                                                                updateCount = {userUpdateCounter} 
-                                                                userSetter = {setUser} 
-                                                                counterSetter={setUserUpdateCounter} 
-                                                                display={displayTaskForm}
-                                                                setDisplay={setDisplayTaskForm} /> : <div></div>}
+                                            user={user} 
+                                            updateCount = {userUpdateCounter} 
+                                            userSetter = {setUser} 
+                                            counterSetter={setUserUpdateCounter} 
+                                            display={displayTaskForm}
+                                            setDisplay={setDisplayTaskForm} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
