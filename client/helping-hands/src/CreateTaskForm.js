@@ -12,7 +12,7 @@ import { listTaskCategories } from "./api/api-task-categories";
 import { createTask } from "./api/api-task";
 import { updateUser } from "./api/api-user";
 
-export default function CreatetaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
+export default function CreatetaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
@@ -52,11 +52,11 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
         }
         let savedTask = await createTask(task);
         savedTask = savedTask.data
-        user.can.push(savedTask)
+        isNeed ? user.needsTasks.push(savedTask) : user.can.push(savedTask) 
         updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
-        // setDisplay(display => !display)
+        setDisplay(display => !display)
     }
 
     useEffect(async () => {

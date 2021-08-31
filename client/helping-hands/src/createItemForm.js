@@ -12,7 +12,7 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
@@ -52,7 +52,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         }
         let savedItem = await createItem(item);
         savedItem = savedItem.data
-        user.needsItems.push(savedItem)
+        isNeed ? user.needsItems.push(savedItem) : user.has.push(savedItem);
         updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 

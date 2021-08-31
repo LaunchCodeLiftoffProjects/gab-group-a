@@ -126,7 +126,8 @@ export default function Profile({match}) {
                                             userSetter = {setUser} 
                                             counterSetter={setUserUpdateCounter} 
                                             display={displayTaskForm}
-                                            setDisplay={setDisplayTaskForm} /> : <div></div>}
+                                            setDisplay={setDisplayTaskForm}
+                                            isNeed= {false} /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -157,7 +158,8 @@ export default function Profile({match}) {
                                                 userSetter = {setUser} 
                                                 counterSetter={setUserUpdateCounter} 
                                                 display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}    
+                                                setDisplay={setDisplayItemForm}
+                                                isNeed={false}    
                                             /> : <div></div>}
                                     </div>
                                 </CardContent>
@@ -189,7 +191,8 @@ export default function Profile({match}) {
                                                 userSetter = {setUser} 
                                                 counterSetter={setUserUpdateCounter} 
                                                 display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}    
+                                                setDisplay={setDisplayItemForm}
+                                                isNeed={true}    
                                             /> : <div></div>}
                                     </div>
                                 </CardContent>
@@ -206,7 +209,7 @@ export default function Profile({match}) {
                                         <List>
                                             {user.needsTasks.map((task, i) => {
                                                 return(
-                                                <ListItem key={i}  >{task.name} <Button onClick={() => removeItem(task.id, true )}><RemoveIcon  /></Button></ListItem>
+                                                <ListItem key={i}  >{task.name} <Button onClick={() => removeTask(task.id, true )}><RemoveIcon  /></Button></ListItem>
                                                 )
                                             })}
                                         </List>
@@ -214,14 +217,15 @@ export default function Profile({match}) {
                                 </CardContent>
                                 <CardContent>
                                     <div>
-                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayTaskForm ? <CreateItemForm 
+                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> }Add</Button>
+                                        {displayTaskForm ? <CreateTaskForm 
                                                 user={user} 
                                                 updateCount = {userUpdateCounter} 
                                                 userSetter = {setUser} 
                                                 counterSetter={setUserUpdateCounter} 
                                                 display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}    
+                                                setDisplay={setDisplayItemForm}
+                                                isNeed={true}    
                                             /> : <div></div>}
                                     </div>
                                 </CardContent>
