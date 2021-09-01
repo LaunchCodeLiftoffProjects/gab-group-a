@@ -34,24 +34,26 @@ export default function Profile({match}) {
     const showCanButton = () => {setDisplayCan(displayCan => !displayCan)}
     const showHasButton = () => {setDisplayHas(displayHas => !displayHas)}
 
-    const removeItem = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+    //I think this is failing to delete the item/task from the db because its entry in the db is relied on by other entries. So it's refusing the delete request. 
+    //TODO: knock the item off of the item category first before sending the delete request? 
+    const removeItem = async (id, isNeed) => { 
         let i;
-         
-        isNeed ? i = user.needsItems.findIndex((element) => element.id == id) : i = user.has.findIndex((element) => element.id == id) 
+        console.log(id);
+        isNeed ? i = user.needsItems.findIndex((element) => element.id === id) : i = user.has.findIndex((element) => element.id === id) 
         isNeed ? user.needsItems.splice(i, 1) : user.has.splice(i, 1)
         
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
-        
+        // console.log(id);
         await deleteItem(id);
         await updateUser(user);
         
     }
 
-    const removeTask = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+    const removeTask = async (id, isNeed) => { 
         let i;
          
-        isNeed ? i = user.needsTasks.findIndex((element) => element.id == id) : i = user.can.findIndex((element) => element.id == id) 
+        isNeed ? i = user.needsTasks.findIndex((element) => element.id === id) : i = user.can.findIndex((element) => element.id === id) 
         isNeed ? user.needsTasks.splice(i, 1) : user.can.splice(i, 1)
         
         setUser(user);

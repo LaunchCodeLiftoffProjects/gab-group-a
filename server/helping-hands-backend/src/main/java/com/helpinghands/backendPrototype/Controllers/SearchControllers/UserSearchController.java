@@ -24,30 +24,33 @@ public class UserSearchController {
     private LocationRepository locationRepository;
 
     @GetMapping("/search/users")
-    public User userByName(@RequestParam String name) {
-        User result = userRepository.findByNameContaining(name); //this works, but breaks when multiple users match query
-        result.getLocation().setUsers(new ArrayList<>());
-        for (Item item : result.getHas()) {
-            item.getItemCategory().setItems(new ArrayList<>());
-            item.setUsersWhoNeed(new ArrayList<>());
-            item.setUsersWhoHave(new ArrayList<>());
-        }
-        for (Item item : result.getNeedsItems()) {
-            item.getItemCategory().setItems(new ArrayList<>());
-            item.setUsersWhoNeed(new ArrayList<>());
-            item.setUsersWhoHave(new ArrayList<>());
-        }
+    public Iterable<User> userByName(@RequestParam String name) {
+        Iterable<User> result = userRepository.findByNameContaining(name); //this works, but breaks when multiple users match query
+        for(User user : result) {
+            user.getLocation().setUsers(new ArrayList<>());
+            for (Item item : user.getHas()) {
+                item.getItemCategory().setItems(new ArrayList<>());
+                item.setUsersWhoNeed(new ArrayList<>());
+                item.setUsersWhoHave(new ArrayList<>());
+            }
+            for (Item item : user.getNeedsItems()) {
+                item.getItemCategory().setItems(new ArrayList<>());
+                item.setUsersWhoNeed(new ArrayList<>());
+                item.setUsersWhoHave(new ArrayList<>());
+            }
 
-        for (Task task : result.getCan()) {
-            task.getTaskCategory().setTasks(new ArrayList<>());
-            task.setUsersWhoCan(new ArrayList<>());
-            task.setUsersWhoNeed(new ArrayList<>());
-        }
+            for (Task task : user.getCan()) {
+                task.getTaskCategory().setTasks(new ArrayList<>());
+                task.setUsersWhoCan(new ArrayList<>());
+                task.setUsersWhoNeed(new ArrayList<>());
+            }
 
-        for (Task task : result.getNeedsTasks()) {
-            task.getTaskCategory().setTasks(new ArrayList<>());
-            task.setUsersWhoCan(new ArrayList<>());
-            task.setUsersWhoNeed(new ArrayList<>());
+            for (Task task : user.getNeedsTasks()) {
+                task.getTaskCategory().setTasks(new ArrayList<>());
+                task.setUsersWhoCan(new ArrayList<>());
+                task.setUsersWhoNeed(new ArrayList<>());
+            }
+
         }
 
         return result;
