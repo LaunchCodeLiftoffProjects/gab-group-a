@@ -85,8 +85,25 @@ const handleSubmitClick = (e) => {
   }
 }
 
+function nameCheck(userName) {
+    let check = true;
+    if (userName.length < 3 || userName.length > 20){
+      check = false;
+    }
+    return check
+}
+
+function passCheck(passWord){
+  let check = true;
+  if (passWord.length < 5 || passWord.length > 30){
+    check = false;
+  }
+  return check
+}
+
 const sendDetailsToServer = () => {
-  if(state.name.length && state.password.length) {
+  if(nameCheck(state.name) === true 
+  && passCheck(state.password) === true) {
       setErrorMessage('');
       const payload={
           username:state.name,
@@ -95,7 +112,7 @@ const sendDetailsToServer = () => {
       }
       axios.post("http://localhost:8080/register", payload)
           .then(function (response) {
-              if(response.status === 200){
+              if(response.status === 200 && response.data === 'Registration successful.'){
                 console.log(response)
                   setState(prevState => ({
                       ...prevState,
@@ -104,14 +121,19 @@ const sendDetailsToServer = () => {
                   // redirectToHome();
                   setErrorMessage('');
               } else{
-                  setErrorMessage('An error occurred.');
+                  setErrorMessage(response.data);
               }
           })
           .catch(function (error) {
               console.log(error);
           });    
   } else {
-     setErrorMessage('Please enter valid username and password'); 
+    if(nameCheck(state.name) === false){
+      setErrorMessage('Username must be between 3 and 20 characters.')
+    }
+    if(passCheck(state.password) === false){
+      setErrorMessage('Password must be between 5 and 30 characters.')
+    }
   }
 }
 
