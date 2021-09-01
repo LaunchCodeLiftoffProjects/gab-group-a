@@ -8,7 +8,8 @@ import NavBarMenu from './NavBarMenu';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-
+import { findUserByName } from "./search/search-user";
+import { Redirect } from "react-router";
 
 export default function NavBar() {
 
@@ -67,6 +68,10 @@ export default function NavBar() {
       }));
       
     const classes = useStyles();
+
+    const searchUserByName = (name) => {
+        
+    }
 
     return (   
         <AppBar>
