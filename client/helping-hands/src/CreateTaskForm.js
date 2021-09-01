@@ -22,6 +22,7 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aTaskCategory, setATaskCategory] = useState();
+    const [aHoursWork, setAHoursWork] = useState();
     
     const [index, setIndex] = useState();
 
@@ -40,6 +41,11 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
         console.log(aDescription)
     }
 
+    const handleHoursWorkChange = event => {
+        setAHoursWork(event.target.value)
+        console.log(aDescription)
+    }
+
     const updateIndex = (event) => {
         setIndex(event.target.id)
     }
@@ -48,7 +54,8 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
         const task = {
             name: aName,
             description: aDescription,
-            taskCategory: aTaskCategory
+            taskCategory: aTaskCategory,
+            hoursWork: aHoursWork
         }
         let savedTask = await createTask(task);
         savedTask = savedTask.data
@@ -93,6 +100,13 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
                                         multiline
                                         rows={4}
                                         onChange={handleDescriptionChange}
+                                    >  
+                                    </TextField>
+                                    <TextField
+                                        id="hoursWork"
+                                        label="Hours of Work"
+                                        value={aHoursWork}
+                                        onChange={handleHoursWorkChange}
                                     >  
                                     </TextField>
                                 </FormControl>
