@@ -1,8 +1,10 @@
 .search-paper{
     padding: 100px;
     background-color: white;
+    margin: 10px;
 }
 
 .result-card{
     padding: 10px;
+    margin: 10px;
 }

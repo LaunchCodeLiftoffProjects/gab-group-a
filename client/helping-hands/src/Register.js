@@ -62,7 +62,8 @@ export default function Register(props) {
   const [state, setState] = useState({
     name: "",
     password: "",
-    verifyPassword: ""
+    verifyPassword: "",
+    location: {id: 1} //This doesn't fix it. When you add a user to the db thru this method it breaks the Users table. 
   })
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -89,11 +90,12 @@ const sendDetailsToServer = () => {
   if(state.name.length && state.password.length) {
       setErrorMessage('');
       const payload={
-          username:state.name,
+          name:state.name,
           password:state.password,
-          verifyPassword: state.verifyPassword
+          verifyPassword: state.verifyPassword,
+          location:state.location //this fixes the null pointer DB problem but need a better fix going forward. 
       }
-      axios.post("http://localhost:8080/register", payload)
+      axios.post("http://localhost:8080/users", payload)
           .then(function (response) {
               if(response.status === 200){
                 console.log(response)
