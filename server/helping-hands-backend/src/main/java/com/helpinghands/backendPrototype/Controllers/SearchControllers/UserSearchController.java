@@ -11,7 +11,9 @@ import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -30,13 +32,16 @@ public class UserSearchController {
     private TaskCategoryRepository taskCategoryRepository;
 
     @GetMapping("/search/users")
-    public Iterable<User> userByName(@RequestParam(required = false) String name, @RequestParam(required = false) String locationName) {
-        Iterable<User> result;
+    public List<User> userByName(@RequestParam(required = false) String name, @RequestParam(required = false) String locationName,
+                                 @RequestParam(required = false) String email) {
+        List<User> result;
 
-        if (name != null) {
-            result = userRepository.findByNameContaining(name);
-        } else {
+        if(locationName != null) {
             result = userRepository.findByLocationNameContaining(locationName);
+        } else if (email != null) {
+            result = userRepository.findByEmailContaining(email);
+        } else {
+            result = userRepository.findByNameContaining(name);
         }
         for(User user : result) {
             user.getLocation().setUsers(new ArrayList<>());
@@ -68,10 +73,10 @@ public class UserSearchController {
         return result;
     }
 
-    @GetMapping("/search/user/location")
-    public Iterable<User> usersByLocationName(@RequestParam(required = false) String name, @RequestParam(required = false) Long id) {
-        return locationRepository.findByName(name).getUsers();
-    } //TODO get the array of locations that all have matching names. Do this for User by name too.
+//    @GetMapping("/search/user/location")
+//    public Iterable<User> usersByLocationName(@RequestParam(required = false) String name, @RequestParam(required = false) Long id) {
+//        return locationRepository.findByName(name).getUsers();
+//    } //TODO get the array of locations that all have matching names. Do this for User by name too.
 
 //    @GetMapping("/search/users/item-category")
 //    public Iterable<User> usersByItemCategory(@RequestParam(required = false) Long id, @RequestBody(required = false) String name) {

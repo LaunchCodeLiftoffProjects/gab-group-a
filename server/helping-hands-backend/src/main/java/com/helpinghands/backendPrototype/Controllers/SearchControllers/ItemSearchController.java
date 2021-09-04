@@ -21,7 +21,8 @@ public class ItemSearchController {
     private ItemCategoryRepository itemCategoryRepository;
 
     @GetMapping("/search/items")
-    public Iterable<Item> itemsByName(@RequestParam String name) {
+    public Iterable<Item> itemsByName(@RequestParam(required = false) String name, @RequestParam(required=false) Boolean getUsersHave,
+                                      @RequestParam (required = false) Boolean getUsersNeed) {
         List<Item> result = itemRepository.findByNameContaining(name);
         for (Item item : result) {
 //            item.getItemCategory().setItems(new ArrayList<>()); //This is some database error do to how funked up everything is in there. Should maybe work when that's fixed?

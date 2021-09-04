@@ -10,8 +10,8 @@ const findUserByLocationId = (id) => {
 
 }
 
-const findUserByLocationName = (locName) => {
-
+const findUserByLocationName = async (locName) => {
+    const response = await fetch("http://localhost:8080/search/users?locationName=" + locName)
 }
 
 const findUserByEmail = (email) => {
