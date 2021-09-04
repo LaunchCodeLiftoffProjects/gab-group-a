@@ -45,66 +45,71 @@ public class AuthenticationController {
     }
     // -----------------------------------------------------------------
 
-    @CrossOrigin
+
     @PostMapping("/register")
-    public User processRegistrationForm(@RequestBody RegisterFormDTO newUser, Errors errors, HttpServletRequest request) {
+    public String processRegistrationForm(@RequestBody RegisterFormDTO newUser, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            //Return Error
+            return "An error occurred.";
         }
 
         User existingUser = userRepository.findByName(newUser.getUsername());
 
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-            //Return Error
+            return errors.getFieldError().getDefaultMessage();
         }
 
         String password = newUser.getPassword();
         String verifyPassword = newUser.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-           //Return Error
+           return errors.getFieldError().getDefaultMessage();
         }
 
 
         User registratingUser = new User(newUser.getUsername(), newUser.getPassword());
         setUserInSession(request.getSession(), registratingUser);
-        return userRepository.save(registratingUser);
+        userRepository.save(registratingUser);
+        return "Registration successful.";
 
     }
 
 
 
-
-
-
-    @CrossOrigin
     @PostMapping("/login")
     public String processLoginForm(@RequestBody @Valid LoginFormDTO userLoggingIn,
                                    Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            //return error
+            return "An error occurred.";
         }
 
         User theUser = userRepository.findByName(userLoggingIn.getUsername());
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-          // return error
+           return errors.getFieldError().getDefaultMessage();
         }
 
         String password = userLoggingIn.getPassword();
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            //return error
+            return errors.getFieldError().getDefaultMessage();
         }
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:";
+        return "Login successful.";
     }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "Logout successful.";
+    }
+
 
 }

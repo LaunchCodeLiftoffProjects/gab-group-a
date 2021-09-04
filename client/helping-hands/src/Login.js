@@ -84,7 +84,7 @@ const handleSubmitClick = (e) => {
 }
 
 const sendDetailsToServer = () => {
-  if(state.name.length && state.password.length) {
+  if(state.name.length >= 3 && state.password.length >= 5) {
       setErrorMessage('');
       const payload={
           username:state.name,
@@ -92,16 +92,15 @@ const sendDetailsToServer = () => {
       }
       axios.post("http://localhost:8080/login", payload)
           .then(function (response) {
-              if(response.status === 200){
+              if(response.status === 200 && response.data === 'Login successful.'){
                 console.log(response)
                   setState(prevState => ({
                       ...prevState,
-                      'successMessage' : 'Registration successful. Redirecting to home page..'
                   }))
                   // redirectToHome();
-                  setErrorMessage('');
               } else{
-                  setErrorMessage('An error occurred.');
+                  console.log("error")
+                  setErrorMessage(response.data);
               }
           })
           .catch(function (error) {
