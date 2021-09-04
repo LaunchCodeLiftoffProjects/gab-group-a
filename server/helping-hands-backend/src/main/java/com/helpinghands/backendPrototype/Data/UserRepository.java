@@ -8,5 +8,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     User findByName(String name);
     Iterable<User> findByNameContaining(String name);
+    Iterable<User> findByLocationNameContaining(String locationName);
 
 }

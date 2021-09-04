@@ -127,8 +127,8 @@ export default function Profile({match}) {
                                             updateCount = {userUpdateCounter} 
                                             userSetter = {setUser} 
                                             counterSetter={setUserUpdateCounter} 
-                                            display={displayTaskForm}
-                                            setDisplay={setDisplayTaskForm}
+                                            display={displayCan}
+                                            setDisplay={setDisplayCan}
                                             isNeed= {false} /> : <div></div>}
                                     </div>
                                 </CardContent>
@@ -159,8 +159,8 @@ export default function Profile({match}) {
                                                 updateCount = {userUpdateCounter} 
                                                 userSetter = {setUser} 
                                                 counterSetter={setUserUpdateCounter} 
-                                                display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}
+                                                display={displayHas}
+                                                setDisplay={setDisplayHas}
                                                 isNeed={false} //this ain't working. . .
                                             /> : <div></div>}
                                     </div>

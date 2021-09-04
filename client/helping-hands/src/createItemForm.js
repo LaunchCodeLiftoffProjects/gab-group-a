@@ -99,7 +99,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                                 <br />
                                 <br />
                                 <FormControl>
-                                <InputLabel shrink id="category">Category</InputLabel>
+                                <InputLabel id="category">Category</InputLabel>
                                     <Select
                                         id="item-category"
                                         onChange={handleItemCategoryChange}
