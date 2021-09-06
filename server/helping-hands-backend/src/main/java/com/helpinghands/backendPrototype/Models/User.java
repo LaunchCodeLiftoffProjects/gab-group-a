@@ -41,16 +41,17 @@ public class User extends AbstractEntity {
     public User() {}
 
     // Constructor for registration processing in authentication controller
-    public User(String name, String password){
+    public User(String name, String password, Location location){
         this.name = name;
+        this.location = location;
         this.pwHash = encoder.encode(password);
     }
 
-    public User(Location location, String email, String password) {
-        this.location = location;
-        this.email = email;
-        this.pwHash = encoder.encode(password);
-    }
+//    public User(Location location, String email, String password) {
+//        this.location = location;
+//        this.email = email;
+//        this.pwHash = encoder.encode(password);
+//    }
 
     public Location getLocation() {
         return location;
