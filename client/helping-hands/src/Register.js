@@ -63,7 +63,7 @@ export default function Register(props) {
     name: "",
     password: "",
     verifyPassword: "",
-    location: {id: 1} //adding placeholder location to avoid having a null pointer error maybe put a "default" location value in the db for this case?  
+    location: {id: 1} //adding place holder, update db with generic default value at some point. 
   })
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -86,35 +86,18 @@ const handleSubmitClick = (e) => {
   }
 }
 
-function nameCheck(userName) {
-    let check = true;
-    if (userName.length < 3 || userName.length > 20){
-      check = false;
-    }
-    return check
-}
-
-function passCheck(passWord){
-  let check = true;
-  if (passWord.length < 5 || passWord.length > 30){
-    check = false;
-  }
-  return check
-}
-
 const sendDetailsToServer = () => {
-  if(nameCheck(state.name) === true 
-  && passCheck(state.password) === true) {
+  if(state.name.length && state.password.length) {
       setErrorMessage('');
       const payload={
-          name:state.name,
+          username:state.name,
           password:state.password,
           verifyPassword: state.verifyPassword,
           location:state.location //this fixes the null pointer DB problem but need a better fix going forward. 
       }
-      axios.post("http://localhost:8080/users", payload)
+      axios.post("http://localhost:8080/register", payload)
           .then(function (response) {
-              if(response.status === 200 && response.data === 'Registration successful.'){
+              if(response.status === 200){
                 console.log(response)
                   setState(prevState => ({
                       ...prevState,
@@ -123,19 +106,14 @@ const sendDetailsToServer = () => {
                   // redirectToHome();
                   setErrorMessage('');
               } else{
-                  setErrorMessage(response.data);
+                  setErrorMessage('An error occurred.');
               }
           })
           .catch(function (error) {
               console.log(error);
           });    
   } else {
-    if(nameCheck(state.name) === false){
-      setErrorMessage('Username must be between 3 and 20 characters.')
-    }
-    if(passCheck(state.password) === false){
-      setErrorMessage('Password must be between 5 and 30 characters.')
-    }
+     setErrorMessage('Please enter valid username and password'); 
   }
 }
 

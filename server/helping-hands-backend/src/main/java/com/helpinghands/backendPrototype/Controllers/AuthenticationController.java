@@ -68,9 +68,9 @@ public class AuthenticationController {
         }
 
 
-        User registratingUser = new User(newUser.getUsername(), newUser.getPassword());
+        User registratingUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getLocation());
         setUserInSession(request.getSession(), registratingUser);
-        userRepository.save(registratingUser);
+        userRepository.save(registratingUser); //this should be creating a user with a location field but it isn't.
         return "Registration successful.";
 
     }
