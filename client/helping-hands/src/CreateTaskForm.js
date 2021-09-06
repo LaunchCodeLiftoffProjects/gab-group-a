@@ -12,38 +12,35 @@ import { listTaskCategories } from "./api/api-task-categories";
 import { createTask } from "./api/api-task";
 import { updateUser } from "./api/api-user";
 
-export default function CreatetaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
+export default function CreateTaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
     
 
-    //Values for new item obj
+    //Values for new item obj. Verbose but easier to read.
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aTaskCategory, setATaskCategory] = useState();
     const [aHoursWork, setAHoursWork] = useState();
-    
+
     const [index, setIndex] = useState();
 
+    //this works but is verbose. Makes more sense to read than doing it all as one state obj tho. 
     const handleTaskCategoryChange = event => {
         setATaskCategory({id: event.target.value})
-        console.log(aTaskCategory)
     }
 
     const handleNameChange = event => {
         setAName(event.target.value)
-        console.log(aName)
     }
 
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
-        console.log(aDescription)
     }
 
     const handleHoursWorkChange = event => {
         setAHoursWork(event.target.value)
-        console.log(aDescription)
     }
 
     const updateIndex = (event) => {

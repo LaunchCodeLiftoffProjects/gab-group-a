@@ -63,7 +63,7 @@ export default function Register(props) {
     name: "",
     password: "",
     verifyPassword: "",
-    location: {id: 1} //This doesn't fix it. When you add a user to the db thru this method it breaks the Users table. 
+    location: {id: 1} //adding placeholder location to avoid having a null pointer error maybe put a "default" location value in the db for this case?  
   })
 
   const [errorMessage, setErrorMessage] = useState('');

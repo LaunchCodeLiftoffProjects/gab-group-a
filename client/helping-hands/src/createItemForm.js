@@ -27,17 +27,14 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
 
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
-        console.log(aItemCategory)
     }
 
     const handleNameChange = event => {
         setAName(event.target.value)
-        console.log(aName)
     }
 
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
-        console.log(aDescription)
     }
 
     const updateIndex = (event) => {
