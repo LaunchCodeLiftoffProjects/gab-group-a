@@ -12,32 +12,35 @@ import { listTaskCategories } from "./api/api-task-categories";
 import { createTask } from "./api/api-task";
 import { updateUser } from "./api/api-user";
 
-export default function CreatetaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
+export default function CreateTaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
     
 
-    //Values for new item obj
+    //Values for new item obj. Verbose but easier to read.
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aTaskCategory, setATaskCategory] = useState();
-    
+    const [aHoursWork, setAHoursWork] = useState();
+
     const [index, setIndex] = useState();
 
+    //this works but is verbose. Makes more sense to read than doing it all as one state obj tho. 
     const handleTaskCategoryChange = event => {
         setATaskCategory({id: event.target.value})
-        console.log(aTaskCategory)
     }
 
     const handleNameChange = event => {
         setAName(event.target.value)
-        console.log(aName)
     }
 
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
-        console.log(aDescription)
+    }
+
+    const handleHoursWorkChange = event => {
+        setAHoursWork(event.target.value)
     }
 
     const updateIndex = (event) => {
@@ -48,15 +51,16 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
         const task = {
             name: aName,
             description: aDescription,
-            taskCategory: aTaskCategory
+            taskCategory: aTaskCategory,
+            hoursWork: aHoursWork
         }
         let savedTask = await createTask(task);
         savedTask = savedTask.data
-        user.can.push(savedTask)
+        isNeed ? user.needsTasks.push(savedTask) : user.can.push(savedTask) 
         updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
-        // setDisplay(display => !display)
+        setDisplay(display => !display)
     }
 
     useEffect(async () => {
@@ -95,11 +99,18 @@ export default function CreatetaskForm({user, updateCount, userSetter, counterSe
                                         onChange={handleDescriptionChange}
                                     >  
                                     </TextField>
+                                    <TextField
+                                        id="hoursWork"
+                                        label="Hours of Work"
+                                        value={aHoursWork}
+                                        onChange={handleHoursWorkChange}
+                                    >  
+                                    </TextField>
                                 </FormControl>
                                 <br />
                                 <br />
                                 <FormControl>
-                                <InputLabel shrink id="category">Category</InputLabel>
+                                <InputLabel id="category">Category</InputLabel>
                                     <Select
                                         id="task-category"
                                         onChange={handleTaskCategoryChange}

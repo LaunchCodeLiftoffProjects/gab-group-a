@@ -5,6 +5,7 @@ import CreateItemForm from './CreateItemForm';
 import CreateTaskForm from './CreateTaskForm';
 import Login from './Login';
 import Register from './Register';
+import DisplaySearchResults from "./search/DisplaySearchResults";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/profile/:id" component={Profile} />
+        <Route path="/search/:query" component={DisplaySearchResults} />
         <Route path="/create-item" >
           <CreateItemForm />
         </Route>

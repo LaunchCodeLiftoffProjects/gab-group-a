@@ -24,30 +24,36 @@ export default function Profile({match}) {
     const [error, setError] = useState(false);
     const [displayTaskForm, setDisplayTaskForm] = useState(false);
     const [displayItemForm, setDisplayItemForm] = useState(false);
+    const [displayHas, setDisplayHas] = useState(false);
+    const [displayCan, setDisplayCan] = useState(false);
     const [userUpdateCounter, setUserUpdateCounter] = useState(0);
 
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
 
+    const showCanButton = () => {setDisplayCan(displayCan => !displayCan)}
+    const showHasButton = () => {setDisplayHas(displayHas => !displayHas)}
 
-    const removeItem = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+    //I think this is failing to delete the item/task from the db because its entry in the db is relied on by other entries. So it's refusing the delete request. 
+    //TODO: knock the item off of the item category first before sending the delete request? 
+    const removeItem = async (id, isNeed) => { 
         let i;
-         
-        isNeed ? i = user.needsItems.findIndex((element) => element.id == id) : i = user.has.findIndex((element) => element.id == id) 
+        console.log(id);
+        isNeed ? i = user.needsItems.findIndex((element) => element.id === id) : i = user.has.findIndex((element) => element.id === id) 
         isNeed ? user.needsItems.splice(i, 1) : user.has.splice(i, 1)
         
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
-        
+        // console.log(id);
         await deleteItem(id);
         await updateUser(user);
         
     }
 
-    const removeTask = async (id, isNeed) => { //TODO reformat to handle deleting from has/needs too
+    const removeTask = async (id, isNeed) => { 
         let i;
          
-        isNeed ? i = user.needsTasks.findIndex((element) => element.id == id) : i = user.can.findIndex((element) => element.id == id) 
+        isNeed ? i = user.needsTasks.findIndex((element) => element.id === id) : i = user.can.findIndex((element) => element.id === id) 
         isNeed ? user.needsTasks.splice(i, 1) : user.can.splice(i, 1)
         
         setUser(user);
@@ -95,25 +101,7 @@ export default function Profile({match}) {
                         </Card>
                     </div>
                     <div className="col-8" align="left">
-                        <div className="profile-card">
-                            <Card >
-                                <CardContent>
-                                    <span className="row">
-                                        <Typography className="col-10" variant="h6">Has to Share</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
-                                    </span>
-                                    <Typography variant = "subtitle2" >
-                                        <ul >
-                                            {user.has.map((item, i) => {
-                                                return(
-                                                <li key={i}>{item.name}</li>
-                                                )
-                                            })}
-                                        </ul>
-                                    </Typography>
-                                </CardContent>
-                            </Card> 
-                        </div>
+                        
                         <div className="profile-card">
                             <Card>
                                 <CardContent>
@@ -133,14 +121,48 @@ export default function Profile({match}) {
                                             </ul>
                                         </Typography>
                                     <div>
-                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
-                                        {displayTaskForm ? <CreateTaskForm
-                                                                user={user} 
-                                                                updateCount = {userUpdateCounter} 
-                                                                userSetter = {setUser} 
-                                                                counterSetter={setUserUpdateCounter} 
-                                                                display={displayTaskForm}
-                                                                setDisplay={setDisplayTaskForm} /> : <div></div>}
+                                        <Button onClick={showCanButton}> {displayCan ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
+                                        {displayCan ? <CreateTaskForm
+                                            user={user} 
+                                            updateCount = {userUpdateCounter} 
+                                            userSetter = {setUser} 
+                                            counterSetter={setUserUpdateCounter} 
+                                            display={displayCan}
+                                            setDisplay={setDisplayCan}
+                                            isNeed= {false} /> : <div></div>}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        <div className="profile-card">
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Has to share</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    <Typography variant = "subtitle2" >
+                                        <List>
+                                            {user.has.map((item, i) => {
+                                                return(
+                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, false )}><RemoveIcon  /></Button></ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <div>
+                                        <Button onClick={showHasButton}> {displayHas ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
+                                        {displayHas ? <CreateItemForm 
+                                                user={user} 
+                                                updateCount = {userUpdateCounter} 
+                                                userSetter = {setUser} 
+                                                counterSetter={setUserUpdateCounter} 
+                                                display={displayHas}
+                                                setDisplay={setDisplayHas}
+                                                isNeed={false} //this ain't working. . .
+                                            /> : <div></div>}
                                     </div>
                                 </CardContent>
                             </Card>
@@ -171,7 +193,41 @@ export default function Profile({match}) {
                                                 userSetter = {setUser} 
                                                 counterSetter={setUserUpdateCounter} 
                                                 display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}    
+                                                setDisplay={setDisplayItemForm}
+                                                isNeed={true}    
+                                            /> : <div></div>}
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        </div>
+                        <div className="profile-card">
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Needs Some Help With (Tasks)</Typography>
+                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    <Typography variant = "subtitle2" >
+                                        <List>
+                                            {user.needsTasks.map((task, i) => {
+                                                return(
+                                                <ListItem key={i}  >{task.name} <Button onClick={() => removeTask(task.id, true )}><RemoveIcon  /></Button></ListItem>
+                                                )
+                                            })}
+                                        </List>
+                                    </Typography>
+                                </CardContent>
+                                <CardContent>
+                                    <div>
+                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> }Add</Button>
+                                        {displayTaskForm ? <CreateTaskForm 
+                                                user={user} 
+                                                updateCount = {userUpdateCounter} 
+                                                userSetter = {setUser} 
+                                                counterSetter={setUserUpdateCounter} 
+                                                display={displayItemForm}
+                                                setDisplay={setDisplayItemForm}
+                                                isNeed={true}    
                                             /> : <div></div>}
                                     </div>
                                 </CardContent>

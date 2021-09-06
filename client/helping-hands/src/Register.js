@@ -62,7 +62,8 @@ export default function Register(props) {
   const [state, setState] = useState({
     name: "",
     password: "",
-    verifyPassword: ""
+    verifyPassword: "",
+    location: {id: 1} //adding placeholder location to avoid having a null pointer error maybe put a "default" location value in the db for this case?  
   })
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -106,11 +107,12 @@ const sendDetailsToServer = () => {
   && passCheck(state.password) === true) {
       setErrorMessage('');
       const payload={
-          username:state.name,
+          name:state.name,
           password:state.password,
-          verifyPassword: state.verifyPassword
+          verifyPassword: state.verifyPassword,
+          location:state.location //this fixes the null pointer DB problem but need a better fix going forward. 
       }
-      axios.post("http://localhost:8080/register", payload)
+      axios.post("http://localhost:8080/users", payload)
           .then(function (response) {
               if(response.status === 200 && response.data === 'Registration successful.'){
                 console.log(response)

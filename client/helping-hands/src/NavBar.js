@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AppBar, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Toolbar } from '@material-ui/core';
 import NavBarMenu from './NavBarMenu';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
-
+import { findUserByName } from "./search/search-user";
+import { Redirect } from "react-router";
+import SearchBar from "material-ui-search-bar";
+import CreateItemForm from "./CreateItemForm";
 
 export default function NavBar() {
+
+  const [query, setQuery] = useState();
 
     const useStyles = makeStyles((theme) => ({
         grow: {
@@ -68,6 +73,17 @@ export default function NavBar() {
       
     const classes = useStyles();
 
+    const searchUserByName = (name) => {
+        // return await searchUserByName(name)
+        console.log(name)
+        return (<Redirect to={{pathname: '/profile'}} push />)
+    }
+
+    const handleChange = event => {
+      setQuery(event.target.value)
+      console.log(query)
+    }
+
     return (   
         <AppBar>
             <Toolbar>
@@ -86,7 +102,14 @@ export default function NavBar() {
                       input: classes.inputInput,
                   }}
                   inputProps={{ 'aria-label': 'search' }}
+                  onKeyPress={ e => e.key === "Enter" && searchUserByName(query)}
+                  value={query}
+                  onChange={handleChange}
                 />
+                {/* <SearchBar
+                  onChange={(newValue) => setQuery(newValue)}
+                  onRequestSearch={() => {searchUserByName(query)}} /> */}
+               <Link to={"/search/" + query}><Button >Search</Button></Link>
               </div>
               <div className={classes.grow}></div>
               <Link className={classes.linkButton} to="/profile">

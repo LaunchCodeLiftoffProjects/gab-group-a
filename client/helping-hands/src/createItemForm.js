@@ -12,7 +12,7 @@ import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 
-export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay}) { 
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
@@ -27,17 +27,14 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
 
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
-        console.log(aItemCategory)
     }
 
     const handleNameChange = event => {
         setAName(event.target.value)
-        console.log(aName)
     }
 
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
-        console.log(aDescription)
     }
 
     const updateIndex = (event) => {
@@ -52,8 +49,8 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         }
         let savedItem = await createItem(item);
         savedItem = savedItem.data
-        user.needsItems.push(savedItem)
-        updateUser(user)
+        isNeed ? user.needsItems.push(savedItem) : user.has.push(savedItem);
+        await updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
         setDisplay(display => !display)
@@ -99,7 +96,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                                 <br />
                                 <br />
                                 <FormControl>
-                                <InputLabel shrink id="category">Category</InputLabel>
+                                <InputLabel id="category">Category</InputLabel>
                                     <Select
                                         id="item-category"
                                         onChange={handleItemCategoryChange}

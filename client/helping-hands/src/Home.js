@@ -45,8 +45,8 @@ else {
                                     <Link to={"/profile/" + user.id}><Typography variant="h3" align="left">{user.name}</Typography></Link>
                                     <Typography variant="subtitle1" align="left">
                                         <ul>
-                                            <li>Location: {user.location.name}</li>
-                                            <li>List</li>
+                                            {/* <li>Location: {user.location.name}</li> */}
+                                            
                                         </ul>
                                     </Typography>
                                 </CardContent>
