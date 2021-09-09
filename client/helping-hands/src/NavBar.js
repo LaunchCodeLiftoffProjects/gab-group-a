@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { AppBar, Button, Toolbar } from '@material-ui/core';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import NavBarMenu from './NavBarMenu';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
@@ -12,6 +12,7 @@ import { findUserByName } from "./search/search-user";
 import { Redirect } from "react-router";
 import SearchBar from "material-ui-search-bar";
 import CreateItemForm from "./CreateItemForm";
+import { withThemeCreator } from "@material-ui/styles";
 
 export default function NavBar() {
 
@@ -23,6 +24,11 @@ export default function NavBar() {
         },
         linkButton: {
           color: "antiquewhite"
+        },
+        loginLink: {
+          textDecoration: "none",
+          color: "white",
+          marginRight: "3rem"
         },
         search: {
           position: 'relative',
@@ -112,6 +118,9 @@ export default function NavBar() {
                <Link to={"/search/" + query}><Button >Search</Button></Link>
               </div>
               <div className={classes.grow}></div>
+              <Link className={classes.loginLink} to="/login"> 
+                  <Typography>Hello, Sign in</Typography>
+              </Link>
               <Link className={classes.linkButton} to="/profile">
                   <IconButton align="right" edge="start" color="inherit" aria-label="profile">
                       <AccountCircleIcon />
