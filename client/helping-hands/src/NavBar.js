@@ -110,6 +110,7 @@ export default function NavBar() {
                   onChange={(newValue) => setQuery(newValue)}
                   onRequestSearch={() => {searchUserByName(query)}} /> */}
                <Link to={"/search/" + query}><Button >Search</Button></Link>
+               {/* <Link to={"/search?" + queryType + "=" + query}><Button >Search</Button></Link> */}
               </div>
               <div className={classes.grow}></div>
               <Link className={classes.linkButton} to="/profile">

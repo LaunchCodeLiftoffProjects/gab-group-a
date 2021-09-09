@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import useLocation from 'react-router-dom';
 
 
 export default function DisplaySearchResults({match}) {
@@ -15,6 +16,12 @@ export default function DisplaySearchResults({match}) {
     const [results, setResults] = useState();
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
+    //for refactoring to use query params instead of path params. 
+    // function useQuery() {
+    //     return new URLSearchParams(useLocation().search);
+    //   }
+
+    // const query = useQuery(); 
 
     useEffect(async () => {
         const response = await findUserByName(match.params.query);
