@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { Redirect } from 'react-router'; 
 
 function Copyright() {
   return (
@@ -68,6 +69,10 @@ export default function Register(props) {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const redirectToHome = () => {
+    window.location.href = "/"
+  }
+
   const handleChange = (e) => {
     const {id , value} = e.target   
     setState(prevState => ({
@@ -120,8 +125,8 @@ const sendDetailsToServer = () => {
                   ...prevState,
                   'successMessage' : 'Registration successful. Redirecting to home page..'
               }))
-              // redirectToHome();
               setErrorMessage('');
+              redirectToHome();
           } else{
               setErrorMessage(response.data);
           }
@@ -214,7 +219,7 @@ if(passCheck(state.password) === false){
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   {"Already have an account? Sign in"}
                 </Link>
               </Grid>
