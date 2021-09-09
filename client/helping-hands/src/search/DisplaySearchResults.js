@@ -30,12 +30,19 @@ export default function DisplaySearchResults({match}) {
     // const query = useQuery(); 
 
     useEffect(async () => {
-        const response = await findUserByName(match.params.query);
-        response.push(await findUserByLocationName(match.params.query))
+        const users = await findUserByName(match.params.query);
+        // const locs = await findUserByLocationName(match.params.query) //This appends an empty array if there's no results?
+        // users.push(locs)
+
+        const items = await findItemByName(match.params.query)
+        const tasks = await findTaskByName(match.params.query)
         setResults(prevState => ({
             ...prevState,
-            users: response
+            users: users,
+            items: items,
+            tasks: tasks
         }));
+        
         console.log(results)
         setLoaded(true)
     }, [match.params.query])
@@ -45,18 +52,27 @@ export default function DisplaySearchResults({match}) {
         return (
             <div className="search-paper">
                 <Paper>
-                <Typography variant="h3">Results</Typography>
-         
-                    {results.map((result, i ) => {
-                       return <Card className="result-card">
-                            <CardContent>
-                                <Typography variant="h6">
-                                    {result.name} 
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    })}
-                   
+                <Typography variant="h2">Results</Typography>
+                    <Card className="result-card">
+                        <Typography variant="h4">Users</Typography>
+                        <List>
+                        {results.users.map((result, i ) => {
+                        return <ListItem >
+                                <ListItemText primary={result.name} secondary={"Location: " + result.location} />
+                            </ListItem>
+                        })}
+                        </List>
+                    </Card>
+                    <Card className="result-card">
+                        <Typography variant="h4">Items</Typography>
+                        <List>
+                        {results.items.map((result, i ) => {
+                        return <ListItem >
+                                <ListItemText primary={result.name} secondary={result.usersWhoHave.length ? "Users: " + result.usersWhoHave.map(user => user.name + ", ") : "No users have this!"} />
+                            </ListItem>
+                        })}
+                        </List>
+                    </Card>
                 </Paper>
             </div>
         )
