@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.*;
         @Autowired
         private LocationRepository locationRepository;
     private Object LocationRepository;
+    private Object Location;
+
 
     @CrossOrigin
-        @GetMapping("/location")
+        @GetMapping("/location/{id}")
         public Iterable<Location> allLocation() {
             return (Iterable<Location>) LocationRepository;
         }
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
         @CrossOrigin
         @PostMapping("/location")
         Location newLocation(@RequestBody Location newLocation) {
-            return LocationRepository.save(newLocation);
+            return new Location();
         }
 
         @CrossOrigin
