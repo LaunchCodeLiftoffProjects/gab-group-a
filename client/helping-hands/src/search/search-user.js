@@ -10,7 +10,7 @@ const findUserByLocationName = async (locName) => {
     return await response.json();
 }
 
-const findUserByEmail = (email) => {
+const findUserByEmail = async (email) => {
     const response = await fetch("http://localhost:8080/search/users?email=" + email)
     return await response.json();
 }

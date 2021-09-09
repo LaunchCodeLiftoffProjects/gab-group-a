@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { findUserByName } from "./search-user";
+import { findUserByName, findUserByEmail, findUserByLocationName } from "./search-user";
+import { findItemByCategory, findItemByName } from "./search-item";
+import { findTaskByCategory, findTaskByName } from "./search-task";
 import Paper from '@material-ui/core/Paper';
 import { List, ListItem } from "@material-ui/core";
 import "./DisplaySearchResults.css"
@@ -29,7 +31,11 @@ export default function DisplaySearchResults({match}) {
 
     useEffect(async () => {
         const response = await findUserByName(match.params.query);
-        setResults(response);
+        response.push(await findUserByLocationName(match.params.query))
+        setResults(prevState => ({
+            ...prevState,
+            users: response
+        }));
         console.log(results)
         setLoaded(true)
     }, [match.params.query])
