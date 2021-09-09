@@ -36,8 +36,7 @@ public class TaskSearchController {
             result = new ArrayList<>();
         }
         for (Task task : result) {
-            task.getTaskCategory().setTasks(new ArrayList<>()); //This is some database error do to how funked up everything is in there. Should maybe work when that's fixed?
-//            task.setTaskCategory(null); //temporary fix
+            task.getTaskCategory().setTasks(new ArrayList<>());
             for (User user: task.getUsersWhoCan()) {
                 user.setNeedsTasks(new ArrayList<>());
                 user.setNeedsTasks(new ArrayList<>());

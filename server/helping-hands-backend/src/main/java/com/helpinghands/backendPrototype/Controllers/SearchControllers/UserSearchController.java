@@ -4,10 +4,7 @@ import com.helpinghands.backendPrototype.Data.ItemCategoryRepository;
 import com.helpinghands.backendPrototype.Data.LocationRepository;
 import com.helpinghands.backendPrototype.Data.TaskCategoryRepository;
 import com.helpinghands.backendPrototype.Data.UserRepository;
-import com.helpinghands.backendPrototype.Models.Item;
-import com.helpinghands.backendPrototype.Models.ItemCategory;
-import com.helpinghands.backendPrototype.Models.Task;
-import com.helpinghands.backendPrototype.Models.User;
+import com.helpinghands.backendPrototype.Models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,10 +31,14 @@ public class UserSearchController {
     @GetMapping("/search/users")
     public List<User> userByName(@RequestParam(required = false) String name, @RequestParam(required = false) String locationName,
                                  @RequestParam(required = false) String email) {
-        List<User> result;
+        List<User> result = new ArrayList<>();
 
         if(locationName != null) {
-            result = userRepository.findByLocationNameContaining(locationName);
+            List<Location> locs = new ArrayList<>();
+            locs = locationRepository.findByNameContaining(locationName);
+            for (Location loc : locs) {
+                result.addAll(loc.getUsers());
+            }
         } else if (email != null) {
             result = userRepository.findByEmailContaining(email);
         } else {

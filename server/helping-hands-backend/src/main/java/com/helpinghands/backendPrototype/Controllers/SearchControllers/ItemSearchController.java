@@ -36,8 +36,7 @@ public class ItemSearchController {
             result = new ArrayList<>();
         }
         for (Item item : result) {
-            item.getItemCategory().setItems(new ArrayList<>()); //This is some database error do to how funked up everything is in there. Should maybe work when that's fixed?
-//            item.setItemCategory(null); //temporary fix
+            item.getItemCategory().setItems(new ArrayList<>());
             for (User user: item.getUsersWhoHave()) {
                 user.setNeedsItems(new ArrayList<>());
                 user.setNeedsTasks(new ArrayList<>());
