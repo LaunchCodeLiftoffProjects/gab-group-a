@@ -57,31 +57,31 @@ export default function DisplaySearchResults({match}) {
                     <Card className="result-card">
                         <Typography variant="h4">Users</Typography>
                         <List>
-                        {results.users.map((result, i ) => {
+                        {results.users.length? results.users.map((result, i ) => {
                         return <ListItem key={result.id}>
                                 <ListItemText primary={result.name} secondary={"Location: " + result.location.name} />
                             </ListItem>
-                        })}
+                        }) : <div>No results found!</div>}
                         </List>
                     </Card>
                     <Card className="result-card">
                         <Typography variant="h4">Items</Typography>
                         <List>
-                        {results.items.map((result, i ) => {
+                        {results.items.length ? results.items.map((result, i ) => {
                         return <ListItem key={result.id}>
                                 <ListItemText primary={result.name} secondary={result.usersWhoHave.length ? "Users Who Have This: " + result.usersWhoHave.map(user =>user.name + ", ") : "No users have this!"} />
                             </ListItem>
-                        })}
+                        }): <div>No results found!</div>}
                         </List>
                     </Card>
                     <Card className="result-card">
                         <Typography variant="h4">Tasks</Typography>
                         <List>
-                        {results.tasks.map((result, i ) => {
+                        {results.tasks.length ? results.tasks.map((result, i ) => {
                         return <ListItem key={result.id}>
                                 <ListItemText primary={result.name} secondary={result.usersWhoCan.length ? "Users Who Can Help With This: " + result.usersWhoCan.map(user =>user.name + ", ") : "No users can help with this!"} />
                             </ListItem>
-                        })}
+                        }): <div>No results found!</div>}
                         </List>
                     </Card>
                 </Paper>
