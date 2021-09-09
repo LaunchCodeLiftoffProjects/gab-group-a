@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import useLocation from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 export default function DisplaySearchResults({match}) {
@@ -57,8 +58,8 @@ export default function DisplaySearchResults({match}) {
                         <Typography variant="h4">Users</Typography>
                         <List>
                         {results.users.map((result, i ) => {
-                        return <ListItem >
-                                <ListItemText primary={result.name} secondary={"Location: " + result.location} />
+                        return <ListItem key={result.id}>
+                                <ListItemText primary={result.name} secondary={"Location: " + result.location.name} />
                             </ListItem>
                         })}
                         </List>
@@ -67,8 +68,18 @@ export default function DisplaySearchResults({match}) {
                         <Typography variant="h4">Items</Typography>
                         <List>
                         {results.items.map((result, i ) => {
-                        return <ListItem >
-                                <ListItemText primary={result.name} secondary={result.usersWhoHave.length ? "Users: " + result.usersWhoHave.map(user => user.name + ", ") : "No users have this!"} />
+                        return <ListItem key={result.id}>
+                                <ListItemText primary={result.name} secondary={result.usersWhoHave.length ? "Users Who Have This: " + result.usersWhoHave.map(user =>user.name + ", ") : "No users have this!"} />
+                            </ListItem>
+                        })}
+                        </List>
+                    </Card>
+                    <Card className="result-card">
+                        <Typography variant="h4">Tasks</Typography>
+                        <List>
+                        {results.tasks.map((result, i ) => {
+                        return <ListItem key={result.id}>
+                                <ListItemText primary={result.name} secondary={result.usersWhoCan.length ? "Users Who Can Help With This: " + result.usersWhoCan.map(user =>user.name + ", ") : "No users can help with this!"} />
                             </ListItem>
                         })}
                         </List>
