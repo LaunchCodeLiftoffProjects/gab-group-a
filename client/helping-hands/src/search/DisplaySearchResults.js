@@ -13,9 +13,13 @@ import useLocation from 'react-router-dom';
 
 export default function DisplaySearchResults({match}) {
 
-    const [results, setResults] = useState();
+    const [results, setResults] = useState({
+        users: [],
+        items: [],
+        tasks:[]
+    });
     const [loaded, setLoaded] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState();
     //for refactoring to use query params instead of path params. 
     // function useQuery() {
     //     return new URLSearchParams(useLocation().search);

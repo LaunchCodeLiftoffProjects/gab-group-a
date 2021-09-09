@@ -5,17 +5,14 @@ const findUserByName = async (name) => {
     return await response.json();
 }
 
-//is this one necessary? 
-const findUserByLocationId = (id) => {
-
-}
-
 const findUserByLocationName = async (locName) => {
     const response = await fetch("http://localhost:8080/search/users?locationName=" + locName)
+    return await response.json();
 }
 
 const findUserByEmail = (email) => {
-
+    const response = await fetch("http://localhost:8080/search/users?email=" + email)
+    return await response.json();
 }
 
-export {findUserByName} 
+export {findUserByName, findUserByEmail, findUserByLocationName} 
