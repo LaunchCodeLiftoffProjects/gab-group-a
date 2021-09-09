@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { Redirect } from 'react-router'; 
 
 function Copyright() {
   return (
@@ -68,6 +69,10 @@ export default function Register(props) {
 
   const [errorMessage, setErrorMessage] = useState('');
 
+  const redirectToHome = () => {
+    window.location.href = "/"
+  }
+
   const handleChange = (e) => {
     const {id , value} = e.target   
     setState(prevState => ({
@@ -86,8 +91,25 @@ const handleSubmitClick = (e) => {
   }
 }
 
+function nameCheck(userName) {
+  let check = true;
+  if (userName.length < 3 || userName.length > 20){
+    check = false;
+  }
+  return check
+}
+
+function passCheck(passWord){
+let check = true;
+if (passWord.length < 5 || passWord.length > 30){
+  check = false;
+}
+return check
+}
+
 const sendDetailsToServer = () => {
-  if(state.name.length && state.password.length) {
+  if(nameCheck(state.name) === true 
+  && passCheck(state.password) === true) {
       setErrorMessage('');
       const payload={
           username:state.name,
@@ -96,25 +118,30 @@ const sendDetailsToServer = () => {
           location:state.location //this fixes the null pointer DB problem but need a better fix going forward. 
       }
       axios.post("http://localhost:8080/register", payload)
-          .then(function (response) {
-              if(response.status === 200){
-                console.log(response)
-                  setState(prevState => ({
-                      ...prevState,
-                      'successMessage' : 'Registration successful. Redirecting to home page..'
-                  }))
-                  // redirectToHome();
-                  setErrorMessage('');
-              } else{
-                  setErrorMessage('An error occurred.');
-              }
-          })
-          .catch(function (error) {
-              console.log(error);
-          });    
-  } else {
-     setErrorMessage('Please enter valid username and password'); 
-  }
+      .then(function (response) {
+          if(response.status === 200 && response.data === 'Registration successful.'){
+            console.log(response)
+              setState(prevState => ({
+                  ...prevState,
+                  'successMessage' : 'Registration successful. Redirecting to home page..'
+              }))
+              setErrorMessage('');
+              redirectToHome();
+          } else{
+              setErrorMessage(response.data);
+          }
+      })
+      .catch(function (error) {
+          console.log(error);
+      });    
+} else {
+if(nameCheck(state.name) === false){
+  setErrorMessage('Username must be between 3 and 20 characters.')
+}
+if(passCheck(state.password) === false){
+  setErrorMessage('Password must be between 5 and 30 characters.')
+}
+}
 }
 
   const classes = useStyles();
@@ -192,7 +219,7 @@ const sendDetailsToServer = () => {
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   {"Already have an account? Sign in"}
                 </Link>
               </Grid>

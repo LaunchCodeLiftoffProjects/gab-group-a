@@ -66,6 +66,10 @@ export default function Login() {
   })
 
   const [errorMessage, setErrorMessage] = useState('');
+
+  const redirectToHome = () => {
+    window.location.href = "/"
+  }
   
   const classes = useStyles();
 
@@ -97,7 +101,7 @@ const sendDetailsToServer = () => {
                   setState(prevState => ({
                       ...prevState,
                   }))
-                  // redirectToHome();
+                  redirectToHome();
               } else{
                   console.log("error")
                   setErrorMessage(response.data);
@@ -174,7 +178,7 @@ const sendDetailsToServer = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
