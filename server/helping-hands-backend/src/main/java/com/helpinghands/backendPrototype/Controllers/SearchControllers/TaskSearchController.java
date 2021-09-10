@@ -72,7 +72,7 @@ public class TaskSearchController {
     }
 
     //Find users that need a task
-    @GetMapping("/search/tasks/users-can")
+    @GetMapping("/search/tasks/users-need")
     public List<User> usersWhoNeed(@RequestParam String name) {
         Iterable<Task> tasks = taskRepository.findByNameContaining(name);
         List<User> usersWhoNeed = new ArrayList<>();
