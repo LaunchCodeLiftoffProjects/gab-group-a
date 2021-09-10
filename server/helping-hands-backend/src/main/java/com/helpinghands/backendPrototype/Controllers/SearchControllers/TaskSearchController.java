@@ -60,7 +60,7 @@ public class TaskSearchController {
 
     //Find users that can an task
     @GetMapping("/search/tasks/users-can")
-    public Iterable<User> usersWhocan(@RequestParam String name) {
+    public List<User> usersWhocan(@RequestParam String name) {
         Iterable<Task> tasks = taskRepository.findByNameContaining(name);
         List<User> usersWhoCan = new ArrayList<>();
         for (Task task : tasks) {
@@ -69,5 +69,18 @@ public class TaskSearchController {
             }
         }
         return usersWhoCan;
+    }
+
+    //Find users that need a task
+    @GetMapping("/search/tasks/users-can")
+    public List<User> usersWhoNeed(@RequestParam String name) {
+        Iterable<Task> tasks = taskRepository.findByNameContaining(name);
+        List<User> usersWhoNeed = new ArrayList<>();
+        for (Task task : tasks) {
+            for (User user : task.getUsersWhoNeed()) {
+                usersWhoNeed.add(user);
+            }
+        }
+        return usersWhoNeed;
     }
 }

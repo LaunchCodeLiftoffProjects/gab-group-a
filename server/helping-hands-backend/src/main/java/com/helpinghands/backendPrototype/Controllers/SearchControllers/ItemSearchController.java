@@ -70,4 +70,17 @@ public class ItemSearchController {
         }
         return usersWhoHave;
     }
+
+    //Find users that have an item
+    @GetMapping("/search/items/users-have")
+    public List<User> usersWhoNeed(@RequestParam String name) {
+        Iterable<Item> items = itemRepository.findByNameContaining(name);
+        List<User> usersWhoNeed = new ArrayList<>();
+        for (Item item : items) {
+            for (User user : item.getUsersWhoNeed()) {
+                usersWhoNeed.add(user);
+            }
+        }
+        return usersWhoNeed;
+    }
 }
