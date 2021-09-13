@@ -11,7 +11,7 @@ import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
-
+//TODO add a "item created" snackbar on successful item creation
 export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 

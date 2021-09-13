@@ -79,7 +79,13 @@ export default function DisplaySearchResults({match}) {
                         <List>
                         {results.tasks.length ? results.tasks.map((result, i ) => {
                         return <ListItem key={result.id}>
-                                <ListItemText primary={result.name} secondary={result.usersWhoCan.length ? "Users Who Can Help With This: " + result.usersWhoCan.map(user =>user.name + ", ") : "No users can help with this!"} />
+                        {result.name} <br />
+                        Users who can help: {result.usersWhoCan.length ? result.usersWhoCan.map( user =>{ 
+                                return (<Link to={"/profile/" + user.id}>{user.name + ", "}</Link>)
+                            }) : <>No users!</>}
+                                {/* <ListItemText primary={result.name} secondary={result.usersWhoCan.length ? "Users Who Can Help With This: " + result.usersWhoCan.map(user =>user.name + ", ") : "No users can help with this!"} /> */}
+                                {/* Need to find some way of getting clickable links to users' profiles here. Could just put raw text*/}
+                                
                             </ListItem>
                         }): <div>No results found!</div>}
                         </List>
