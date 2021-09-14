@@ -13,7 +13,7 @@ import { createTask } from "./api/api-task";
 import { updateUser } from "./api/api-user";
 
 export default function CreateTaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
-    const [loaded, setLoaded] = useState();
+    const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
     
