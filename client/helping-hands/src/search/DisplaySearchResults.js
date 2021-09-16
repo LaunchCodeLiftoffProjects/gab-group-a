@@ -58,9 +58,9 @@ export default function DisplaySearchResults({match}) {
                         <Typography variant="h4">Users</Typography>
                         <List>
                         {results.users.length? results.users.map((result, i ) => {
-                        return <ListItem key={result.id}>
+                        return <Link to={"/profile/" +result.id }><ListItem key={result.id}>
                                 <ListItemText primary={result.name} secondary={"Location: " + result.location.name} />
-                            </ListItem>
+                            </ListItem></Link>
                         }) : <div>No results found!</div>}
                         </List>
                     </Card>

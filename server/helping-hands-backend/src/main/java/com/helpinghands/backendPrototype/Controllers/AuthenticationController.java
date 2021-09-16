@@ -46,7 +46,7 @@ public class AuthenticationController {
     // -----------------------------------------------------------------
 
     @GetMapping("/current-user")
-    User getLoggedInUser(HttpServletRequest request) {
+    User getLoggedInUser( HttpServletRequest request) {
         return getUserFromSession(request.getSession());
 
     }
