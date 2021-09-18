@@ -4,6 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { Link } from 'react-router-dom';
 import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import { IconButton } from '@material-ui/core';
+import axios from 'axios';
 
 export default function NavBarMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -15,6 +16,16 @@ export default function NavBarMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+
+  const logoutUser = () => {
+    axios.get("http://localhost:8080/logout").then(function (response) {
+      if(response.status === 200 && response.data === 'Logout successful.'){
+        console.log(response);
+      }
+    })
+   
+  }
 
   return (
     <div>

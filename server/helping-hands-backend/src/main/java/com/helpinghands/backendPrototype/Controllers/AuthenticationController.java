@@ -69,14 +69,14 @@ public class AuthenticationController {
 
 
         User registratingUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getLocation());
+        userRepository.save(registratingUser);
         setUserInSession(request.getSession(), registratingUser);
-        userRepository.save(registratingUser); //this should be creating a user with a location field but it isn't.
         return "Registration successful.";
 
     }
 
 
-
+    @CrossOrigin(origins = { "http://localhost:3000" }, allowedHeaders = "*", allowCredentials = "true")
     @PostMapping("/login")
     public String processLoginForm(@RequestBody @Valid LoginFormDTO userLoggingIn,
                                    Errors errors, HttpServletRequest request) {
