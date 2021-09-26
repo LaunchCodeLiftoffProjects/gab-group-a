@@ -1,0 +1,23 @@
+[
+{
+"id": 1,
+"description":"The neighborhood south of Tower Grove Park and North of Chippewa",
+"name": "Tower Grove South",
+"user": "Dr.Frankenfurter"
+},
+"gps", {
+    "latitude": 38.55884,
+    "longitude": -90.2444
+},
+
+{
+"id": 2,
+"description":"The area west of midtown but east of Forest Park",
+"name": "Central West End",
+"user": "Dr.Furterfrank"
+},
+"gps", {
+    "latitude": 38.6358,
+    "longitude": -90.2626
+}
+]
