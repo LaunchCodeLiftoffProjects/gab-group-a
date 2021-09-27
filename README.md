@@ -6,6 +6,17 @@ Our design goal is to create an easy-to-use app to connect members of a communit
 
 # Info
 
-The frontend was created using create-react-app. It also utilizes Material Design components and Bootstrap CSS.
+The frontend is built in React using Material design components and Bootstrap CSS.
 
-The backend is written in Spring with a MySQL database.
+The backend is written in Java using Spring with a MySQL database.
+
+# To Run
+
+You need a local instance of MySQL 8 and yarn package manager installed. 
+
+* clone the repo
+* cd into the /server/helping-hands-backend directory
+* run the backend app using gradle bootRun
+* cd into the /client/helping-hands
+* run yarn start in the command line
+* open your browser to localhost:3000

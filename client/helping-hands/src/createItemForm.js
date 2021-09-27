@@ -6,38 +6,57 @@ import { Select } from "@material-ui/core";
 import { MenuItem } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { FormControl } from "@material-ui/core";
-import axios from 'axios'
 import { FormHelperText } from "@material-ui/core";
 import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
+import { Snackbar } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
-export default function CreateItemForm({user, displayForm}) {
-
+//TODO add a "item created" snackbar on successful item creation
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed, edit}) { 
+    
+    //component state
+    const [open, setOpen] = useState(false);
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    // const [edit, setEdit] = useState(false);
+    
 
     //Values for new item obj
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
-    const [aItemCategory, setAItemCategory] =useState();
+    const [aItemCategory, setAItemCategory] = useState();
+    
+    
+
+    const openSnackbar = () => {
+        setOpen(true);
+    }
+    
     const [index, setIndex] = useState();
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+    
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
-        console.log(aItemCategory)
     }
 
     const handleNameChange = event => {
         setAName(event.target.value)
-        console.log(aName)
     }
 
     const handleDescriptionChange = event => {
         setADescription(event.target.value)
-        console.log(aDescription)
     }
 
     const updateIndex = (event) => {
@@ -52,9 +71,12 @@ export default function CreateItemForm({user, displayForm}) {
         }
         let savedItem = await createItem(item);
         savedItem = savedItem.data
-        user.needsItems.push(savedItem)
-        updateUser(user)
-        // displayForm = displayForm => !displayForm;
+        isNeed ? user.needsItems.push(savedItem) : user.has.push(savedItem);
+        await updateUser(user)
+        userSetter(user) 
+        counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
+        // setDisplay(display => !display) //can't close the form automatically AND display snackbar because of my dumb design. 
+        openSnackbar();
     }
 
     useEffect(async () => {
@@ -65,6 +87,22 @@ export default function CreateItemForm({user, displayForm}) {
             setError(err)
         }
     }, [])
+
+    const action = (
+        <React.Fragment>
+          {/* <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button> //Will need to capture lastItemId and remove it from user.  */}
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     if (!loaded) {
         return <div>Loading . . . </div>
@@ -97,7 +135,7 @@ export default function CreateItemForm({user, displayForm}) {
                                 <br />
                                 <br />
                                 <FormControl>
-                                <InputLabel shrink id="category">Category</InputLabel>
+                                <InputLabel id="category">Category</InputLabel>
                                     <Select
                                         id="item-category"
                                         onChange={handleItemCategoryChange}
@@ -124,6 +162,14 @@ export default function CreateItemForm({user, displayForm}) {
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                            message="Successfully Added"
+                            action={action}
+                            
+                        />
             </div>
         )
     }

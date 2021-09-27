@@ -49,7 +49,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         }
 
         HttpSession session = request.getSession();
-        User user = authenticationController.getUserFromSession(session);
+        User user = authenticationController.getUserFromSession(session); //So this means that we should just be able to fetch it like this.
 
         // The user is logged in
         if (user != null) {

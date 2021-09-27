@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -59,7 +60,60 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const [state, setState] = useState({
+    name: "",
+    password: ""
+  })
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const redirectToHome = () => {
+    window.location.href = "/"
+  }
+  
   const classes = useStyles();
+
+  const handleChange = (e) => {
+    const {id , value} = e.target   
+    setState(prevState => ({
+        ...prevState,
+        [id] : value
+    }))
+}
+
+const handleSubmitClick = (e) => {
+  e.preventDefault();
+  setErrorMessage('');
+  sendDetailsToServer();    
+}
+
+const sendDetailsToServer = () => {
+  if(state.name.length >= 3 && state.password.length >= 5) {
+      setErrorMessage('');
+      const payload={
+          username:state.name,
+          password:state.password
+      }
+      axios.post("http://localhost:8080/login", payload)
+          .then(function (response) {
+              if(response.status === 200 && response.data === 'Login successful.'){
+                console.log(response)
+                  setState(prevState => ({
+                      ...prevState,
+                  }))
+                  redirectToHome();
+              } else{
+                  console.log("error")
+                  setErrorMessage(response.data);
+              }
+          })
+          .catch(function (error) {
+              console.log(error);
+          });    
+  } else {
+     setErrorMessage('Please enter valid username and password'); 
+  }
+}
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -79,11 +133,13 @@ export default function Login() {
               margin="normal"
               required
               fullWidth
-              id="username"
+              id="name"
               label="Username"
               name="username"
               autoComplete="username"
               autoFocus
+              value={state.name}
+              onChange={handleChange}
             />
             <TextField
               variant="outlined"
@@ -95,17 +151,23 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={state.password}
+              onChange={handleChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {errorMessage && (
+            <p className="error" style={{ color:'red'}}> {errorMessage} </p>
+            )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleSubmitClick}
             >
               Sign In
             </Button>
@@ -116,7 +178,7 @@ export default function Login() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

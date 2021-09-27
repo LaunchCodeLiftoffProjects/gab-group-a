@@ -5,11 +5,12 @@ import com.helpinghands.backendPrototype.Models.Location;
 import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface LocationRepository extends CrudRepository<Location, Long> {
 
-    Item findByItem(String Name);
-    User findByName (String Name);
-    Location findByLocationEquals(String Name);
+    Location findByName(String name);
+    List<Location> findByNameContaining(String name);
 
 }
 

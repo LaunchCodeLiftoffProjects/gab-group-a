@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Optional;
 
+@CrossOrigin
 @RestController
 public class AuthenticationController {
 
@@ -44,64 +45,75 @@ public class AuthenticationController {
     }
     // -----------------------------------------------------------------
 
+    @GetMapping("/current-user")
+    User getLoggedInUser( HttpServletRequest request) {
+        return getUserFromSession(request.getSession());
 
-    @CrossOrigin
+    }
     @PostMapping("/register")
-    public String processRegistrationForm(@RequestBody @Valid RegisterFormDTO registerFormDTO,
-                                          Errors errors, HttpServletRequest request) {
+    public String processRegistrationForm(@RequestBody RegisterFormDTO newUser, Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "register";
+            return "An error occurred.";
         }
 
-        User existingUser = userRepository.findByName(registerFormDTO.getUsername());
+        User existingUser = userRepository.findByName(newUser.getUsername());
 
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
-            return "register";
+            return errors.getFieldError().getDefaultMessage();
         }
 
-        String password = registerFormDTO.getPassword();
-        String verifyPassword = registerFormDTO.getVerifyPassword();
+        String password = newUser.getPassword();
+        String verifyPassword = newUser.getVerifyPassword();
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            return "register";
+           return errors.getFieldError().getDefaultMessage();
         }
 
-        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getPassword());
-        userRepository.save(newUser);
-        setUserInSession(request.getSession(), newUser);
-        return "redirect:";
+
+        User registratingUser = new User(newUser.getUsername(), newUser.getPassword(), newUser.getLocation());
+        setUserInSession(request.getSession(), registratingUser);
+        userRepository.save(registratingUser); //this should be creating a user with a location field but it isn't.
+        return "Registration successful.";
+
     }
 
 
 
-    @CrossOrigin
     @PostMapping("/login")
-    public String processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO,
+    public String processLoginForm(@RequestBody @Valid LoginFormDTO userLoggingIn,
                                    Errors errors, HttpServletRequest request) {
 
         if (errors.hasErrors()) {
-            return "login";
+            return "An error occurred.";
         }
 
-        User theUser = userRepository.findByName(loginFormDTO.getUsername());
+        User theUser = userRepository.findByName(userLoggingIn.getUsername());
 
         if (theUser == null) {
             errors.rejectValue("username", "user.invalid", "The given username does not exist");
-            return "login";
+           return errors.getFieldError().getDefaultMessage();
         }
 
-        String password = loginFormDTO.getPassword();
+        String password = userLoggingIn.getPassword();
 
         if (!theUser.isMatchingPassword(password)) {
             errors.rejectValue("password", "password.invalid", "Invalid password");
-            return "login";
+            return errors.getFieldError().getDefaultMessage();
         }
 
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:";
+        return "Login successful.";
     }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "Logout successful.";
+    }
+
 
 }

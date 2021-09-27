@@ -3,10 +3,13 @@ package com.helpinghands.backendPrototype.Controllers;
 import com.helpinghands.backendPrototype.Data.ItemRepository;
 import com.helpinghands.backendPrototype.Data.UserRepository;
 import com.helpinghands.backendPrototype.Models.Item;
+import com.helpinghands.backendPrototype.Models.ItemCategory;
+import com.helpinghands.backendPrototype.Models.Task;
 import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 
@@ -18,10 +21,18 @@ public class UserController {
     @Autowired
     private final ItemRepository itemRepository;
 
+    private final AuthenticationController authenticationController = new AuthenticationController();
+
     public UserController(UserRepository userRepository, ItemRepository itemRepository) {
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
     }
+
+    @CrossOrigin
+    @PostMapping("/auth")
+    User loggedInUser(HttpServletRequest request) {
+        return authenticationController.getUserFromSession(request.getSession());
+    } //will this work? No.
 
     @CrossOrigin
     @GetMapping("/users")
@@ -35,6 +46,24 @@ public class UserController {
                 item.getItemCategory().setItems(new ArrayList<>());
                 item.setUsersWhoHave(new ArrayList<>());
                 item.setUsersWhoNeed(new ArrayList<>());
+            }
+
+            for(Item item : user.getHas()){
+                item.getItemCategory().setItems(new ArrayList<>());
+                item.setUsersWhoHave(new ArrayList<>());
+                item.setUsersWhoNeed(new ArrayList<>());
+            }
+
+            for(Task task : user.getCan()){
+                task.getTaskCategory().setTasks(new ArrayList<>());
+                task.setUsersWhoCan(new ArrayList<>());
+                task.setUsersWhoNeed(new ArrayList<>());
+            }
+
+            for(Task task : user.getNeedsTasks()){
+                task.getTaskCategory().setTasks(new ArrayList<>());
+                task.setUsersWhoCan(new ArrayList<>());
+                task.setUsersWhoNeed(new ArrayList<>());
             }
         }
         return users;
@@ -53,10 +82,34 @@ public class UserController {
         user.getLocation().setUsers(new ArrayList<>());
         for(Item item : user.getNeedsItems()){
             item.getItemCategory().setItems(new ArrayList<>());
+//            for (Item itemInCat : item.getItemCategory().getItems()) {
+//                itemInCat.setItemCategory(null);
+//                itemInCat.setUsersWhoHave(null);
+//                itemInCat.setUsersWhoNeed(null);
+//            }
             item.setUsersWhoHave(new ArrayList<>());
             item.setUsersWhoNeed(new ArrayList<>());
-        } //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
-//        user.get
+        }
+
+        for(Item item : user.getHas()){
+            item.getItemCategory().setItems(new ArrayList<>());
+            item.setUsersWhoHave(new ArrayList<>());
+            item.setUsersWhoNeed(new ArrayList<>());
+        }
+
+        for(Task task : user.getCan()){
+            task.getTaskCategory().setTasks(new ArrayList<>());
+            task.setUsersWhoCan(new ArrayList<>());
+            task.setUsersWhoNeed(new ArrayList<>());
+        }
+
+        for(Task task : user.getNeedsTasks()){
+            task.getTaskCategory().setTasks(new ArrayList<>());
+            task.setUsersWhoCan(new ArrayList<>());
+            task.setUsersWhoNeed(new ArrayList<>());
+        }
+
+        //I would need to do this for can, has and needsTasks too once I populate those. But one step at a time.
         return user; //TODO create a UserNotFound exception to throw here.
     }
 

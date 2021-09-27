@@ -5,9 +5,9 @@ import com.helpinghands.backendPrototype.Models.Task;
 import com.helpinghands.backendPrototype.Models.TaskCategory;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface TaskCategoryRepository extends CrudRepository<TaskCategory, Long> {
 
-    Location findByLocationEquals(String Location);
-    Task findByTaskIn(String Task);
-    TaskCategory findByTaskCategoryContaining(String Category);
+    List<TaskCategory> findByNameContaining(String name);
 }

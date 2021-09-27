@@ -4,8 +4,11 @@ import com.helpinghands.backendPrototype.Models.Item;
 import org.springframework.data.repository.CrudRepository;
 import com.helpinghands.backendPrototype.Models.Location;
 
+import java.util.List;
+
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
-    Item findByName (String Name);
-    Location findByLocationEquals(String Name);
+    List<Item> findByName(String name);
+    List<Item> findByNameContaining(String name);
+    List<Item> findByItemCategoryContaining(String category);
 }

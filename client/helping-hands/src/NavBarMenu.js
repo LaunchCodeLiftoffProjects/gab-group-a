@@ -28,11 +28,10 @@ export default function NavBarMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <Link to="/"><MenuItem onClick={handleClose}>Home Page</MenuItem></Link>
         <Link to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>My Cans</MenuItem>
-        <MenuItem onClick={handleClose}>My Needs</MenuItem>
-        <MenuItem onClick={handleClose}>My Haves</MenuItem>
+        <Link to = "/item-matches"><MenuItem onClick={handleClose}>View Item Matches</MenuItem></Link>  
+        <MenuItem onClick={handleClose}>View Task Matches</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>
     </div>

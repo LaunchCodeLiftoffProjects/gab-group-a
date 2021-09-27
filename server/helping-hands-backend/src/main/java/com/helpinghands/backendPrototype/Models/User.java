@@ -4,6 +4,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,19 +36,22 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
+
+
     public User() {}
 
     // Constructor for registration processing in authentication controller
-    public User(String name, String password){
+    public User(String name, String password, Location location){
         this.name = name;
+        this.location = location;
         this.pwHash = encoder.encode(password);
     }
 
-    public User(Location location, String email, String password) {
-        this.location = location;
-        this.email = email;
-        this.pwHash = encoder.encode(password);
-    }
+//    public User(Location location, String email, String password) {
+//        this.location = location;
+//        this.email = email;
+//        this.pwHash = encoder.encode(password);
+//    }
 
     public Location getLocation() {
         return location;
@@ -99,6 +104,7 @@ public class User extends AbstractEntity {
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);
     }
+
 
 //    public void addToNeedsItems(Item item) {
 //        this.needsItems.add(item);
