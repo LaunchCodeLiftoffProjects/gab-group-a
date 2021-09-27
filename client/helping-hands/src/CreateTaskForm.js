@@ -11,9 +11,12 @@ import { InputLabel } from "@material-ui/core";
 import { listTaskCategories } from "./api/api-task-categories";
 import { createTask } from "./api/api-task";
 import { updateUser } from "./api/api-user";
+import { Snackbar } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 export default function CreateTaskForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
-    const [loaded, setLoaded] = useState();
+    const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(); 
     const [taskCategories, setTaskCategories] = useState();
     
@@ -23,6 +26,8 @@ export default function CreateTaskForm({user, updateCount, userSetter, counterSe
     const [aDescription, setADescription] = useState();
     const [aTaskCategory, setATaskCategory] = useState();
     const [aHoursWork, setAHoursWork] = useState();
+
+    const [open, setOpen] = useState(false);
 
     const [index, setIndex] = useState();
 
@@ -47,6 +52,14 @@ export default function CreateTaskForm({user, updateCount, userSetter, counterSe
         setIndex(event.target.id)
     }
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+
     const clickSubmit = async () => {
         const task = {
             name: aName,
@@ -55,12 +68,13 @@ export default function CreateTaskForm({user, updateCount, userSetter, counterSe
             hoursWork: aHoursWork
         }
         let savedTask = await createTask(task);
-        savedTask = savedTask.data
-        isNeed ? user.needsTasks.push(savedTask) : user.can.push(savedTask) 
-        updateUser(user)
-        userSetter(user) 
+        savedTask = savedTask.data;
+        isNeed ? user.needsTasks.push(savedTask) : user.can.push(savedTask);
+        updateUser(user);
+        userSetter(user); 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
-        setDisplay(display => !display)
+        // setDisplay(display => !display);
+        setOpen(true);
     }
 
     useEffect(async () => {
@@ -71,6 +85,22 @@ export default function CreateTaskForm({user, updateCount, userSetter, counterSe
             setError(err)
         }
     }, [])
+
+    const action = (
+        <React.Fragment>
+          <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     if (!loaded) {
         return <div>Loading . . . </div>
@@ -137,6 +167,13 @@ export default function CreateTaskForm({user, updateCount, userSetter, counterSe
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                            message="Successfully Added"
+                            action={action}
+                        />
             </div>
         )
     }

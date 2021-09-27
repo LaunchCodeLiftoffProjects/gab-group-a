@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ItemRepository extends CrudRepository<Item, Long> {
 
-    Iterable<Item> findByName(String name);
+    List<Item> findByName(String name);
     List<Item> findByNameContaining(String name);
+    List<Item> findByItemCategoryContaining(String category);
 }

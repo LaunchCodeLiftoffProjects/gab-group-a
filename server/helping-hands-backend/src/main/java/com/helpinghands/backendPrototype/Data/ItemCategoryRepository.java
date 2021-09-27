@@ -4,7 +4,9 @@ import com.helpinghands.backendPrototype.Models.Item;
 import com.helpinghands.backendPrototype.Models.ItemCategory;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
+
 public interface ItemCategoryRepository extends CrudRepository<ItemCategory, Long> {
 
-    Iterable<ItemCategory> findByNameContaining(String name);
+    List<ItemCategory> findByNameContaining(String name);
 }

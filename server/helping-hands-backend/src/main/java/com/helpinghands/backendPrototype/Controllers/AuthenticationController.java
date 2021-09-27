@@ -45,7 +45,11 @@ public class AuthenticationController {
     }
     // -----------------------------------------------------------------
 
+    @GetMapping("/current-user")
+    User getLoggedInUser( HttpServletRequest request) {
+        return getUserFromSession(request.getSession());
 
+    }
     @PostMapping("/register")
     public String processRegistrationForm(@RequestBody RegisterFormDTO newUser, Errors errors, HttpServletRequest request) {
 

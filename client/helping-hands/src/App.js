@@ -8,6 +8,7 @@ import Register from './Register';
 import DisplaySearchResults from "./search/DisplaySearchResults";
 import NavBar from "./NavBar";
 import { useLocation } from "react-router";
+import ViewItemMatches from "./item/ViewItemMatches";
 
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/create-task" >
           <CreateTaskForm />
+        </Route>
+        <Route path="/item-matches">
+          <ViewItemMatches />
         </Route>
         <Route exact path="/login" >
           <Login />

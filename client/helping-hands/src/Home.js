@@ -45,8 +45,11 @@ else {
                                     <Link to={"/profile/" + user.id}><Typography variant="h3" align="left">{user.name}</Typography></Link>
                                     <Typography variant="subtitle1" align="left">
                                         <ul>
-                                            {/* <li>Location: {user.location.name}</li> */}
-                                            
+                                            <li>Location: {user.location.name}</li>
+                                            <li>Email: {user.email? user.email : <>No email on file!</>}</li>
+                                            <li>Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
+                                                return item.name + " "
+                                            }) : <>No needed items!</> }</li>
                                         </ul>
                                     </Typography>
                                 </CardContent>

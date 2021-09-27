@@ -11,11 +11,19 @@ import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
+import { Snackbar } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
-export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
+//TODO add a "item created" snackbar on successful item creation
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed, edit}) { 
+    
+    //component state
+    const [open, setOpen] = useState(false);
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    // const [edit, setEdit] = useState(false);
     
 
     //Values for new item obj
@@ -23,8 +31,22 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] = useState();
     
+    
+
+    const openSnackbar = () => {
+        setOpen(true);
+    }
+    
     const [index, setIndex] = useState();
 
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
+    
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
     }
@@ -53,7 +75,8 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         await updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
-        setDisplay(display => !display)
+        // setDisplay(display => !display) //can't close the form automatically AND display snackbar because of my dumb design. 
+        openSnackbar();
     }
 
     useEffect(async () => {
@@ -64,6 +87,22 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
             setError(err)
         }
     }, [])
+
+    const action = (
+        <React.Fragment>
+          {/* <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button> //Will need to capture lastItemId and remove it from user.  */}
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     if (!loaded) {
         return <div>Loading . . . </div>
@@ -123,6 +162,14 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                            message="Successfully Added"
+                            action={action}
+                            
+                        />
             </div>
         )
     }
