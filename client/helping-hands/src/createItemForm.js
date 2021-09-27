@@ -88,7 +88,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         <React.Fragment>
           <Button color="secondary" size="small" onClick={handleClose}>
             UNDO
-          </Button>
+          </Button> //Will need to capture lastItemId and remove it from user. 
           <IconButton
             size="small"
             aria-label="close"
@@ -164,6 +164,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                             onClose={handleClose}
                             message="Successfully Added"
                             action={action}
+                            
                         />
             </div>
         )
