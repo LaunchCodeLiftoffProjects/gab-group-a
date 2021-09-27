@@ -15,7 +15,7 @@ import { oneUser } from "./api/api-user";
 import { updateUser } from "./api/api-user";
 import { deleteItem } from "./api/api-item";
 import { deleteTask } from "./api/api-task";
-import { List, ListItem } from "@material-ui/core";
+import { List, ListItem, ListItemText } from "@material-ui/core";
 
 export default function Profile({match}) {
 
@@ -27,9 +27,17 @@ export default function Profile({match}) {
     const [displayHas, setDisplayHas] = useState(false);
     const [displayCan, setDisplayCan] = useState(false);
     const [userUpdateCounter, setUserUpdateCounter] = useState(0);
+    const [editHas, setEditHas] = useState(false);
+    const [editCan, setEditCan] = useState(false);
+    const [editNeedsItems, setEditNeedsItems] = useState(false);
+    const [editNeedsTasks, setEditNeedsTasks] = useState(false);
 
     const showTaskFormButton = () => {setDisplayTaskForm(displayTaskForm => !displayTaskForm)}
     const showItemFormButton = () => {setDisplayItemForm(displayItemForm => !displayItemForm)};
+    const showEditHasButtons = () => {setEditHas(editHas => !editHas)}
+    const showEditCanButtons = () => {setEditCan(editCan => !editCan)}
+    const showEditNeedsItemsButtons = () => {setEditNeedsItems(editNeedsItems => !editNeedsItems)}
+    const showEditNeedsTasksButtons = () => {setEditNeedsTasks(editNeedsTasks => !editNeedsTasks)}
 
     const showCanButton = () => {setDisplayCan(displayCan => !displayCan)}
     const showHasButton = () => {setDisplayHas(displayHas => !displayHas)}
@@ -45,22 +53,24 @@ export default function Profile({match}) {
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
         // console.log(id);
-        await deleteItem(id);
         await updateUser(user);
+        await deleteItem(id);
+        
         
     }
 
     const removeTask = async (id, isNeed) => { 
         let i;
-         
+        
         isNeed ? i = user.needsTasks.findIndex((element) => element.id === id) : i = user.can.findIndex((element) => element.id === id) 
         isNeed ? user.needsTasks.splice(i, 1) : user.can.splice(i, 1)
         
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
         
-        await deleteTask(id);
         await updateUser(user);
+        await deleteTask(id);
+        
     }
 
 
@@ -101,27 +111,63 @@ export default function Profile({match}) {
                         </Card>
                     </div>
                     <div className="col-8" align="left">
-                        
+                        <Typography variant="h4">Can Help With: </Typography>
                         <div className="profile-card">
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Can Help With</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        <Typography className="col-10" variant="h6">Items I can Donate</Typography>
+                                        <Button onClick={showEditHasButtons} className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     </CardContent>
                                     <CardContent>
                                         <Typography variant = "subtitle2" >
-                                            <ul >
-                                                {user.can.map((task, i) => {
+                                            <List>
+                                                {user.can.length ? user.can.map((task, i) => {
                                                     return(
-                                                    <li key={i} >{task.name} ({task.hoursWork} hrs) <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button></li>
+                                                    <ListItem key={i} ><ListItemText primary = {task.name} secondary={task.description}>  </ListItemText>{ editHas ? <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button> : <></>}</ListItem>
                                                     )
-                                                })}
-                                            </ul>
+                                                }) : <>Can't help with anything right now!</>}
+                                            </List>
                                         </Typography>
+                                    {editHas ?
                                     <div>
-                                        <Button onClick={showCanButton}> {displayCan ? <RemoveIcon /> : <AddIcon /> } Create New Task</Button>
+                                        <Button onClick={showHasButton}> {displayHas ? <RemoveIcon /> : <AddIcon /> } Add</Button>
+                                        {displayHas ? <CreateItemForm
+                                            user={user} 
+                                            updateCount = {userUpdateCounter} 
+                                            userSetter = {setUser} 
+                                            counterSetter={setUserUpdateCounter} 
+                                            display={displayCan}
+                                            setDisplay={setDisplayCan}
+                                            isNeed= {false} /> : <div></div>}
+                                    </div> : <> </>
+                                    }
+                                </CardContent>
+                            </Card>
+                        </div>
+
+                        <div className="profile-card">
+                            <Card>
+                                <CardContent>
+                                    <span className="row">
+                                        <Typography className="col-10" variant="h6">Tasks I Can Help With</Typography>
+                                        <Button onClick={showEditCanButtons} className = "col-1" align="right"><EditIcon /></Button>
+                                    </span>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Typography variant = "subtitle2" >
+                                            <List>
+                                                {user.can.length ? user.can.map((task, i) => {
+                                                    return(
+                                                    <ListItem key={i} ><ListItemText primary = {task.name} secondary={task.description}>  </ListItemText>{ editCan ? <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button> : <></>}</ListItem>
+                                                    )
+                                                }) : <>No needed tasks!</>}
+                                            </List>
+                                        </Typography>
+                                    {editCan ?
+                                    <div>
+                                        <Button onClick={showCanButton}> {displayCan ? <RemoveIcon /> : <AddIcon /> } Add</Button>
                                         {displayCan ? <CreateTaskForm
                                             user={user} 
                                             updateCount = {userUpdateCounter} 
@@ -130,109 +176,83 @@ export default function Profile({match}) {
                                             display={displayCan}
                                             setDisplay={setDisplayCan}
                                             isNeed= {false} /> : <div></div>}
-                                    </div>
+                                    </div> : <> </>
+                                    }
                                 </CardContent>
                             </Card>
                         </div>
+                        <Typography variant = "h3">Needs Some Help With: </Typography>
+                        
                         <div className="profile-card">
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Has to share</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        <Typography className="col-10" variant="h6">Items I Need</Typography>
+                                        <Button onClick={showEditNeedsItemsButtons} className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
-                                    <Typography variant = "subtitle2" >
-                                        <List>
-                                            {user.has.map((item, i) => {
-                                                return(
-                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, false )}><RemoveIcon  /></Button></ListItem>
-                                                )
-                                            })}
-                                        </List>
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Typography variant = "subtitle2" >
+                                            <List>
+                                                {user.needsItems.length ? user.needsItems.map((item, i) => {
+                                                    return(
+                                                    <ListItem key={i} ><ListItemText primary = {item.name} secondary={item.description}>  </ListItemText>{ editNeedsItems ? <Button onClick={() => removeItem(item.id, true )}><RemoveIcon  /></Button> : <></>}</ListItem>
+                                                    )
+                                                }) : <>Doesn't need anything now!</>}
+                                            </List>
+                                        </Typography>
+                                    {editNeedsItems ?
                                     <div>
-                                        <Button onClick={showHasButton}> {displayHas ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayHas ? <CreateItemForm 
-                                                user={user} 
-                                                updateCount = {userUpdateCounter} 
-                                                userSetter = {setUser} 
-                                                counterSetter={setUserUpdateCounter} 
-                                                display={displayHas}
-                                                setDisplay={setDisplayHas}
-                                                isNeed={false} //this ain't working. . .
-                                            /> : <div></div>}
-                                    </div>
+                                        <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Add</Button>
+                                        {displayItemForm ? <CreateItemForm
+                                            user={user} 
+                                            updateCount = {userUpdateCounter} 
+                                            userSetter = {setUser} 
+                                            counterSetter={setUserUpdateCounter} 
+                                            display={displayCan}
+                                            setDisplay={setDisplayCan}
+                                            isNeed= {true} /> : <div></div>}
+                                    </div> : <> </>
+                                    }
                                 </CardContent>
                             </Card>
                         </div>
+                        
                         <div className="profile-card">
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Needs Some Help With (Items)</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
+                                        <Typography className="col-10" variant="h6">Tasks I Need Help With</Typography>
+                                        <Button onClick={showEditNeedsTasksButtons} className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
-                                    <Typography variant = "subtitle2" >
-                                        <List>
-                                            {user.needsItems.map((item, i) => {
-                                                return(
-                                                <ListItem key={i}  >{item.name} <Button onClick={() => removeItem(item.id, true )}><RemoveIcon  /></Button></ListItem>
-                                                )
-                                            })}
-                                        </List>
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
+                                    </CardContent>
+                                    <CardContent>
+                                        <Typography variant = "subtitle2" >
+                                            <List>
+                                                {user.needsTasks.length ? user.needsTasks.map((task, i) => {
+                                                    return(
+                                                    <ListItem key={i} ><ListItemText primary = {task.name} secondary={task.description}>  </ListItemText>{ editNeedsTasks ? <Button onClick={() => removeTask(task.id, true )}><RemoveIcon  /></Button> : <></>}</ListItem>
+                                                    )
+                                                }) : <>Doesn't need anything now!</>}
+                                            </List>
+                                        </Typography>
+                                    {editNeedsTasks ?
                                     <div>
-                                        <Button onClick={showItemFormButton}> {displayItemForm ? <RemoveIcon /> : <AddIcon /> } Create New Item</Button>
-                                        {displayItemForm ? <CreateItemForm 
-                                                user={user} 
-                                                updateCount = {userUpdateCounter} 
-                                                userSetter = {setUser} 
-                                                counterSetter={setUserUpdateCounter} 
-                                                display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}
-                                                isNeed={true}    
-                                            /> : <div></div>}
-                                    </div>
+                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> } Add</Button>
+                                        {displayTaskForm ? <CreateTaskForm
+                                            user={user} 
+                                            updateCount = {userUpdateCounter} 
+                                            userSetter = {setUser} 
+                                            counterSetter={setUserUpdateCounter} 
+                                            display={displayCan}
+                                            setDisplay={setDisplayCan}
+                                            isNeed= {true} /> : <div></div>}
+                                    </div> : <> </>
+                                    }
                                 </CardContent>
                             </Card>
                         </div>
-                        <div className="profile-card">
-                            <Card>
-                                <CardContent>
-                                    <span className="row">
-                                        <Typography className="col-10" variant="h6">Needs Some Help With (Tasks)</Typography>
-                                        <Button className = "col-1" align="right"><EditIcon /></Button>
-                                    </span>
-                                    <Typography variant = "subtitle2" >
-                                        <List>
-                                            {user.needsTasks.map((task, i) => {
-                                                return(
-                                                <ListItem key={i}  >{task.name} <Button onClick={() => removeTask(task.id, true )}><RemoveIcon  /></Button></ListItem>
-                                                )
-                                            })}
-                                        </List>
-                                    </Typography>
-                                </CardContent>
-                                <CardContent>
-                                    <div>
-                                        <Button onClick={showTaskFormButton}> {displayTaskForm ? <RemoveIcon /> : <AddIcon /> }Add</Button>
-                                        {displayTaskForm ? <CreateTaskForm 
-                                                user={user} 
-                                                updateCount = {userUpdateCounter} 
-                                                userSetter = {setUser} 
-                                                counterSetter={setUserUpdateCounter} 
-                                                display={displayItemForm}
-                                                setDisplay={setDisplayItemForm}
-                                                isNeed={true}    
-                                            /> : <div></div>}
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        </div>
+
                     </div>
                 </div>
             </div>

@@ -16,10 +16,14 @@ import { IconButton } from "@material-ui/core";
 import CloseIcon from '@material-ui/icons/Close';
 
 //TODO add a "item created" snackbar on successful item creation
-export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
+export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed, edit}) { 
+    
+    //component state
+    const [open, setOpen] = useState(false);
     const [loaded, setLoaded] = useState();
     const [error, setError] = useState(); 
     const [itemCategories, setItemCategories] = useState();
+    // const [edit, setEdit] = useState(false);
     
 
     //Values for new item obj
@@ -27,7 +31,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] = useState();
     
-    const [open, setOpen] = useState(false);
+    
 
     const openSnackbar = () => {
         setOpen(true);
@@ -86,9 +90,9 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
 
     const action = (
         <React.Fragment>
-          <Button color="secondary" size="small" onClick={handleClose}>
+          {/* <Button color="secondary" size="small" onClick={handleClose}>
             UNDO
-          </Button> //Will need to capture lastItemId and remove it from user. 
+          </Button> //Will need to capture lastItemId and remove it from user.  */}
           <IconButton
             size="small"
             aria-label="close"
