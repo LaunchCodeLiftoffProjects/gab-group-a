@@ -8,6 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import CachedIcon from '@material-ui/icons/Cached';
 import { Link } from "react-router-dom";
 import { listUsers } from "./api/api-user";
+import { Avatar, List, ListItem, ListItemAvatar } from "@material-ui/core";
+import LocationOnIcon from '@material-ui/icons/LocationOn';
+import EmailIcon from '@material-ui/icons/Email';
+import ListIcon from '@material-ui/icons/List';
 
 export default function Home() {
     const [error, setError] = useState();
@@ -33,8 +37,8 @@ else {
     return(
         <Paper className="paper">
             <div className="row home">
-            <span className="col-1"></span>
-            <div className="col-10" align="center">
+            <span className="col-3"></span>
+            <div className="col-6" align="center">
                 <Typography variant="h2">All Users</Typography> 
                 {usersArray.map((user) => {
                     return(
@@ -42,15 +46,18 @@ else {
                         <CardActionArea >
                             <Card variant="outlined" className="card" >
                                 <CardContent>
-                                    <Link to={"/profile/" + user.id}><Typography variant="h3" align="left">{user.name}</Typography></Link>
+                                    <span className="row">
+                                    <Avatar className="col-2">{user.name[0]}</Avatar>
+                                    <Link className="col-10" to={"/profile/" + user.id}><Typography variant="h4" align="left">{user.name}</Typography></Link>
+                                    </span>
                                     <Typography variant="subtitle1" align="left">
-                                        <ul>
-                                            <li>Location: {user.location.name}</li>
-                                            <li>Email: {user.email? user.email : <>No email on file!</>}</li>
-                                            <li>Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
+                                        <List>
+                                            <ListItem><LocationOnIcon />{user.location.name}</ListItem>
+                                            <ListItem><EmailIcon />{user.email? user.email : <>No email on file!</>}</ListItem>
+                                            <ListItem><ListIcon />Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
                                                 return item.name + " "
-                                            }) : <>No needed items!</> }</li>
-                                        </ul>
+                                            }) : <>No needed items!</> }</ListItem>
+                                        </List>
                                     </Typography>
                                 </CardContent>
                             </Card>
@@ -58,7 +65,7 @@ else {
                     </div>
                     )})}
                 </div>
-                <span className="col-1"></span>
+                <span className="col-3"></span>
             </div>
         </Paper>
         )

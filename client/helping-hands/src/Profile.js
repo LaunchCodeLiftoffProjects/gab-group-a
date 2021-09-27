@@ -123,9 +123,9 @@ export default function Profile({match}) {
                                     <CardContent>
                                         <Typography variant = "subtitle2" >
                                             <List>
-                                                {user.can.length ? user.can.map((task, i) => {
+                                                {user.has.length ? user.has.map((item, i) => {
                                                     return(
-                                                    <ListItem key={i} ><ListItemText primary = {task.name} secondary={task.description}>  </ListItemText>{ editHas ? <Button onClick={() => removeTask(task.id, false )}><RemoveIcon  /></Button> : <></>}</ListItem>
+                                                    <ListItem key={i} ><ListItemText primary = {item.name} secondary={item.description}>  </ListItemText>{ editHas ? <Button onClick={() => removeItem(item.id, false )}><RemoveIcon  /></Button> : <></>}</ListItem>
                                                     )
                                                 }) : <>Can't help with anything right now!</>}
                                             </List>
