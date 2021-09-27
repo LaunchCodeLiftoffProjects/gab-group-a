@@ -13,7 +13,8 @@ import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
 import { Snackbar } from "@material-ui/core";
 import { IconButton } from "@material-ui/core";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '@material-ui/icons/Close';
+
 //TODO add a "item created" snackbar on successful item creation
 export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
@@ -69,8 +70,8 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         await updateUser(user)
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
-        setDisplay(display => !display)
-        setOpen(true);
+        // setDisplay(display => !display) //can't close the form automatically AND display snackbar because of my dumb design. 
+        openSnackbar();
     }
 
     useEffect(async () => {
@@ -162,7 +163,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                             onClose={handleClose}
                             message="Successfully Added"
                             action={action}
-      />
+                        />
             </div>
         )
     }
