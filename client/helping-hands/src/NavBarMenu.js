@@ -30,7 +30,7 @@ export default function NavBarMenu() {
       >
         <Link to="/"><MenuItem onClick={handleClose}>Home Page</MenuItem></Link>
         <Link to="/profile"><MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-        <MenuItem onClick={handleClose}>View Item Matches</MenuItem>
+        <Link to = "/item-matches"><MenuItem onClick={handleClose}>View Item Matches</MenuItem></Link>  
         <MenuItem onClick={handleClose}>View Task Matches</MenuItem>
         <MenuItem onClick={handleClose}>Logout</MenuItem>
       </Menu>

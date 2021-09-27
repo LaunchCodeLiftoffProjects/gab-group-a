@@ -45,8 +45,10 @@ public class ItemSearchController {
                 user.setHas(new ArrayList<>());
                 user.setCan(new ArrayList<>());
                 user.getLocation().setUsers(new ArrayList<>());
+                user.getLocation().setUsers(null);
             }
             for (User user: item.getUsersWhoNeed()) {
+                user.getLocation().setUsers(null);
                 user.setNeedsItems(new ArrayList<>());
                 user.setNeedsTasks(new ArrayList<>());
                 user.setHas(new ArrayList<>());

@@ -72,7 +72,12 @@ export default function DisplaySearchResults({match}) {
                         <List>
                         {results.items.length ? results.items.map((result, i ) => {
                         return <ListItem key={result.id}>
-                                <ListItemText primary={result.name} secondary={result.usersWhoHave.length ? "Users Who Have This: " + result.usersWhoHave.map(user =>user.name + ", ") : "No users have this!"} />
+                                <ListItemText 
+                                    primary={result.name} 
+                                    secondary={(result.usersWhoHave.length ? 
+                                        "Users Who Have This: " + result.usersWhoHave.map(user =>user.name + ", ") : "No users have this!") + " - " + (result.usersWhoNeed.length? 
+                                    "Users Who Need This: " + result.usersWhoNeed.map(user => user.name + ", ") : "No users need this!")} />
+                                
                             </ListItem>
                         }): <div>No results found!</div>}
                         </List>

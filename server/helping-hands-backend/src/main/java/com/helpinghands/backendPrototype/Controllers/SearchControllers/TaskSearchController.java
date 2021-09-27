@@ -44,13 +44,14 @@ public class TaskSearchController {
                 user.setNeedsTasks(new ArrayList<>());
                 user.setHas(new ArrayList<>());
                 user.setCan(new ArrayList<>());
-                user.getLocation().setUsers(new ArrayList<>());
+                user.getLocation().setUsers(null);
             }
             for (User user: task.getUsersWhoNeed()) {
                 user.setNeedsTasks(new ArrayList<>());
                 user.setNeedsTasks(new ArrayList<>());
                 user.setHas(new ArrayList<>());
                 user.setCan(new ArrayList<>());
+                user.getLocation().setUsers(null);
             }
 
         }

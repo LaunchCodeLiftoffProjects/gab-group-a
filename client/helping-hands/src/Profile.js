@@ -111,12 +111,12 @@ export default function Profile({match}) {
                         </Card>
                     </div>
                     <div className="col-8" align="left">
-                        <Typography variant="h4">Can Help With: </Typography>
+                        {/* <Typography variant="h4">Can Help With: </Typography> */}
                         <div className="profile-card">
                             <Card>
                                 <CardContent>
                                     <span className="row">
-                                        <Typography className="col-10" variant="h6">Items I can Donate</Typography>
+                                        <Typography className="col-10" variant="h6">Items I can Give</Typography>
                                         <Button onClick={showEditHasButtons} className = "col-1" align="right"><EditIcon /></Button>
                                     </span>
                                     </CardContent>
@@ -181,7 +181,7 @@ export default function Profile({match}) {
                                 </CardContent>
                             </Card>
                         </div>
-                        <Typography variant = "h3">Needs Some Help With: </Typography>
+                        {/* <Typography variant = "h3">Needs Some Help With: </Typography> */}
                         
                         <div className="profile-card">
                             <Card>
