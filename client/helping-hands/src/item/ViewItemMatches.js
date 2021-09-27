@@ -3,6 +3,19 @@ import { Paper, Card, CardContent, Typography, ListItem, List } from "@material-
 import { Link } from "react-router-dom";
 import { findItemByCategory, findItemByName } from "../search/search-item";
 import "./ViewItemMatches.css"
+import { oneUser } from "../api/api-user";
+
+/*
+PSEUDOCODE:
+
+Display Item results
+
+Card
+Exact Matches:
+
+
+
+*/
 
 export default function ViewItemMatches() {
     const [results, setResults] = useState({
@@ -11,10 +24,7 @@ export default function ViewItemMatches() {
         // usersLocation: [],
         // allUsers:[] //instead of this just find all of the users in the usersWhoHave of each item, and match location ids. 
     });
-    const [loaded, setLoaded] = useState({
-        exactResults: false,
-        categoryResults: false
-    });
+    const [loaded, setLoaded] =useState(false);
     const [error, setError] = useState();
     const [user, setUser] = useState();
 
@@ -22,7 +32,8 @@ export default function ViewItemMatches() {
         let result = [];
         
         for (const item of user.needsItems) {
-            result.push(...await findItemByName(item.name))
+            let responseItem = await findItemByName(item.name)
+            result.push(...responseItem); //should I do this as a 2d array? the spread operator keeps it as 1d.
         }
         setResults(prevResults => ({
             ...prevResults,
@@ -32,13 +43,15 @@ export default function ViewItemMatches() {
             ...val,
             exactLoaded: true
         }))
+        console.log(result);
 
     }
 
     const findCategoryMatches = async user => {
         let result = []
         for (const item in user.needsItems) {
-            result.push(...await findItemByCategory(item.itemCategory.name))
+            // let responseTask = await findItemByCategory(item.itemCategory.name)
+            result.push(...item.itemCategory.items)
             
         }
         setResults(prevResults => ({
@@ -52,15 +65,21 @@ export default function ViewItemMatches() {
     }
     //Question: Will I have to manually send along the session ID here? or will it be automatically pkgd with the request? 
     const fetchCurrentUser = async () => {
-        const result = await fetch("http://localhost:8080/current-user")
-        setUser(await result.json());
+        // const result = await fetch("http://localhost:8080/current-user")
+        // setUser(await result.json());
 
+        //placeholder user
+        const result = await fetch("http://localhost:8080/users/1");
+        setUser(result);
     }
 
     useEffect(async () => {
-        await fetchCurrentUser(); //this ain't working need to find fix. 
-        await findExactMatches(user);
-        await findCategoryMatches(user);
+        
+        // setUser(aUser); //this ain't working need to find fix. Using placeholder for now.
+        findExactMatches(await oneUser(1));
+        findCategoryMatches(await oneUser(1));
+        setUser(await oneUser(1));
+        setLoaded(true);
     }, [])
 
     if (!loaded.categoryResults || !loaded.exactResults) {
@@ -70,15 +89,16 @@ export default function ViewItemMatches() {
     } else {
         return (
             <Paper className="match-paper">
-                <Typography variant="h4">Users matching your needed Items</Typography>
+            <Typography variant="h3" >Item Matches for {user.name}</Typography>
+                <Typography variant="h4">Users matching your needed Items:</Typography>
                 <List>
-                    {results.exactMatches.map((result, i) => {
+                    {results. exactMatches.length ? results.exactMatches.map((result, i) => {
                         return (
                             <ListItem>
                                 <Typography variant="subtitle2">Item Name: {result.name} - User(s): {result.usersWhoHave + " "}</Typography>
                             </ListItem>
                         )
-                    })}
+                    }) : <>No matches!</>}
                 </List>
             </Paper>
         )

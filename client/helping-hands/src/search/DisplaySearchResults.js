@@ -19,7 +19,9 @@ export default function DisplaySearchResults({match}) {
     const [results, setResults] = useState({
         users: [],
         items: [],
-        tasks:[]
+        tasks:[],
+        itemCats: [],
+        taskCats: []
     });
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState();
@@ -37,6 +39,7 @@ export default function DisplaySearchResults({match}) {
 
         const items = await findItemByName(match.params.query)
         const tasks = await findTaskByName(match.params.query)
+        const itemCats = 
         setResults(prevState => ({
             ...prevState,
             users: users,

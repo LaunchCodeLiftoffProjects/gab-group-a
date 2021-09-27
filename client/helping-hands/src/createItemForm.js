@@ -11,6 +11,9 @@ import { InputLabel } from "@material-ui/core";
 import { listItemCategories } from "./api/api-item-categories";
 import { createItem } from "./api/api-item";
 import { updateUser } from "./api/api-user";
+import { Snackbar } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import CloseIcon from '@mui/icons-material/Close';
 //TODO add a "item created" snackbar on successful item creation
 export default function CreateItemForm({user, updateCount, userSetter, counterSetter, display, setDisplay, isNeed}) { 
     const [loaded, setLoaded] = useState();
@@ -22,6 +25,19 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] = useState();
+    const [open, setOpen] = useState(false);
+
+    const openSnackbar = () => {
+        setOpen(true);
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setOpen(false);
+      };
     
     const [index, setIndex] = useState();
 
@@ -54,6 +70,7 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         userSetter(user) 
         counterSetter(updateCount + 1) //somehow this is required even tho the useEffect call in Profile doesn't depend on it? 
         setDisplay(display => !display)
+        setOpen(true);
     }
 
     useEffect(async () => {
@@ -64,6 +81,22 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
             setError(err)
         }
     }, [])
+
+    const action = (
+        <React.Fragment>
+          <Button color="secondary" size="small" onClick={handleClose}>
+            UNDO
+          </Button>
+          <IconButton
+            size="small"
+            aria-label="close"
+            color="inherit"
+            onClick={handleClose}
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </React.Fragment>
+      );
 
     if (!loaded) {
         return <div>Loading . . . </div>
@@ -123,6 +156,13 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
                                 </FormControl>
                             </CardContent>
                         </Card>
+                        <Snackbar
+                            open={open}
+                            autoHideDuration={6000}
+                            onClose={handleClose}
+                            message="Successfully Added"
+                            action={action}
+      />
             </div>
         )
     }
