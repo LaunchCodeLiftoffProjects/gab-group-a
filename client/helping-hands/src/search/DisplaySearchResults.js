@@ -54,8 +54,8 @@ export default function DisplaySearchResults({match}) {
         return <div>Loading . . .</div>
     } else {
         return (
-            <div className="search-paper">
-                <Paper>
+            <div>
+                <Paper className="search-paper">
                 <Typography variant="h2">Results</Typography>
                     <Card className="result-card">
                         <Typography variant="h4">Users</Typography>
@@ -87,13 +87,17 @@ export default function DisplaySearchResults({match}) {
                         <List>
                         {results.tasks.length ? results.tasks.map((result, i ) => {
                         return <ListItem key={result.id}>
-                        {result.name} <br />
+                        {/* {result.name} <br />
                         Users who can help: {result.usersWhoCan.length ? result.usersWhoCan.map( user =>{ 
                                 return (<Link to={"/profile/" + user.id}>{user.name + ", "}</Link>)
-                            }) : <>No users!</>}
+                            }) : <>No users!</>} 
                                 {/* <ListItemText primary={result.name} secondary={result.usersWhoCan.length ? "Users Who Can Help With This: " + result.usersWhoCan.map(user =>user.name + ", ") : "No users can help with this!"} /> */}
-                                {/* Need to find some way of getting clickable links to users' profiles here. Could just put raw text*/}
-                                
+                                 
+                                 <ListItemText 
+                                    primary={result.name} 
+                                    secondary={(result.usersWhoCan.length ? 
+                                        "Users Who Have This: " + result.usersWhoHave.map(user =>user.name + ", ") : "No users have this!") + " - " + (result.usersWhoNeed.length? 
+                                    "Users Who Need This: " + result.usersWhoNeed.map(user => (user.name + ", ")) : "No users need this!")} />
                             </ListItem>
                         }): <div>No results found!</div>}
                         </List>
