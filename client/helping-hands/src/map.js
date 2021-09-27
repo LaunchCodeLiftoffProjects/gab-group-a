@@ -15,8 +15,8 @@ class Map extends Component{
     }
 
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition((position) => {
-            this.state({
+        navigato.geolocation.getCurrentPosition((position) => {
+            thisr.state({
                 location: {
                     lat: position.coords.latitude,
                     lng: position.coords.longitude,
