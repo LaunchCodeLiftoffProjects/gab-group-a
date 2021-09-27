@@ -2,17 +2,16 @@ package com.helpinghands.backendPrototype.Controllers;
 
 import com.helpinghands.backendPrototype.Data.ItemRepository;
 import com.helpinghands.backendPrototype.Models.Item;
-import com.helpinghands.backendPrototype.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
+    private Object Item;
 
 //    public ItemController() {}
 
@@ -32,8 +31,8 @@ public class ItemController {
 
     @CrossOrigin
     @GetMapping("/items/by-name/{name}") //this returns an array of all items with that name. Not what I need.
-    public Iterable<Item> findByName(@PathVariable String name) {
-        Iterable<Item> items = itemRepository.findByName(name);
+    public com.helpinghands.backendPrototype.Models.Item[] findByName(@PathVariable String name) {
+        Item[] items = new Item[0];
         for (Item item : items) {
             item.getItemCategory().setItems(new ArrayList<>());
         }

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=\,inital-scale=1.0" ; />
+  <meta http-equiv="X-UA-Compatiable" content="ie=edge" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin="">
+    </script>
+  <style>
+    #mapid {
+      height: 300px;
+      width: 400px;
+    }
+  </style>
+
+
+
+  <title>Fecth JSON from API and map latitude longitude</title>
+</head>
+
+<body>
+  <h1>User Location</h1>
+
+
+
+
+  <div id="mapid"></div>
+
+  <script>
+
+
+
+    const myMap = L.map('mapid').setView([0, 0], 1);
+    const marker = L.marker([latitude, longitude]).addTo(myMap);
+
+    const attribution =
+      '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributers';
+
+    const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tiles = L.tileLayer(tileUrl, { attribution });
+    tiles.addTo(myMap);
+
+
+
+    const api_url = 'https://api.openstreetmap.org';
+
+
+    async function Map() {
+      const response = await fetch(api_url);
+      const data = await response.json();
+      const { latitude, longitude } = data;
+
+      L.marker([latitude, longitude]).addTo(myMap);
+
+
+      document.getElementById('lat').textContent = latitude;
+      document.getElementById('lon').textContent = longitude;
+    }
+
+    getMap();
+  </script>
+
+
+
+</body>
+
+</html>
+</DOCTYPE>

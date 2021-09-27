@@ -2,6 +2,7 @@ package com.helpinghands.backendPrototype.Data;
 
 import com.helpinghands.backendPrototype.Models.Item;
 import org.springframework.data.repository.CrudRepository;
+import com.helpinghands.backendPrototype.Models.Location;
 
 import java.util.List;
 

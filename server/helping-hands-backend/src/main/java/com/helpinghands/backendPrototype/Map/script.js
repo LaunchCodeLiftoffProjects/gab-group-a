@@ -1,0 +1,3 @@
+let mapOptions = (
+    center:[]
+)
