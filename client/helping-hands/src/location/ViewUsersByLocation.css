@@ -1,0 +1,28 @@
+.home{
+    
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-top: 2%;
+    margin-top: 5%;
+}
+
+
+.card {
+    display: 'static';
+    width: 100%;
+  }
+
+.home-card {
+    margin: 2%;
+}
+
+a {
+    text-decoration: none;
+    color: black; 
+
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}

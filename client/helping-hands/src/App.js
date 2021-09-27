@@ -9,6 +9,7 @@ import DisplaySearchResults from "./search/DisplaySearchResults";
 import NavBar from "./NavBar";
 import { useLocation } from "react-router";
 import ViewItemMatches from "./item/ViewItemMatches";
+import ViewUsersByLocation from "./location/ViewUsersByLocation";
 
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
         <Route exact path="/register">
           <Register />
         </Route>
+        <Route path="/location/:id" component={ViewUsersByLocation} />
       </Switch>
     </>
   );
