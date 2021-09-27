@@ -52,7 +52,7 @@ else {
                                     </span>
                                     <Typography variant="subtitle1" align="left">
                                         <List>
-                                            <ListItem><LocationOnIcon />{user.location.name}</ListItem>
+                                            <Link to={"/location/" + user.location.id}><ListItem><LocationOnIcon />{user.location.name}</ListItem></Link>
                                             <ListItem><EmailIcon />{user.email? user.email : <>No email on file!</>}</ListItem>
                                             <ListItem><ListIcon />Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
                                                 return item.name + " "

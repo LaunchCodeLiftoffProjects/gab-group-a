@@ -16,6 +16,7 @@ import { updateUser } from "./api/api-user";
 import { deleteItem } from "./api/api-item";
 import { deleteTask } from "./api/api-task";
 import { List, ListItem, ListItemText } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 export default function Profile({match}) {
 
@@ -104,7 +105,7 @@ export default function Profile({match}) {
                             <CardContent>
                             <div className="container">
                                 <span className="row"><Avatar className="col-1">{user.name[0]}</Avatar><Typography className="col-8" variant="h6">{user.name}</Typography></span>
-                                <span className="row"><br /><Typography variant="subtitle1">{user.location.name}</Typography></span>
+                                <span className="row"><Link to={"/location/" + user.location.id}><br /><Typography variant="subtitle1">{user.location.name}</Typography></Link></span>
                                 <span className="row"><Typography variant="subtitle1">{user.email}</Typography></span>
                             </div>
                             </CardContent>
