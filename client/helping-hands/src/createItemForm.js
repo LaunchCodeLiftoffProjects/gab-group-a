@@ -26,11 +26,14 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
     const [aName, setAName] = useState();
     const [aDescription, setADescription] = useState();
     const [aItemCategory, setAItemCategory] = useState();
+    
     const [open, setOpen] = useState(false);
 
     const openSnackbar = () => {
         setOpen(true);
     }
+    
+    const [index, setIndex] = useState();
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -40,8 +43,6 @@ export default function CreateItemForm({user, updateCount, userSetter, counterSe
         setOpen(false);
       };
     
-    const [index, setIndex] = useState();
-
     const handleItemCategoryChange = event => {
         setAItemCategory({id: event.target.value})
     }
