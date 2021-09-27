@@ -24,7 +24,6 @@ export default function NavBarMenu() {
         console.log(response);
       }
     })
-   
   }
 
   return (
