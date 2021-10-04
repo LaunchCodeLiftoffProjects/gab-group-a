@@ -52,9 +52,9 @@ else {
                                     </span>
                                     <Typography variant="subtitle1" align="left">
                                         <List>
-                                            <Link to={"/location/" + user.location.id}><ListItem><LocationOnIcon />{user.location.name}</ListItem></Link>
-                                            <ListItem><EmailIcon />{user.email? user.email : <>No email on file!</>}</ListItem>
-                                            <ListItem><ListIcon />Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
+                                            <Link to={"/location/" + user.location.id}><ListItem><ListItemAvatar><LocationOnIcon /></ListItemAvatar>{user.location.name}</ListItem></Link>
+                                            <ListItem><ListItemAvatar><EmailIcon /></ListItemAvatar>{user.email? user.email : <>No email on file!</>}</ListItem>
+                                            <ListItem><ListItemAvatar><ListIcon /></ListItemAvatar>Needs: {user.needsItems.length ? user.needsItems.map((item, i) => {
                                                 return item.name + " "
                                             }) : <>No needed items!</> }</ListItem>
                                         </List>

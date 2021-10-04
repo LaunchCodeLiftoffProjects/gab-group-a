@@ -43,8 +43,6 @@ export default function Profile({match}) {
     const showCanButton = () => {setDisplayCan(displayCan => !displayCan)}
     const showHasButton = () => {setDisplayHas(displayHas => !displayHas)}
 
-    //I think this is failing to delete the item/task from the db because its entry in the db is relied on by other entries. So it's refusing the delete request. 
-    //TODO: knock the item off of the item category first before sending the delete request? 
     const removeItem = async (id, isNeed) => { 
         let i;
         console.log(id);
@@ -53,10 +51,9 @@ export default function Profile({match}) {
         
         setUser(user);
         setUserUpdateCounter(userUpdateCounter + 1);
-        // console.log(id);
+        
         await updateUser(user);
         await deleteItem(id);
-        
         
     }
 
@@ -75,7 +72,7 @@ export default function Profile({match}) {
     }
 
 
-    useEffect(async () => { //TODO refactor this to put async function definition inside useEffect
+    useEffect(async () => { 
         try{
             if (!user){
                 const response = await oneUser(match.params.id)
