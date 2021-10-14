@@ -10,7 +10,7 @@ import { makeStyles } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import { findUserByName } from "./search/search-user";
 import { Redirect } from "react-router";
-import SearchBar from "material-ui-search-bar";
+
 import CreateItemForm from "./CreateItemForm";
 import { withThemeCreator } from "@material-ui/styles";
 

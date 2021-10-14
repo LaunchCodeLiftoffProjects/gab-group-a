@@ -5,18 +5,6 @@ import { findItemByCategory, findItemByName } from "../search/search-item";
 import "./ViewItemMatches.css"
 import { oneUser } from "../api/api-user";
 
-/*
-PSEUDOCODE:
-
-Display Item results
-
-Card
-Exact Matches:
-
-
-
-*/
-
 export default function ViewItemMatches() {
     const [results, setResults] = useState({
         exactMatches: [],
